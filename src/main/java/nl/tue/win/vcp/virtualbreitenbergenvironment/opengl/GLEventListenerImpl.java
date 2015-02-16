@@ -1,6 +1,13 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.opengl;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import static java.lang.Math.atan2;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -34,7 +41,11 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public class GLEventListenerImpl implements GLEventListener {
+public class GLEventListenerImpl implements GLEventListener,
+        MouseMotionListener,
+        MouseListener,
+        MouseWheelListener,
+        KeyListener {
 
     private float tAnim = 0;
     private final float startTime;
@@ -45,6 +56,11 @@ public class GLEventListenerImpl implements GLEventListener {
     private int height;
     private float phi;
     private float theta;
+    private int dragSourceX, dragSourceY;
+    private int mouseButton;
+    public static float DRAG_PIXEL_TO_RADIAN = 0.025f;
+    static public float THETA_MIN = -(float) Math.PI / 2f;
+    static public float THETA_MAX = (float) Math.PI / 2f;
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
@@ -177,6 +193,80 @@ public class GLEventListenerImpl implements GLEventListener {
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
         //TODO: extend
+        glut.glutSolidCube(0.2f);
+        System.out.println(phi);
+        System.out.println(theta);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent me) {
+        float dX = me.getX() - dragSourceX;
+            float dY = me.getY() - dragSourceY;
+            
+            // Change camera angle when left button is pressed.
+            if(mouseButton == MouseEvent.BUTTON1) {
+                this.phi += dX * DRAG_PIXEL_TO_RADIAN;
+                this.theta = Math.max(THETA_MIN,
+                                    Math.min(THETA_MAX,
+                                             this.theta + dY * DRAG_PIXEL_TO_RADIAN));
+            }
+            // Change vWidth when right button is pressed.
+            /*else if(mouseButton == MouseEvent.BUTTON3) {
+                this.vWidth = Math.max(VWIDTH_MIN,
+                                     Math.min(VWIDTH_MAX,
+                                              this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
+            }*/
+            
+            dragSourceX = me.getX();
+            dragSourceY = me.getY();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        dragSourceX = me.getX();
+        dragSourceY = me.getY();
+        mouseButton = me.getButton();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mwe) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

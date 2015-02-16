@@ -3,6 +3,7 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
 
 /**
  *
@@ -15,7 +16,15 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        ((GLJPanel) jPanel1).addGLEventListener(new OneTriangle());
+        GLEventListenerImpl listener = new GLEventListenerImpl();
+        GLJPanel glPanel = (GLJPanel) jPanel1;
+        glPanel.addGLEventListener(listener);
+        glPanel.addMouseListener(listener);
+        glPanel.addMouseMotionListener(listener);
+        glPanel.addMouseWheelListener(listener);
+        glPanel.addKeyListener(listener);
+        glPanel.setFocusable(true);
+        glPanel.requestFocusInWindow();
     }
 
     /**
