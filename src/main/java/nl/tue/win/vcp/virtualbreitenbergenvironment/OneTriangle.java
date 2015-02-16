@@ -2,9 +2,29 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 
-public class OneTriangle {
+public class OneTriangle implements GLEventListener {
+
+    @Override
+    public void reshape(GLAutoDrawable glautodrawable, int x, int y, int width, int height) {
+        setup(glautodrawable.getGL().getGL2(), width, height);
+    }
+
+    @Override
+    public void init(GLAutoDrawable glautodrawable) {
+    }
+
+    @Override
+    public void dispose(GLAutoDrawable glautodrawable) {
+    }
+
+    @Override
+    public void display(GLAutoDrawable glautodrawable) {
+        render(glautodrawable.getGL().getGL2(), glautodrawable.getSurfaceWidth(), glautodrawable.getSurfaceHeight());
+    }
 
     public static void setup(GL2 gl2, int width, int height) {
         gl2.glMatrixMode(GL2.GL_PROJECTION);

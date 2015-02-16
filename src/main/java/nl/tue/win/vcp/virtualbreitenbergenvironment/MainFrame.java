@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.tue.win.vcp.virtualbreitenbergenvironment;
 
-import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
 
@@ -22,26 +15,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        ((GLJPanel) jPanel1).addGLEventListener(new GLEventListener() {
-
-            @Override
-            public void reshape(GLAutoDrawable glautodrawable, int x, int y, int width, int height) {
-                OneTriangle.setup(glautodrawable.getGL().getGL2(), width, height);
-            }
-
-            @Override
-            public void init(GLAutoDrawable glautodrawable) {
-            }
-
-            @Override
-            public void dispose(GLAutoDrawable glautodrawable) {
-            }
-
-            @Override
-            public void display(GLAutoDrawable glautodrawable) {
-                OneTriangle.render(glautodrawable.getGL().getGL2(), glautodrawable.getSurfaceWidth(), glautodrawable.getSurfaceHeight());
-            }
-        });
+        ((GLJPanel) jPanel1).addGLEventListener(new OneTriangle());
     }
 
     /**
@@ -117,6 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainFrame().setVisible(true);
             }
