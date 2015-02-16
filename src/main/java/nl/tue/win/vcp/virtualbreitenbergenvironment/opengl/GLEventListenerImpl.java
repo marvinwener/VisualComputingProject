@@ -193,7 +193,8 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
         //TODO: extend
-        glut.glutSolidCube(0.2f);
+        gl.glColor3f(0, 0, 0);
+        glut.glutSolidCube(0.5f);
         System.out.println(phi);
         System.out.println(theta);
     }

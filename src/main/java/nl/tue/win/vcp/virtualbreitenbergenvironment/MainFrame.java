@@ -1,5 +1,8 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment;
 
+import com.jogamp.opengl.util.FPSAnimator;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
@@ -25,6 +28,22 @@ public class MainFrame extends javax.swing.JFrame {
         glPanel.addKeyListener(listener);
         glPanel.setFocusable(true);
         glPanel.requestFocusInWindow();
+        // Attach animator to OpenGL panel and begin refresh
+        // at the specified number of frames per second.
+        final FPSAnimator animator =
+                new FPSAnimator((GLJPanel) glPanel, FPS, true);
+        animator.setIgnoreExceptions(false);
+        animator.setPrintExceptions(true);
+        
+        animator.start();
+
+        // Stop animator when window is closed.
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                animator.stop();
+            }
+        });
     }
 
     /**
@@ -107,6 +126,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
+    private final static int FPS = 30;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
