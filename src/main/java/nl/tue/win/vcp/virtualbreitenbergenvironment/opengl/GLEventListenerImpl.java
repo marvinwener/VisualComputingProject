@@ -13,25 +13,10 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.toDegrees;
 import javax.media.opengl.GL;
-import static javax.media.opengl.GL.GL_BLEND;
-import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_DEPTH_TEST;
-import static javax.media.opengl.GL.GL_LESS;
-import static javax.media.opengl.GL.GL_LINE_SMOOTH;
-import static javax.media.opengl.GL.GL_LINE_SMOOTH_HINT;
-import static javax.media.opengl.GL.GL_NICEST;
-import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
 import javax.media.opengl.GL2;
-import static javax.media.opengl.GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT;
+import static javax.media.opengl.GL2.*;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_AMBIENT;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHT0;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_NORMALIZE;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
@@ -61,6 +46,9 @@ public class GLEventListenerImpl implements GLEventListener,
     public static float DRAG_PIXEL_TO_RADIAN = 0.025f;
     static public float THETA_MIN = -(float) Math.PI / 2f;
     static public float THETA_MAX = (float) Math.PI / 2f;
+    private float vDist = 10;
+    static public float MIN_CAMERA_DISTANCE = 1f;
+    static public float MOUSE_WHEEL_FACTOR = 1.2f;
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
@@ -89,11 +77,11 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
         // Enable lighting.
-        gl.glEnable(GL_LIGHTING);
-        gl.glEnable(GL_LIGHT0);
-        gl.glEnable(GL_NORMALIZE);
-        float[] ambient = {1f, 1f, 1f, 1f};
-        gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
+        //gl.glEnable(GL_LIGHTING);
+        //gl.glEnable(GL_LIGHT0);
+        //gl.glEnable(GL_NORMALIZE);
+        //float[] ambient = {1f, 1f, 1f, 1f};
+        //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
 
         //TODO: extend
     }
@@ -139,7 +127,6 @@ public class GLEventListenerImpl implements GLEventListener,
      */
     public void setView(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
-        final int vDist = 10;
         final int vWidth = 10;
 
         // Calculate directional vector of the camera (view direction).
@@ -171,6 +158,9 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glLoadIdentity();
         // Use perspective projection.
         glu.gluPerspective(toDegrees(fovy), AR, 0.1, 1000);
+        glu.gluLookAt(eye.x(), eye.y(), eye.z(), // eye point
+                this.cnt.x(), this.cnt.y(), this.cnt.z(), // center point
+                0, 0, 1); // up axis
 
         // Set camera.
         gl.glMatrixMode(GL_MODELVIEW);
@@ -193,10 +183,14 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
         //TODO: extend
-        gl.glColor3f(0, 0, 0);
-        glut.glutSolidCube(0.5f);
-        System.out.println(phi);
-        System.out.println(theta);
+        gl.glColor3f(1, 0, 0);
+        /*gl.glBegin(GL_QUADS);
+        gl.glVertex3f(0, 0, 0);
+        gl.glVertex3f(0, 1, 0);
+        gl.glVertex3f(1, 1, 0);
+        gl.glVertex3f(1, 0, 0);
+        gl.glEnd();*/
+        glut.glutSolidCube(0.5f);      
     }
 
     @Override
@@ -252,7 +246,10 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        vDist = (float) Math.max(MIN_CAMERA_DISTANCE,
+                                        vDist *
+                                        Math.pow(MOUSE_WHEEL_FACTOR,
+                                                 mwe.getWheelRotation()));
     }
 
     @Override
