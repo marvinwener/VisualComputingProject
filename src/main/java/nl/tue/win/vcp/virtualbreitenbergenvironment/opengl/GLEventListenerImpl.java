@@ -190,6 +190,8 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glVertex3f(1, 1, 0);
         gl.glVertex3f(1, 0, 0);
         gl.glEnd();*/
+        glut.glutWireCube(0.5f);
+        gl.glColor3f(0, 0, 0);
         glut.glutSolidCube(0.5f);      
     }
 
