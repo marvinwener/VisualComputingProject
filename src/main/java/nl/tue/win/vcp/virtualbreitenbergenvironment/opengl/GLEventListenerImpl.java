@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.opengl;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import com.jogamp.opengl.util.gl2.GLUT;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -51,6 +52,7 @@ public class GLEventListenerImpl implements GLEventListener,
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     static public float hello;
+    private final Environment environment = new Environment();
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
