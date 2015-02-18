@@ -50,6 +50,7 @@ public class GLEventListenerImpl implements GLEventListener,
     private float vDist = 10;
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
+    static public float hello;
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
