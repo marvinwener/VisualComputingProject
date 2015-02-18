@@ -33,7 +33,7 @@ public class GLEventListenerImpl implements GLEventListener,
         KeyListener {
 
     private float tAnim = 0;
-    private final float startTime;
+    private final long startTime;
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
     private final Vector cnt = new Vector(0, 0, 0);
