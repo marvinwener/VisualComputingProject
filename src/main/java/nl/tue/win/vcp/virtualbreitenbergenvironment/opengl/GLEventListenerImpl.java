@@ -51,8 +51,7 @@ public class GLEventListenerImpl implements GLEventListener,
     private float vDist = 10;
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
-    static public float hello;
-    private final Environment environment = new Environment();
+    private Environment environment;
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
@@ -61,6 +60,7 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void init(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
+        environment = new Environment(gl, glu, glut);
 
         // Enable blending.
         gl.glEnable(GL_BLEND);
@@ -186,17 +186,7 @@ public class GLEventListenerImpl implements GLEventListener,
         // Clear depth buffer.
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
-        //TODO: extend
-        gl.glColor3f(1, 0, 0);
-        /*gl.glBegin(GL_QUADS);
-        gl.glVertex3f(0, 0, 0);
-        gl.glVertex3f(0, 1, 0);
-        gl.glVertex3f(1, 1, 0);
-        gl.glVertex3f(1, 0, 0);
-        gl.glEnd();*/
-        glut.glutWireCube(0.5f);
-        gl.glColor3f(0, 0, 0);
-        glut.glutSolidCube(0.5f);      
+        environment.draw(tAnim);
     }
 
     @Override
