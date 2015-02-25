@@ -166,6 +166,12 @@ public class Vector {
         return v.scale(scalar);
     }
 
+    /**
+     * Returns the sum of multiple vectors.
+     * 
+     * @param vs the vectors
+     * @return sum of the vectors
+     */
     public Vector sum(Vector... vs) {
         double[] result = new double[this.coordinates.length];
 
@@ -178,12 +184,39 @@ public class Vector {
         return new Vector(result);
     }
 
+    /**
+     * Adds this vector to another vector.
+     * 
+     * @param that the other vector
+     * @return this + that
+     */
     public Vector plus(Vector that) {
         return sum(this, that);
     }
     
+    /**
+     * Subtracts a vector from this vector.
+     * 
+     * @param that vector to subtract
+     * @return this - that
+     */
     public Vector minus(Vector that) {
         return this.plus(that.scale(-1));
+    }
+    
+    /**
+     * Rotates a {@code point} around {@code center} by {@code angle}.
+     * 
+     * @param point point to rotate
+     * @param center center point to rotate around
+     * @param angle angle (in radians) to rotate by
+     * @return the rotated point
+     */
+    public static Vector rotate(Vector point, Vector center, float angle) {
+        // rotate point around centerPoint by angle
+        final Vector v = point.minus(center); // consider center to be origin
+        final Vector rotated = Matrix.rotationMatrix(angle).times(v); // rotate around origin
+        return center.plus(rotated); // move origin back to center
     }
 
 }
