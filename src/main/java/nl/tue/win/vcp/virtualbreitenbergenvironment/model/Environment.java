@@ -3,6 +3,7 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
 import javax.media.opengl.GL2;
+import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 
 /**
@@ -31,6 +32,13 @@ public class Environment {
         gl.glEnd();*/
         glut.glutWireCube(0.5f);
         gl.glColor3f(0, 0, 0);
-        glut.glutSolidCube(0.5f);      
+        glut.glutSolidCube(0.5f);    
+        
+        gl.glTranslatef(0, 0, time);
+        gl.glRotatef(time * 10,0,0,1);
+        gl.glColor3f(1, 0, 0);
+        glut.glutWireCube(0.5f);
+        gl.glColor3f(0, 0, 0);
+        glut.glutSolidCube(0.5f);
     }
 }
