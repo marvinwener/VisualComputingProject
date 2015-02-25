@@ -3,6 +3,7 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Graphics;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -12,14 +13,14 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  */
 public class VehicleImpl extends Vehicle {
 
-    private float wheelDistance;
+    private final float wheelDistance = 1;
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        slots[0] = new SensorImpl(1);
-        slots[1] = new SensorImpl(0.5f);
+        slots[0] = new SensorImpl(0);
+        slots[1] = new SensorImpl(0);
     }
 
     @Override
@@ -28,10 +29,29 @@ public class VehicleImpl extends Vehicle {
 
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
-        gl.glBegin(GL_LINE);
-        gl.glVertex3f(0, 0, 0);
-        gl.glVertex3f(0, 0, 1);
+        
+        // Line to indicate direction the vehicle points in
+        gl.glColor3f(1, 0, 0);
+        gl.glBegin(GL_LINES);
+        gl.glVertex3dv(position.asBuffer());
+        gl.glVertex3dv(position.plus(getDirection()).asBuffer());
         gl.glEnd();
+        
+        // Move / rotate to correct position
+        double deg = Math.toDegrees(angle);
+        System.out.println(deg);
+        gl.glTranslated(position.x(), position.y(), position.z());
+        gl.glRotated(deg, 0, 0, 1);
+        
+        // Draw wheels
+        gl.glPushMatrix();
+        gl.glColor3f(0, 0, 0);
+        gl.glTranslatef(this.wheelDistance * -0.5f, 0, 0);
+        Graphics.drawDisk(gl, 0.5f, 10);
+        gl.glTranslatef(this.wheelDistance, 0, 0);
+        Graphics.drawDisk(gl, 0.5f, 10);
+        gl.glPopMatrix();
+        
         gl.glPopAttrib();
         gl.glPopMatrix();
     }
@@ -39,6 +59,10 @@ public class VehicleImpl extends Vehicle {
     @Override
     public void move() {
         assert wheelDistance > 0 : "Non-positive wheel distance";
+        angle += 1;
+        System.out.println(angle);
+        position = position.plus(Vector.Y);
+        return;
 
         // Determine how much the wheels turn
         final float leftWheel = slots[0].getValue(position, this.getDirection());
