@@ -25,7 +25,7 @@ public class VehicleImpl extends Vehicle {
     @Override
     public void draw(GL2 gl) {
         // position is middle between wheels (behind)
-        
+
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
         gl.glBegin(GL_LINE);
@@ -46,11 +46,19 @@ public class VehicleImpl extends Vehicle {
 
         if (leftWheel == rightWheel) {
             // move forward in a straight line by the amount leftWheel
-            // TODO
+            this.position = this.position.plus(this.getDirection().scale(leftWheel));
         } else if (leftWheel == 0) {
-            // TODO
+            final float rotationAngle = rightWheel / wheelDistance;
+            final Vector direction = this.getDirection().cross(Vector.Z);
+            final float magnitude = -0.5f * wheelDistance;
+            final Vector leftWheelPosition = this.position.plus(direction.scale(magnitude));
+            this.position = Vector.rotate(position, leftWheelPosition, rotationAngle);
         } else if (rightWheel == 0) {
-            // TODO
+            final float rotationAngle = leftWheel / wheelDistance;
+            final Vector direction = this.getDirection().cross(Vector.Z);
+            final float magnitude = 0.5f * wheelDistance;
+            final Vector rightWheelPosition = this.position.plus(direction.scale(magnitude));
+            this.position = Vector.rotate(position, rightWheelPosition, rotationAngle);
         } else {
             final float r; // radius
             final boolean left = (leftWheel > rightWheel);
@@ -61,14 +69,14 @@ public class VehicleImpl extends Vehicle {
                 // Switch a and b around and negate the result
                 r = -determineRadius(rightWheel, leftWheel, wheelDistance);
             }
-            
+
             // Now determine the point to rotate around.
             final int sign = left ? 1 : -1;
             final Vector direction = this.getDirection().cross(Vector.Z);
             final float magnitude = sign * (r + 0.5f * wheelDistance);
-            final Vector centerPoint = this.position.plus(direction.normalized().scale(magnitude));
+            final Vector centerPoint = this.position.plus(direction.scale(magnitude));
             final float rotationAngle = left ? rightWheel / r : leftWheel / r;
-            this.position = rotate(this.position, centerPoint, rotationAngle);
+            this.position = Vector.rotate(this.position, centerPoint, rotationAngle);
         }
     }
 
@@ -80,11 +88,6 @@ public class VehicleImpl extends Vehicle {
         assert a - b != 0 : "Wheels rotate by the same amount; infinite radius";
         assert a * b * d != 0 : "Wheel distance or rotation is 0.";
         return -b * d / (a - b);
-    }
-
-    private static Vector rotate(Vector point, Vector centerPoint, float angle) {
-        // rotate point around centerPoint by angle
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
