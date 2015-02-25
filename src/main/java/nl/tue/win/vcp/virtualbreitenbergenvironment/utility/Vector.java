@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
 import static java.lang.Math.*;
+import java.nio.DoubleBuffer;
 import java.util.Arrays;
 
 /**
@@ -240,5 +241,14 @@ public class Vector {
         }
         final Vector other = (Vector) obj;
         return Arrays.equals(this.coordinates, other.coordinates);
+    }
+    
+    public DoubleBuffer asBuffer() {
+        return DoubleBuffer.wrap(coordinates);
+    }
+
+    @Override
+    public String toString() {
+        return "Vector{" + "coordinates=" + Arrays.toString(coordinates) + '}';
     }
 }
