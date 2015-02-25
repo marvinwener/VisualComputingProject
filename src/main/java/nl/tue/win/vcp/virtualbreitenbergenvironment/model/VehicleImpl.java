@@ -39,7 +39,6 @@ public class VehicleImpl extends Vehicle {
         
         // Move / rotate to correct position
         double deg = Math.toDegrees(angle);
-        System.out.println(deg);
         gl.glTranslated(position.x(), position.y(), position.z());
         gl.glRotated(deg, 0, 0, 1);
         
