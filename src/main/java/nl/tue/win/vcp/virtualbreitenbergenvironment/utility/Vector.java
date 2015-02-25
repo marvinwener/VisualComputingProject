@@ -9,6 +9,7 @@ import static java.lang.Math.*;
  */
 public class Vector {
 
+    public final static Vector Z = new Vector(0, 0, 1);
     private double[] coordinates;
 
     /**
@@ -173,12 +174,16 @@ public class Vector {
                 result[i] += v.getCoordinate(i);
             }
         }
-        
+
         return new Vector(result);
     }
 
-    public Vector add(Vector that) {
+    public Vector plus(Vector that) {
         return sum(this, that);
+    }
+    
+    public Vector minus(Vector that) {
+        return this.plus(that.scale(-1));
     }
 
 }

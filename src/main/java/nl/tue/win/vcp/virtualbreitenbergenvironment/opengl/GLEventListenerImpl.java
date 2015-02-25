@@ -139,7 +139,7 @@ public class GLEventListenerImpl implements GLEventListener,
                 sin(this.theta));
 
         // Calculate position of the camera.
-        final Vector eye = this.cnt.add(dir.scale(vDist));
+        final Vector eye = this.cnt.plus(dir.scale(vDist));
 
         final float AR = this.width / (float) this.height; // aspect ratio
         float vHeight = vWidth / AR; // height of scene to be shown
