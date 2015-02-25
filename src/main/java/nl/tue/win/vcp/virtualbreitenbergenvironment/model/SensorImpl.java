@@ -3,11 +3,26 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
+/**
+ * Trivial implementation of a sensor for testing.
+ *
+ * @author maikel
+ */
 public class SensorImpl extends Sensor {
+
+    final float val;
+
+    SensorImpl() {
+        this.val = 1;
+    }
+
+    SensorImpl(float val) {
+        this.val = val;
+    }
 
     @Override
     public float getValue(Vector location, Vector direction) {
-        return 1;
+        return val;
     }
 
     @Override
