@@ -15,11 +15,13 @@ public class Environment {
     private final GL2 gl;
     private final GLU glu;
     private final GLUT glut;
+    private final Vehicle v;
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
+        v = new VehicleImpl(Vector.O, 0);
     }
 
     public void draw(float time) {
@@ -41,10 +43,7 @@ public class Environment {
          glut.glutWireCube(0.5f);
          gl.glColor3f(0, 0, 0);
          glut.glutSolidCube(0.5f);*/
-        Vehicle v = new VehicleImpl(Vector.O, 0);
-        for (int i = 0; i < time; i++) {
-            v.move();
-        }
+        v.move();
         v.draw(gl);
     }
 }

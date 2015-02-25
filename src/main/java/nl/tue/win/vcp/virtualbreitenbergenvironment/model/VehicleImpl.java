@@ -19,8 +19,8 @@ public class VehicleImpl extends Vehicle {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        slots[0] = new SensorImpl(0);
-        slots[1] = new SensorImpl(0);
+        slots[0] = new SensorImpl(0.05f);
+        slots[1] = new SensorImpl(0.1f);
     }
 
     @Override
@@ -58,12 +58,6 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public void move() {
-        assert wheelDistance > 0 : "Non-positive wheel distance";
-        angle += 1;
-        System.out.println(angle);
-        position = position.plus(Vector.Y);
-        return;
-
         // Determine how much the wheels turn
         final float leftWheel = slots[0].getValue(position, this.getDirection());
         final float rightWheel = slots[1].getValue(position, this.getDirection());
@@ -77,12 +71,14 @@ public class VehicleImpl extends Vehicle {
             final float magnitude = -0.5f * wheelDistance;
             final Vector leftWheelPosition = this.position.plus(direction.scale(magnitude));
             this.position = Vector.rotate(position, leftWheelPosition, rotationAngle);
+            angle += rotationAngle;
         } else if (rightWheel == 0) {
             final float rotationAngle = leftWheel / wheelDistance;
             final Vector direction = this.getDirection().cross(Vector.Z);
             final float magnitude = 0.5f * wheelDistance;
             final Vector rightWheelPosition = this.position.plus(direction.scale(magnitude));
             this.position = Vector.rotate(position, rightWheelPosition, rotationAngle);
+            angle += rotationAngle;
         } else {
             final float r; // radius
             final boolean left = (leftWheel > rightWheel);
@@ -101,6 +97,7 @@ public class VehicleImpl extends Vehicle {
             final Vector centerPoint = this.position.plus(direction.scale(magnitude));
             final float rotationAngle = left ? rightWheel / r : leftWheel / r;
             this.position = Vector.rotate(this.position, centerPoint, rotationAngle);
+            angle += rotationAngle;
         }
     }
 
