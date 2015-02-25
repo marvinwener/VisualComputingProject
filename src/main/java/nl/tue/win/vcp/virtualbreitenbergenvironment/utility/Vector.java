@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
 import static java.lang.Math.*;
+import java.util.Arrays;
 
 /**
  * Class representing a point or vector.
@@ -9,8 +10,11 @@ import static java.lang.Math.*;
  */
 public class Vector {
 
-    public final static Vector Z = new Vector(0, 0, 1);
-    private double[] coordinates;
+    public final static Vector O = new Vector(0, 0, 0); // vector representing the origin
+    public final static Vector X = new Vector(1, 0, 0); // unit vector in X direction
+    public final static Vector Y = new Vector(0, 1, 0); // unit vector in Y direction
+    public final static Vector Z = new Vector(0, 0, 1); // unit vector in Z direction
+    private final double[] coordinates;
 
     /**
      * Initializes a vector with the given coordinates.
@@ -18,7 +22,7 @@ public class Vector {
      * @param coordinates the coordinates
      */
     public Vector(double... coordinates) {
-        this.coordinates = coordinates;
+        this.coordinates = coordinates.clone();
     }
 
     /**
@@ -168,7 +172,7 @@ public class Vector {
 
     /**
      * Returns the sum of multiple vectors.
-     * 
+     *
      * @param vs the vectors
      * @return sum of the vectors
      */
@@ -186,27 +190,27 @@ public class Vector {
 
     /**
      * Adds this vector to another vector.
-     * 
+     *
      * @param that the other vector
      * @return this + that
      */
     public Vector plus(Vector that) {
         return sum(this, that);
     }
-    
+
     /**
      * Subtracts a vector from this vector.
-     * 
+     *
      * @param that vector to subtract
      * @return this - that
      */
     public Vector minus(Vector that) {
         return this.plus(that.scale(-1));
     }
-    
+
     /**
      * Rotates a {@code point} around {@code center} by {@code angle}.
-     * 
+     *
      * @param point point to rotate
      * @param center center point to rotate around
      * @param angle angle (in radians) to rotate by
@@ -219,4 +223,22 @@ public class Vector {
         return center.plus(rotated); // move origin back to center
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Arrays.hashCode(this.coordinates);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vector other = (Vector) obj;
+        return Arrays.equals(this.coordinates, other.coordinates);
+    }
 }
