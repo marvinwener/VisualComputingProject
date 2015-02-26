@@ -84,7 +84,7 @@ public class WavefrontObjectLoader_DisplayList {
                 //br = new BufferedReader(new InputStreamReader((new Object()).getClass().getResourceAsStream(ModelPath)));
                 br = new BufferedReader(new FileReader(ModelPath));
             }
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("#")) {         //read any descriptor data in the file
                     // Zzzz ...
@@ -201,20 +201,13 @@ public class WavefrontObjectLoader_DisplayList {
             n = (int[]) (fn.get(oloop));
             for (int iloop = 0; iloop < v.length; iloop++) {
                 //fill in the texture coordinate data
-                for (int tloop = 0; tloop < tcoords.length; tloop++) //only T2F is supported in interleavedarrays!!
-                {
-                    tcoords[tloop] = ((float[]) vtData.get(t[iloop] - 1))[tloop];
-                }
+                System.arraycopy((float[]) vtData.get(t[iloop] - 1), 0, tcoords, 0, tcoords.length); //only T2F is supported in interleavedarrays!!
                 modeldata.put(tcoords);
                 //fill in the normal coordinate data
-                for (int vnloop = 0; vnloop < coords.length; vnloop++) {
-                    coords[vnloop] = ((float[]) vnData.get(n[iloop] - 1))[vnloop];
-                }
+                System.arraycopy((float[]) vnData.get(n[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
                 //fill in the vertex coordinate data
-                for (int vloop = 0; vloop < coords.length; vloop++) {
-                    coords[vloop] = ((float[]) vData.get(v[iloop] - 1))[vloop];
-                }
+                System.arraycopy((float[]) vData.get(v[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
             }
         }
@@ -233,15 +226,10 @@ public class WavefrontObjectLoader_DisplayList {
             t = (int[]) (ft.get(oloop));
             for (int iloop = 0; iloop < v.length; iloop++) {
                 //fill in the texture coordinate data
-                for (int tloop = 0; tloop < tcoords.length; tloop++) //only T2F is supported in interleavedarrays!!
-                {
-                    tcoords[tloop] = ((float[]) vtData.get(t[iloop] - 1))[tloop];
-                }
+                System.arraycopy((float[]) vtData.get(t[iloop] - 1), 0, tcoords, 0, tcoords.length); //only T2F is supported in interleavedarrays!!
                 modeldata.put(tcoords);
                 //fill in the vertex coordinate data
-                for (int vloop = 0; vloop < coords.length; vloop++) {
-                    coords[vloop] = ((float[]) vData.get(v[iloop] - 1))[vloop];
-                }
+                System.arraycopy((float[]) vData.get(v[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
             }
         }
@@ -259,14 +247,10 @@ public class WavefrontObjectLoader_DisplayList {
             n = (int[]) (fn.get(oloop));
             for (int iloop = 0; iloop < v.length; iloop++) {
                 //fill in the normal coordinate data
-                for (int vnloop = 0; vnloop < coords.length; vnloop++) {
-                    coords[vnloop] = ((float[]) vnData.get(n[iloop] - 1))[vnloop];
-                }
+                System.arraycopy((float[]) vnData.get(n[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
                 //fill in the vertex coordinate data
-                for (int vloop = 0; vloop < coords.length; vloop++) {
-                    coords[vloop] = ((float[]) vData.get(v[iloop] - 1))[vloop];
-                }
+                System.arraycopy((float[]) vData.get(v[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
             }
         }
@@ -279,13 +263,11 @@ public class WavefrontObjectLoader_DisplayList {
         int fbSize = PolyCount * (FaceMultiplier * 3); //3v per poly
         modeldata = GLBuffers.newDirectFloatBuffer(fbSize);
         modeldata.position(0);
-        for (int oloop = 0; oloop < fv.size(); oloop++) {
-            v = (int[]) (fv.get(oloop));
+        for (int[] fv1 : fv) {
+            v = (int[]) (fv1);
             for (int iloop = 0; iloop < v.length; iloop++) {
                 //fill in the vertex coordinate data
-                for (int vloop = 0; vloop < coords.length; vloop++) {
-                    coords[vloop] = ((float[]) vData.get(v[iloop] - 1))[vloop];
-                }
+                System.arraycopy((float[]) vData.get(v[iloop] - 1), 0, coords, 0, coords.length);
                 modeldata.put(coords);
             }
         }
