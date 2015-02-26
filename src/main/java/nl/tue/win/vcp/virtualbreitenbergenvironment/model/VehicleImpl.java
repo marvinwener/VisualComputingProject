@@ -22,7 +22,7 @@ public class VehicleImpl extends Vehicle {
         slots[0] = new SensorImpl(0.05f);
         slots[1] = new SensorImpl(0.1f);
     }
-
+    
     @Override
     public void draw(GL2 gl) {
         // position is middle between wheels (behind)

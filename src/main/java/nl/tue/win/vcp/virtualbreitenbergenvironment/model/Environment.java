@@ -1,10 +1,12 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.io.File;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoader_DisplayList;
 
 /**
  *
@@ -16,12 +18,14 @@ public class Environment {
     private final GLU glu;
     private final GLUT glut;
     private final Vehicle v;
+    private int displayList;
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
         v = new VehicleImpl(Vector.O, 0);
+        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/graphics/red_Car.obj");
     }
 
     public void draw(float time) {
@@ -44,6 +48,7 @@ public class Environment {
          gl.glColor3f(0, 0, 0);
          glut.glutSolidCube(0.5f);*/
         v.move();
-        v.draw(gl);
+        //v.draw(gl);        
+        gl.glCallList(displayList);
     }
 }
