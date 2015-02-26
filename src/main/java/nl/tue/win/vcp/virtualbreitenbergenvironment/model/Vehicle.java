@@ -31,4 +31,18 @@ public abstract class Vehicle implements Drawable {
         assert initialDirection.length() == 1;
         return Vector.rotate(initialDirection, Vector.O, angle);
     }
+
+    /**
+     * Removes null references from @code{slots} and replaces them by a dummy
+     * sensor.
+     *
+     * @post \forall s : slots; s != null;
+     */
+    protected void removeNullSensors() {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i] == null) {
+                slots[i] = DummySensor.instance;
+            }
+        }
+    }
 }

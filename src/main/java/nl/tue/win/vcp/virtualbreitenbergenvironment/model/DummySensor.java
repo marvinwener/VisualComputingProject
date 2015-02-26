@@ -10,6 +10,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  * @author maikel
  */
 public class DummySensor extends Sensor {
+    final static public Sensor instance = new DummySensor();
 
     @Override
     public float getValue(Vector location, Vector direction) {
