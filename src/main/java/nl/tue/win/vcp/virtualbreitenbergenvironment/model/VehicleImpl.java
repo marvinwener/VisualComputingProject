@@ -19,8 +19,8 @@ public class VehicleImpl extends Vehicle {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        slots[0] = new SensorImpl(0.05f);
-        slots[1] = new SensorImpl(0.1f);
+        slots[0] = new SensorImpl(0.1f);
+        slots[1] = new SensorImpl(0.05f);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class VehicleImpl extends Vehicle {
             this.position = Vector.rotate(position, leftWheelPosition, rotationAngle);
             angle += rotationAngle;
         } else if (rightWheel == 0) {
-            final float rotationAngle = leftWheel / wheelDistance;
+            final float rotationAngle = -(leftWheel / wheelDistance);
             final Vector direction = this.getDirection().cross(Vector.Z);
             final float magnitude = 0.5f * wheelDistance;
             final Vector rightWheelPosition = this.position.plus(direction.scale(magnitude));
@@ -85,8 +85,8 @@ public class VehicleImpl extends Vehicle {
                 // determine the radius of the turning circle
                 r = determineRadius(leftWheel, rightWheel, wheelDistance);
             } else {
-                // Switch a and b around and negate the result
-                r = -determineRadius(rightWheel, leftWheel, wheelDistance);
+                // Switch a and b around
+                r = determineRadius(rightWheel, leftWheel, wheelDistance);
             }
 
             // Now determine the point to rotate around.
@@ -94,7 +94,7 @@ public class VehicleImpl extends Vehicle {
             final Vector direction = this.getDirection().cross(Vector.Z);
             final float magnitude = sign * (r + 0.5f * wheelDistance);
             final Vector centerPoint = this.position.plus(direction.scale(magnitude));
-            final float rotationAngle = left ? rightWheel / r : leftWheel / r;
+            final float rotationAngle = left ? -rightWheel / r : leftWheel / r;
             this.position = Vector.rotate(this.position, centerPoint, rotationAngle);
             angle += rotationAngle;
         }
@@ -107,7 +107,7 @@ public class VehicleImpl extends Vehicle {
         // http://www.wolframalpha.com/input/?i=a%2F%28r%2Bd%29%3Db%2Fr
         assert a - b != 0 : "Wheels rotate by the same amount; infinite radius";
         assert a * b * d != 0 : "Wheel distance or rotation is 0.";
-        return -b * d / (a - b);
+        return b * d / (a - b);
     }
 
 }
