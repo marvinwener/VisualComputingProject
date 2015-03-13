@@ -16,7 +16,7 @@ public class VehicleImpl extends Vehicle {
     private final float wheelDistance = 1;
     private int inactivityCounter = INACTIVITY_THRESHOLD - 1;
     private final static int INACTIVITY_THRESHOLD = 100;
-    private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
+    private final Sensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
