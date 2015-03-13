@@ -14,13 +14,18 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class VehicleImpl extends Vehicle {
 
     private final float wheelDistance = 1;
+    private int inactivityCounter = INACTIVITY_THRESHOLD - 1;
+    private final static int INACTIVITY_THRESHOLD = 100;
+    private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        slots[0] = new SensorImpl(0.1f);
-        slots[1] = new SensorImpl(0.05f);
+        //slots[0] = new SensorImpl(0.1f);
+        //slots[1] = new SensorImpl(0.05f);
+        slots[0] = new DummySensor();
+        slots[1] = new DummySensor();
     }
 
     @Override
@@ -29,19 +34,19 @@ public class VehicleImpl extends Vehicle {
 
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
-        
+
         // Line to indicate direction the vehicle points in
         gl.glColor3f(1, 0, 0);
         gl.glBegin(GL_LINES);
         gl.glVertex3dv(position.asBuffer());
         gl.glVertex3dv(position.plus(getDirection()).asBuffer());
         gl.glEnd();
-        
+
         // Move / rotate to correct position
         double deg = Math.toDegrees(angle);
         gl.glTranslated(position.x(), position.y(), position.z());
         gl.glRotated(deg, 0, 0, 1);
-        
+
         // Draw wheels
         gl.glPushMatrix();
         gl.glColor3f(0, 0, 0);
@@ -50,7 +55,7 @@ public class VehicleImpl extends Vehicle {
         gl.glTranslatef(this.wheelDistance, 0, 0);
         Graphics.drawDisk(gl, 0.5f, 10);
         gl.glPopMatrix();
-        
+
         gl.glPopAttrib();
         gl.glPopMatrix();
     }
@@ -61,6 +66,24 @@ public class VehicleImpl extends Vehicle {
         final float leftWheel = slots[0].getValue(position, this.getDirection());
         final float rightWheel = slots[1].getValue(position, this.getDirection());
 
+        if (leftWheel == 0 && rightWheel == 0) {
+            inactivityCounter++;
+            System.out.println(inactivityCounter);
+        } else {
+            inactivityCounter = 0;
+        }
+
+        if (inactivityCounter < INACTIVITY_THRESHOLD) {
+            updateLocation(leftWheel, rightWheel);
+        } else {
+            // revert to random behaviour
+            final float leftWheelR = randomSlots[0].getValue(position, this.getDirection());
+            final float rightWheelR = randomSlots[1].getValue(position, this.getDirection());
+            updateLocation(leftWheelR, rightWheelR);
+        }
+    }
+
+    private void updateLocation(final float leftWheel, final float rightWheel) {
         if (leftWheel == rightWheel) {
             // move forward in a straight line by the amount leftWheel
             this.position = this.position.plus(this.getDirection().scale(leftWheel));
