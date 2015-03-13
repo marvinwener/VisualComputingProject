@@ -68,7 +68,6 @@ public class VehicleImpl extends Vehicle {
 
         if (leftWheel == 0 && rightWheel == 0) {
             inactivityCounter++;
-            System.out.println(inactivityCounter);
         } else {
             inactivityCounter = 0;
         }
