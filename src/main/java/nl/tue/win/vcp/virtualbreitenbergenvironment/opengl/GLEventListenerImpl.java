@@ -52,6 +52,7 @@ public class GLEventListenerImpl implements GLEventListener,
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     private Environment environment;
+    private double fovy = -1;
 
     public GLEventListenerImpl() {
         startTime = System.currentTimeMillis();
@@ -86,7 +87,6 @@ public class GLEventListenerImpl implements GLEventListener,
         //gl.glEnable(GL_NORMALIZE);
         //float[] ambient = {1f, 1f, 1f, 1f};
         //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
-
         //TODO: extend
     }
 
@@ -152,7 +152,9 @@ public class GLEventListenerImpl implements GLEventListener,
          * triangle, we obtain two right triangles, in which tan(a/2) =
          * (vHeight / 2) / 2. Then fovy = arctan((vHeight / 2) / gs.vDist)
          */
-        final double fovy = 2 * atan2(vHeight / 2, vDist);
+        if (fovy == -1) {
+            fovy = 2 * atan2(vHeight / 2, vDist);
+        }
 
         // Select part of window.
         gl.glViewport(0, 0, this.width, this.height);
@@ -192,24 +194,24 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void mouseDragged(MouseEvent me) {
         float dX = me.getX() - dragSourceX;
-            float dY = me.getY() - dragSourceY;
-            
-            // Change camera angle when left button is pressed.
-            if(mouseButton == MouseEvent.BUTTON1) {
-                this.phi += dX * DRAG_PIXEL_TO_RADIAN;
-                this.theta = Math.max(THETA_MIN,
-                                    Math.min(THETA_MAX,
-                                             this.theta + dY * DRAG_PIXEL_TO_RADIAN));
-            }
+        float dY = me.getY() - dragSourceY;
+
+        // Change camera angle when left button is pressed.
+        if (mouseButton == MouseEvent.BUTTON1) {
+            this.phi += dX * DRAG_PIXEL_TO_RADIAN;
+            this.theta = Math.max(THETA_MIN,
+                    Math.min(THETA_MAX,
+                            this.theta + dY * DRAG_PIXEL_TO_RADIAN));
+        }
             // Change vWidth when right button is pressed.
             /*else if(mouseButton == MouseEvent.BUTTON3) {
-                this.vWidth = Math.max(VWIDTH_MIN,
-                                     Math.min(VWIDTH_MAX,
-                                              this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
-            }*/
-            
-            dragSourceX = me.getX();
-            dragSourceY = me.getY();
+         this.vWidth = Math.max(VWIDTH_MIN,
+         Math.min(VWIDTH_MAX,
+         this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
+         }*/
+
+        dragSourceX = me.getX();
+        dragSourceY = me.getY();
     }
 
     @Override
@@ -243,9 +245,9 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
         vDist = (float) Math.max(MIN_CAMERA_DISTANCE,
-                                        vDist *
-                                        Math.pow(MOUSE_WHEEL_FACTOR,
-                                                 mwe.getWheelRotation()));
+                vDist
+                * Math.pow(MOUSE_WHEEL_FACTOR,
+                        mwe.getWheelRotation()));
     }
 
     @Override
