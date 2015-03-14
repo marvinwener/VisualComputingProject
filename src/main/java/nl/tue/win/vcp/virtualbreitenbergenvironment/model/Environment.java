@@ -16,13 +16,16 @@ public class Environment {
     private final GL2 gl;
     private final GLU glu;
     private final GLUT glut;
-    private final Vehicle v;
+    private final Vehicle[] vs;
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
-        v = new VehicleImpl(new Vector(0, 0, 0.5), 0);
+        vs = new Vehicle[]{
+            new VehicleImpl(new Vector(0, 0, 0.5), 0),
+            new VehicleImpl(new Vector(-5,-5,0.5), 1.6f)
+        };
     }
 
     public void draw(float time) {
@@ -45,8 +48,10 @@ public class Environment {
          glut.glutWireCube(0.5f);
          gl.glColor3f(0, 0, 0);
          glut.glutSolidCube(0.5f);*/
-        v.move();
-        v.draw(gl);
+        for (Vehicle v : vs) {
+            v.move();
+            v.draw(gl);
+        }
     }
 
     private void drawFloorAndWalls() {
@@ -54,7 +59,7 @@ public class Environment {
         final float max = 10;
         final float step = 0.5f;
         drawGrid(min, max, step);
-        drawWalls(min, max, step);
+        //drawWalls(min, max, step);
     }
 
     private void drawGrid(final float min, final float max, final float step) {
@@ -87,37 +92,10 @@ public class Environment {
     private void drawWalls(float min, float max, float step) {
         gl.glPushAttrib(GL_CURRENT_BIT);
         gl.glPushMatrix();
-        
+
         gl.glPopMatrix();
         gl.glPushMatrix();
-        gl.glTranslated(max, 0, 0);        
-        gl.glPushMatrix();
-        gl.glRotated(90, 0, 0, 1);
-        gl.glRotated(90, 1, 0, 0);
-        drawGrid(0, max, step);
-        gl.glPopMatrix();
-        gl.glPushMatrix();
-        gl.glRotated(-90, 0, 0, 1);
-        gl.glRotated(90, 1, 0, 0);
-        drawGrid(0, max, step);
-        gl.glPopMatrix();
-        
-        gl.glPopMatrix();
-        gl.glPushMatrix();
-        gl.glTranslated(0, max, 0);        
-        gl.glPushMatrix();
-        gl.glRotated(90, 1, 0, 0);
-        drawGrid(0, max, step);
-        gl.glPopMatrix();
-        gl.glPushMatrix();
-        gl.glRotated(180, 0, 0, 1);
-        gl.glRotated(90, 1, 0, 0);
-        drawGrid(0, max, step);
-        gl.glPopMatrix();
-        
-        gl.glPopMatrix();
-        gl.glPushMatrix();
-        gl.glTranslated(min, 0, 0);        
+        gl.glTranslated(max, 0, 0);
         gl.glPushMatrix();
         gl.glRotated(90, 0, 0, 1);
         gl.glRotated(90, 1, 0, 0);
@@ -128,10 +106,10 @@ public class Environment {
         gl.glRotated(90, 1, 0, 0);
         drawGrid(0, max, step);
         gl.glPopMatrix();
-        
+
         gl.glPopMatrix();
         gl.glPushMatrix();
-        gl.glTranslated(0, min, 0);        
+        gl.glTranslated(0, max, 0);
         gl.glPushMatrix();
         gl.glRotated(90, 1, 0, 0);
         drawGrid(0, max, step);
@@ -141,7 +119,34 @@ public class Environment {
         gl.glRotated(90, 1, 0, 0);
         drawGrid(0, max, step);
         gl.glPopMatrix();
-        
+
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(min, 0, 0);
+        gl.glPushMatrix();
+        gl.glRotated(90, 0, 0, 1);
+        gl.glRotated(90, 1, 0, 0);
+        drawGrid(0, max, step);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glRotated(-90, 0, 0, 1);
+        gl.glRotated(90, 1, 0, 0);
+        drawGrid(0, max, step);
+        gl.glPopMatrix();
+
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glTranslated(0, min, 0);
+        gl.glPushMatrix();
+        gl.glRotated(90, 1, 0, 0);
+        drawGrid(0, max, step);
+        gl.glPopMatrix();
+        gl.glPushMatrix();
+        gl.glRotated(180, 0, 0, 1);
+        gl.glRotated(90, 1, 0, 0);
+        drawGrid(0, max, step);
+        gl.glPopMatrix();
+
         gl.glPopMatrix();
         gl.glPopAttrib();
     }

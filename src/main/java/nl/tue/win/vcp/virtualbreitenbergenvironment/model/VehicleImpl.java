@@ -17,6 +17,7 @@ public class VehicleImpl extends Vehicle {
     private int inactivityCounter = INACTIVITY_THRESHOLD - 1;
     private final static int INACTIVITY_THRESHOLD = 100;
     private final Sensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
+    private final float EPS = 0.001f;
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
@@ -24,8 +25,12 @@ public class VehicleImpl extends Vehicle {
         this.slots = new Sensor[2];
         //slots[0] = new SensorImpl(0.1f);
         //slots[1] = new SensorImpl(0.05f);
-        slots[0] = new DummySensor();
-        slots[1] = new DummySensor();
+        //slots[0] = new DummySensor();
+        //slots[1] = new DummySensor();
+        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
+        slots[0] = new LightSensor(wheelVector);
+        slots[1] = new LightSensor(wheelVector.scale(-1));
     }
 
     @Override
@@ -58,6 +63,10 @@ public class VehicleImpl extends Vehicle {
 
         gl.glPopAttrib();
         gl.glPopMatrix();
+        
+        for (Sensor s : slots) {
+            s.draw(gl);
+        }
     }
 
     @Override
@@ -66,7 +75,7 @@ public class VehicleImpl extends Vehicle {
         final float leftWheel = slots[0].getValue(position, this.getDirection());
         final float rightWheel = slots[1].getValue(position, this.getDirection());
 
-        if (leftWheel == 0 && rightWheel == 0) {
+        if (leftWheel < EPS && rightWheel < EPS) {
             inactivityCounter++;
         } else {
             inactivityCounter = 0;
