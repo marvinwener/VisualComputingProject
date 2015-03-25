@@ -4,12 +4,14 @@ import com.jogamp.opengl.util.FPSAnimator;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.opengl.GLCapabilities;
@@ -17,6 +19,10 @@ import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
@@ -228,33 +234,27 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            FileInputStream fis = null;
-            try {
-                // TODO: replace by something reasonable (dialog, etc.)
-                String filename = "test.env";
-                fis = new FileInputStream(filename);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                Object obj = ois.readObject();
-                ois.close();
-                ec.setEnvironment((Environment) obj);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogType(JFileChooser.OPEN_DIALOG);
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Braitenberg Environment", "env");
+            fc.setFileFilter(filter);
+            final int showOpenDialog = fc.showOpenDialog(MainFrame.this);
+            final File selectedFile = fc.getSelectedFile();
+            if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
                 try {
-                    fis.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    ec.setEnvironment((Environment) Serialization.read(selectedFile));
+                } catch (IOException | ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "The selected file could not be read.");
                 }
             }
+
         }
     };
-    
+
     private final Action newAction = new AbstractAction("New environment") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             ec.setEnvironment(new Environment());
