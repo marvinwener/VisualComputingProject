@@ -1,6 +1,9 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
@@ -16,16 +19,16 @@ public class Environment {
     private final GL2 gl;
     private final GLU glu;
     private final GLUT glut;
-    private final Vehicle[] vs;
+    private final List<Vehicle> vs;
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
-        vs = new Vehicle[]{
-            new VehicleImpl(new Vector(0, 0, 0.5), 0),
-            new VehicleImpl(new Vector(-5,-5,0.5), 1.6f)
-        };
+        vs = new ArrayList(Arrays.asList(
+                new VehicleImpl(new Vector(0, 0, 0.5), 0),
+                new VehicleImpl(new Vector(-5, -5, 0.5), 1.6f)
+        ));
     }
 
     public void draw(float time) {
@@ -149,5 +152,9 @@ public class Environment {
 
         gl.glPopMatrix();
         gl.glPopAttrib();
+    }
+
+    public boolean addVehicle(Vehicle v) {
+        return this.vs.add(v);
     }
 }
