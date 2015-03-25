@@ -31,7 +31,8 @@ public class GLEventListenerImpl implements GLEventListener,
         MouseMotionListener,
         MouseListener,
         MouseWheelListener,
-        KeyListener {
+        KeyListener,
+        EnvironmentContainer {
 
     private float tAnim = 0;
     private final long startTime;
@@ -61,6 +62,7 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void init(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
+        GLSingleton.provideGL(gl);
         environment = new Environment(gl, glu, glut);
 
         // Enable blending.
@@ -263,6 +265,16 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void keyReleased(KeyEvent ke) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    @Override
+    public void setEnvironment(Environment e) {
+        this.environment = e;
     }
 
 }
