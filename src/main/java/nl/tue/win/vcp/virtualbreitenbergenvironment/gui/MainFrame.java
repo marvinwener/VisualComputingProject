@@ -208,25 +208,33 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO: replace by something reasonable (dialog, etc.)
             Environment environment = ec.getEnvironment();
-            FileOutputStream fos = null;
-            try {
-                String filename = "test.env";
-                fos = new FileOutputStream(filename);
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(environment);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    fos.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogType(JFileChooser.SAVE_DIALOG);
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Braitenberg Environment", "env");
+            fc.setFileFilter(filter);
+            final int showSaveDialog = fc.showSaveDialog(MainFrame.this);
+
+            File outputFile = fc.getSelectedFile();
+            if (fc.getFileFilter().equals(filter)) {
+                if (outputFile != null && !outputFile.toString().endsWith(".env")) {
+                    outputFile = new File(outputFile.toString() + ".env");
                 }
             }
+            // TODO: add confirmation
+            if (showSaveDialog == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Serialization.write(environment, outputFile);
+
+                } catch (IOException ex) {
+                    fc.showDialog(MainFrame.this,
+                            "There was a problem when writing to the "
+                            + "specified file.");
+                }
+            }
+
         }
     };
 
