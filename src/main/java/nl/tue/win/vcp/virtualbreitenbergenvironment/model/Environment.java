@@ -34,7 +34,7 @@ public class Environment implements Serializable {
         ));
     }
 
-    public void draw(float time) {
+    public void draw() {
         drawFloorAndWalls();
         //TODO: extend
         gl.glColor3f(1, 0, 0);

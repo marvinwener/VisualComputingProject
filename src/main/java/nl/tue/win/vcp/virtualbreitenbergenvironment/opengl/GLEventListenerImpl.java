@@ -34,8 +34,6 @@ public class GLEventListenerImpl implements GLEventListener,
         KeyListener,
         EnvironmentContainer {
 
-    private float tAnim = 0;
-    private final long startTime;
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
     private final Vector cnt = new Vector(0, 0, 0);
@@ -54,10 +52,6 @@ public class GLEventListenerImpl implements GLEventListener,
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     private Environment environment;
     private double fovy = -1;
-
-    public GLEventListenerImpl() {
-        startTime = System.currentTimeMillis();
-    }
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -95,8 +89,6 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void display(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
-
-        tAnim = (float) (System.currentTimeMillis() - startTime) / 1000f;
 
         setView(drawable);
         drawScene(drawable);
@@ -190,7 +182,7 @@ public class GLEventListenerImpl implements GLEventListener,
         // Clear depth buffer.
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
-        environment.draw(tAnim);
+        environment.draw();
     }
 
     @Override
