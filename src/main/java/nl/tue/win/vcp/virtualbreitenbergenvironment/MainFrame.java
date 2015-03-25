@@ -1,11 +1,24 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
 
 /**
@@ -19,7 +32,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        initActions();
         GLEventListenerImpl listener = new GLEventListenerImpl();
+        ec = listener;
         GLJPanel glPanel = (GLJPanel) jPanel1;
         glPanel.addGLEventListener(listener);
         glPanel.addMouseListener(listener);
@@ -30,11 +45,11 @@ public class MainFrame extends javax.swing.JFrame {
         glPanel.requestFocusInWindow();
         // Attach animator to OpenGL panel and begin refresh
         // at the specified number of frames per second.
-        final FPSAnimator animator =
-                new FPSAnimator((GLJPanel) glPanel, FPS, true);
+        final FPSAnimator animator
+                = new FPSAnimator((GLJPanel) glPanel, FPS, true);
         animator.setIgnoreExceptions(false);
         animator.setPrintExceptions(true);
-        
+
         animator.start();
 
         // Stop animator when window is closed.
@@ -176,8 +191,69 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    private void initActions() {
+        jMenuItem5.setAction(loadAction);
+        jMenuItem6.setAction(saveAction);
+    }
+
+    private final Action saveAction = new AbstractAction("Save") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO: replace by something reasonable (dialog, etc.)
+            Environment environment = ec.getEnvironment();
+            FileOutputStream fos = null;
+            try {
+                String filename = "test.env";
+                fos = new FileOutputStream(filename);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(environment);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    fos.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    };
+
+    private final Action loadAction = new AbstractAction("Load") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            FileInputStream fis = null;
+            try {
+                // TODO: replace by something reasonable (dialog, etc.)
+                String filename = "test.env";
+                fis = new FileInputStream(filename);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                Object obj = ois.readObject();
+                ois.close();
+                ec.setEnvironment((Environment) obj);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    fis.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    };
+
     private final static int FPS = 30;
+    private final EnvironmentContainer ec;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
