@@ -1,4 +1,4 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import com.jogamp.opengl.util.FPSAnimator;
 import java.awt.event.ActionEvent;
