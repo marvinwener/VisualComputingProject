@@ -193,6 +193,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void initActions() {
+        jMenuItem1.setAction(newAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
     }
@@ -249,6 +250,14 @@ public class MainFrame extends javax.swing.JFrame {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    };
+    
+    private final Action newAction = new AbstractAction("New environment") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ec.setEnvironment(new Environment());
         }
     };
 
