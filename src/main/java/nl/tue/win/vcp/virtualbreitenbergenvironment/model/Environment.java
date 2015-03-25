@@ -23,6 +23,14 @@ public class Environment implements Serializable {
     transient private GLU glu;
     transient private GLUT glut;
     private final List<Vehicle> vs;
+    
+    public Environment() {
+        this(GLSingleton.getGL());
+    }
+    
+    public Environment(GL2 gl) {
+        this(gl, new GLU(), new GLUT());
+    }
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
