@@ -20,7 +20,7 @@ public class Environment {
     private final GLU glu;
     private final GLUT glut;
     private final List<Vehicle> vs;
-
+    
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;

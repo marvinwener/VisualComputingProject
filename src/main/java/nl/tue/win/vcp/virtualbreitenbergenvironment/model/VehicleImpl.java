@@ -27,10 +27,9 @@ public class VehicleImpl extends Vehicle {
         //slots[1] = new SensorImpl(0.05f);
         //slots[0] = new DummySensor();
         //slots[1] = new DummySensor();
-        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
-        final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
-        slots[0] = new LightSensor(wheelVector);
-        slots[1] = new LightSensor(wheelVector.scale(-1));
+        Vector[] sensorLocations = this.getSensorLocations();
+        slots[0] = new LightSensor(sensorLocations[0]);
+        slots[1] = new LightSensor(sensorLocations[1]);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class VehicleImpl extends Vehicle {
 
         gl.glPopAttrib();
         gl.glPopMatrix();
-        
+
         for (Sensor s : slots) {
             s.draw(gl);
         }
@@ -139,6 +138,13 @@ public class VehicleImpl extends Vehicle {
         assert a - b != 0 : "Wheels rotate by the same amount; infinite radius";
         assert a * b * d != 0 : "Wheel distance or rotation is 0.";
         return b * d / (a - b);
+    }
+
+    @Override
+    public final Vector[] getSensorLocations() {
+        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
+        return new Vector[]{wheelVector, wheelVector.scale(-1)};
     }
 
 }

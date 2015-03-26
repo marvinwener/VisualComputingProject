@@ -23,6 +23,13 @@ public abstract class Vehicle implements Drawable {
     public abstract void move();
 
     /**
+     * Gets the relative positions of the sensors on the vehicle.
+     *
+     * @return array {@code a} of locations such that slots[i] has location a[i]
+     */
+    public abstract Vector[] getSensorLocations();
+
+    /**
      * Determines the direction based on the angle of the vehicle.
      *
      * @return unit vector in the direction
@@ -44,5 +51,17 @@ public abstract class Vehicle implements Drawable {
                 slots[i] = DummySensor.instance;
             }
         }
+    }
+
+    /**
+     * Sets the sensors for this vehicle.
+     *
+     * @param sensors the sensors
+     */
+    public void setSensors(Sensor... sensors) {
+        if (sensors.length != slots.length) {
+            throw new IllegalArgumentException("Incorrect number of sensors");
+        }
+        this.slots = sensors;
     }
 }
