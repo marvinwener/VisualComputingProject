@@ -153,9 +153,10 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         final String sensorType2 = (String) jComboBox3.getSelectedItem();
         Vehicle v = new VehicleImpl(initialPosition, initialAngle);
         Vector[] sensorLocations = v.getSensorLocations();
-        Sensor sensor1 = getSensor(sensorType1, sensorLocations[0]);
-        Sensor sensor2 = getSensor(sensorType2, sensorLocations[1]);
-        v.setSensors(sensor1, sensor2);
+        Sensor[] sensors = {getSensor(sensorType1, sensorLocations[0]),
+            getSensor(sensorType2, sensorLocations[1])};
+        v.setSensors(sensors[jComboBox4.getSelectedIndex()],
+                sensors[jComboBox5.getSelectedIndex()]);
         environment.addVehicle(v);
     }
 

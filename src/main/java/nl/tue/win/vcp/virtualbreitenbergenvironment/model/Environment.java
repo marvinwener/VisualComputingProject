@@ -36,10 +36,7 @@ public class Environment implements Serializable {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
-        vs = new ArrayList(Arrays.asList(
-                new VehicleImpl(new Vector(0, 0, 0.5), 0),
-                new VehicleImpl(new Vector(-5, -5, 0.5), 1.6f)
-        ));
+        vs = new ArrayList<>();
     }
 
     public void draw() {
