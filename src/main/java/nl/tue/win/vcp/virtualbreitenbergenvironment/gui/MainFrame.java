@@ -1,11 +1,30 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
 
 /**
@@ -19,7 +38,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        initActions();
         GLEventListenerImpl listener = new GLEventListenerImpl();
+        ec = listener;
         GLJPanel glPanel = (GLJPanel) jPanel1;
         glPanel.addGLEventListener(listener);
         glPanel.addMouseListener(listener);
@@ -30,11 +51,11 @@ public class MainFrame extends javax.swing.JFrame {
         glPanel.requestFocusInWindow();
         // Attach animator to OpenGL panel and begin refresh
         // at the specified number of frames per second.
-        final FPSAnimator animator =
-                new FPSAnimator((GLJPanel) glPanel, FPS, true);
+        final FPSAnimator animator
+                = new FPSAnimator((GLJPanel) glPanel, FPS, true);
         animator.setIgnoreExceptions(false);
         animator.setPrintExceptions(true);
-        
+
         animator.start();
 
         // Stop animator when window is closed.
@@ -176,8 +197,80 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    private void initActions() {
+        jMenuItem1.setAction(newAction);
+        jMenuItem5.setAction(loadAction);
+        jMenuItem6.setAction(saveAction);
+    }
+
+    private final Action saveAction = new AbstractAction("Save") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Environment environment = ec.getEnvironment();
+
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogType(JFileChooser.SAVE_DIALOG);
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Braitenberg Environment", "env");
+            fc.setFileFilter(filter);
+            final int showSaveDialog = fc.showSaveDialog(MainFrame.this);
+
+            File outputFile = fc.getSelectedFile();
+            if (fc.getFileFilter().equals(filter)) {
+                if (outputFile != null && !outputFile.toString().endsWith(".env")) {
+                    outputFile = new File(outputFile.toString() + ".env");
+                }
+            }
+            // TODO: add confirmation
+            if (showSaveDialog == JFileChooser.APPROVE_OPTION) {
+                try {
+                    Serialization.write(environment, outputFile);
+
+                } catch (IOException ex) {
+                    fc.showDialog(MainFrame.this,
+                            "There was a problem when writing to the "
+                            + "specified file.");
+                }
+            }
+
+        }
+    };
+
+    private final Action loadAction = new AbstractAction("Load") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogType(JFileChooser.OPEN_DIALOG);
+            final FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Braitenberg Environment", "env");
+            fc.setFileFilter(filter);
+            final int showOpenDialog = fc.showOpenDialog(MainFrame.this);
+            final File selectedFile = fc.getSelectedFile();
+            if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
+                try {
+                    ec.setEnvironment((Environment) Serialization.read(selectedFile));
+                } catch (IOException | ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(MainFrame.this,
+                            "The selected file could not be read.");
+                }
+            }
+
+        }
+    };
+
+    private final Action newAction = new AbstractAction("New environment") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ec.setEnvironment(new Environment());
+        }
+    };
+
     private final static int FPS = 30;
+    private final EnvironmentContainer ec;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

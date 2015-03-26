@@ -1,6 +1,8 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,19 +10,28 @@ import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
  *
  * @author maikel
  */
-public class Environment {
+public class Environment implements Serializable {
 
-    private final GL2 gl;
-    private final GLU glu;
-    private final GLUT glut;
+    transient private GL2 gl;
+    transient private GLU glu;
+    transient private GLUT glut;
     private final List<Vehicle> vs;
     
+    public Environment() {
+        this(GLSingleton.getGL());
+    }
+    
+    public Environment(GL2 gl) {
+        this(gl, new GLU(), new GLUT());
+    }
+
     public Environment(GL2 gl, GLU glu, GLUT glut) {
         this.gl = gl;
         this.glu = glu;
@@ -31,7 +42,7 @@ public class Environment {
         ));
     }
 
-    public void draw(float time) {
+    public void draw() {
         drawFloorAndWalls();
         //TODO: extend
         gl.glColor3f(1, 0, 0);
@@ -156,5 +167,13 @@ public class Environment {
 
     public boolean addVehicle(Vehicle v) {
         return this.vs.add(v);
+    }
+
+    private void readObject(java.io.ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.gl = GLSingleton.getGL();
+        this.glu = new GLU();
+        this.glut = new GLUT();
     }
 }

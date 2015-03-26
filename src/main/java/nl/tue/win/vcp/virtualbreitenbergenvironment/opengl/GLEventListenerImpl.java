@@ -31,10 +31,9 @@ public class GLEventListenerImpl implements GLEventListener,
         MouseMotionListener,
         MouseListener,
         MouseWheelListener,
-        KeyListener {
+        KeyListener,
+        EnvironmentContainer {
 
-    private float tAnim = 0;
-    private final long startTime;
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
     private final Vector cnt = new Vector(0, 0, 0);
@@ -54,13 +53,10 @@ public class GLEventListenerImpl implements GLEventListener,
     private Environment environment;
     private double fovy = -1;
 
-    public GLEventListenerImpl() {
-        startTime = System.currentTimeMillis();
-    }
-
     @Override
     public void init(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
+        GLSingleton.provideGL(gl);
         environment = new Environment(gl, glu, glut);
 
         // Enable blending.
@@ -93,8 +89,6 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void display(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
-
-        tAnim = (float) (System.currentTimeMillis() - startTime) / 1000f;
 
         setView(drawable);
         drawScene(drawable);
@@ -188,7 +182,7 @@ public class GLEventListenerImpl implements GLEventListener,
         // Clear depth buffer.
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
-        environment.draw(tAnim);
+        environment.draw();
     }
 
     @Override
@@ -263,6 +257,16 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void keyReleased(KeyEvent ke) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    @Override
+    public void setEnvironment(Environment e) {
+        this.environment = e;
     }
 
 }

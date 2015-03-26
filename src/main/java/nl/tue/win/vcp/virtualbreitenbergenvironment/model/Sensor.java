@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import java.io.Serializable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -7,7 +8,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public abstract class Sensor implements Drawable {
+public abstract class Sensor implements Drawable, Serializable {
     // TODO: add relative position?
     
     /**
