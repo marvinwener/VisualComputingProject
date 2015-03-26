@@ -5,15 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
@@ -200,6 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void initActions() {
         jMenuItem1.setAction(newAction);
+        jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
     }
@@ -266,6 +259,14 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             ec.setEnvironment(new Environment());
+        }
+    };
+    
+    private final Action addVehicleAction = new AbstractAction("Add vehicle") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new AddVehicleFrame(ec.getEnvironment()).setVisible(true);
         }
     };
 

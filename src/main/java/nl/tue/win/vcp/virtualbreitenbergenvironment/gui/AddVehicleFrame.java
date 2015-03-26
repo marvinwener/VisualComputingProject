@@ -132,7 +132,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         addVehicle();
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void addVehicle() {
@@ -147,7 +147,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private void addTwoWheelVehicle() {
-        Vector initialPosition = Vector.O; // TODO: make dynamic
+        Vector initialPosition = new Vector(0, 0, 0.5f); // TODO: make dynamic
         float initialAngle = 0; // TODO: make dynamic
         final String sensorType1 = (String) jComboBox2.getSelectedItem();
         final String sensorType2 = (String) jComboBox3.getSelectedItem();
