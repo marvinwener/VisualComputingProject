@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import java.io.Serializable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -7,7 +8,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public abstract class Vehicle implements Drawable {
+public abstract class Vehicle implements Drawable, Serializable {
 
     protected Vector position;
     protected float angle;
@@ -21,6 +22,13 @@ public abstract class Vehicle implements Drawable {
      * values to rotate and translate the vehicle.
      */
     public abstract void move();
+
+    /**
+     * Gets the relative positions of the sensors on the vehicle.
+     *
+     * @return array {@code a} of locations such that slots[i] has location a[i]
+     */
+    public abstract Vector[] getSensorLocations();
 
     /**
      * Determines the direction based on the angle of the vehicle.
@@ -44,5 +52,17 @@ public abstract class Vehicle implements Drawable {
                 slots[i] = DummySensor.instance;
             }
         }
+    }
+
+    /**
+     * Sets the sensors for this vehicle.
+     *
+     * @param sensors the sensors
+     */
+    public void setSensors(Sensor... sensors) {
+        if (sensors.length != slots.length) {
+            throw new IllegalArgumentException("Incorrect number of sensors");
+        }
+        this.slots = sensors;
     }
 }

@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
+import java.io.Serializable;
 import static java.lang.Math.*;
 import java.nio.DoubleBuffer;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.Arrays;
  *
  * @author maikel
  */
-public class Vector {
+public class Vector implements Serializable {
 
     public final static Vector O = new Vector(0, 0, 0); // vector representing the origin
     public final static Vector X = new Vector(1, 0, 0); // unit vector in X direction
