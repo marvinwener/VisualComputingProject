@@ -294,12 +294,35 @@ public class WavefrontObjectLoader_DisplayList {
     }
 
     public static int loadWavefrontObjectAsDisplayList(GL2 inGL, String inFileName) {
+        return loadWavefrontObjectAsDisplayList(inGL, inFileName, false);
+    }
+
+    public static int loadWavefrontObjectAsDisplayList(GL2 inGL, String inFileName, boolean normalize) {
         int tDisplayListID = inGL.glGenLists(1);
         WavefrontObjectLoader_DisplayList tWaveFrontObjectModel = new WavefrontObjectLoader_DisplayList(inFileName);
+        tWaveFrontObjectModel.normalizeVertices();
         inGL.glNewList(tDisplayListID, GL_COMPILE);
         tWaveFrontObjectModel.drawModel(inGL);
         inGL.glEndList();
         return tDisplayListID;
+    }
+
+    private void normalizeVertices() {
+        final int N = 3;
+        float min = Float.MAX_VALUE;
+        float max = Float.MIN_VALUE;
+        for (float[] v : vData) {
+            for (int i = 0; i < N; i++) {
+                min = (v[i] < min) ? v[i] : min;
+                max = (v[i] > max) ? v[i] : max;
+            }
+        }
+
+        for (float[] v : vData) {
+            for (int i = 0; i < N; i++) {
+                v[i] = (v[i] - min) / (max - min);
+            }
+        }
     }
 
 }
