@@ -22,21 +22,51 @@ import static javax.media.opengl.GL2.*;
  */
 public class WavefrontObjectLoader_DisplayList {
 
-    public class Log {
+    public interface Log {
 
+        public void info(String msg);
+
+        public void fatalerror(String msg);
+
+        public void fatalerror(Exception e);
+    }
+
+    public class StandardLog implements Log {
+
+        @Override
         public void info(String msg) {
             System.out.println("INFO: " + msg);
         }
 
+        @Override
         public void fatalerror(String msg) {
             System.err.println("ERROR: " + msg);
         }
 
+        @Override
         public void fatalerror(Exception e) {
             fatalerror(e.toString());
         }
     }
-    private final Log log = new Log();
+
+    public class DummyLog implements Log {
+
+        @Override
+        public void info(String msg) {
+        }
+
+        @Override
+        public void fatalerror(String msg) {
+        }
+
+        @Override
+        public void fatalerror(Exception e) {
+        }
+
+    }
+
+    private final static boolean ENABLE_LOGGING = false;
+    private final Log log = ENABLE_LOGGING ? new StandardLog() : new DummyLog();
 
     private final String OBJModelPath;                                    //the path to the model file
     private final List<float[]> vData = new ArrayList<>();    //list of vertex coordinates
