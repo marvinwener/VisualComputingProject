@@ -25,7 +25,7 @@ public class Environment {
         this.glu = glu;
         this.glut = glut;
         v = new VehicleImpl(Vector.O, 0);
-        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/graphics/red_Car.obj");
+        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/bunny.obj", true);
     }
 
     public void draw(float time) {
@@ -47,8 +47,11 @@ public class Environment {
          glut.glutWireCube(0.5f);
          gl.glColor3f(0, 0, 0);
          glut.glutSolidCube(0.5f);*/
-        v.move();
+        //v.move();
         //v.draw(gl);        
+        gl.glPushMatrix();
+        gl.glTranslated(5, 0, 1);
         gl.glCallList(displayList);
+        gl.glPopMatrix();
     }
 }
