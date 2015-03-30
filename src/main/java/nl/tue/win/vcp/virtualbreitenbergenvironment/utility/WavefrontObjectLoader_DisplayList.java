@@ -65,6 +65,30 @@ public class WavefrontObjectLoader_DisplayList {
 
     }
 
+    public class MaterialTuple {
+
+        public int startIndex; // first face that uses the material
+        public String material; // name of the material
+
+        public MaterialTuple(int index, String line) {
+            this.startIndex = index;
+            String[] split = line.split(" ");
+            if (split.length > 1) {
+                this.material = split[1];
+            } else {
+                this.material = line;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "MaterialTuple{" + "startIndex=" + startIndex + ", material=" + material + '}';
+        }
+
+    }
+
+    private final List<MaterialTuple> materials = new ArrayList<>();
+
     private final static boolean ENABLE_LOGGING = false;
     private final Log log = ENABLE_LOGGING ? new StandardLog() : new DummyLog();
 
@@ -114,27 +138,33 @@ public class WavefrontObjectLoader_DisplayList {
                 //br = new BufferedReader(new InputStreamReader((new Object()).getClass().getResourceAsStream(ModelPath)));
                 br = new BufferedReader(new FileReader(ModelPath));
             }
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("#")) {         //read any descriptor data in the file
-                    // Zzzz ...
-                } else if (line.equals("")) {
-                    // Ignore whitespace data
-                } else if (line.startsWith("v ")) {  //read in vertex data
-                    vData.add(ProcessData(line));
-                } else if (line.startsWith("vt ")) { //read texture coordinates
-                    vtData.add(ProcessData(line));
-                } else if (line.startsWith("vn ")) { //read normal coordinates
-                    vnData.add(ProcessData(line));
-                } else if (line.startsWith("f ")) {  //read face data
-                    ProcessfData(line);
-                }
-            }
-            br.close();
+            LoadOBJModel(br);
             log.info("MODEL " + ModelPath + " SUCCESSFULLY LOADED!");
         } catch (IOException e) {
             log.fatalerror(e);
         }
+    }
+
+    private void LoadOBJModel(BufferedReader br) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (line.startsWith("#")) {         //read any descriptor data in the file
+                // Zzzz ...
+            } else if (line.equals("")) {
+                // Ignore whitespace data
+            } else if (line.startsWith("v ")) {  //read in vertex data
+                vData.add(ProcessData(line));
+            } else if (line.startsWith("vt ")) { //read texture coordinates
+                vtData.add(ProcessData(line));
+            } else if (line.startsWith("vn ")) { //read normal coordinates
+                vnData.add(ProcessData(line));
+            } else if (line.startsWith("f ")) {  //read face data
+                ProcessfData(line);
+            } else if (line.startsWith("usemtl ")) {
+                materials.add(new MaterialTuple(fv.size(), line));
+            }
+        }
+        br.close();
     }
 
     private float[] ProcessData(String read) {
