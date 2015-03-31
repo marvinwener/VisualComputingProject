@@ -1,15 +1,19 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.MTLParsing;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoader_DisplayList;
 
 /**
@@ -65,6 +69,12 @@ public class Environment implements Serializable {
         //v.move();
         //v.draw(gl);        
         gl.glPushMatrix();
+        try {
+            new MTLParsing().parse(
+                    "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/graphics/red_Car.mtl").get(0).activate(gl);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Environment.class.getName()).log(Level.SEVERE, null, ex);
+        }
         gl.glTranslated(5, 0, 1);
         gl.glCallList(displayList);
         gl.glPopMatrix();
