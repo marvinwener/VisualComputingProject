@@ -65,9 +65,9 @@ public class GLEventListenerImpl implements GLEventListener,
 
         // Enable anti-aliasing.
         gl.glEnable(GL_LINE_SMOOTH);
-        //gl.glEnable(GL_POLYGON_SMOOTH);
+        gl.glEnable(GL_POLYGON_SMOOTH);
         gl.glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-        //gl.glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+        gl.glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
         // Enable depth testing.
         gl.glEnable(GL_DEPTH_TEST);
@@ -78,11 +78,11 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
         // Enable lighting.
-        //gl.glEnable(GL_LIGHTING);
-        //gl.glEnable(GL_LIGHT0);
-        //gl.glEnable(GL_NORMALIZE);
-        //float[] ambient = {1f, 1f, 1f, 1f};
-        //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
+        gl.glEnable(GL_LIGHTING);
+        gl.glEnable(GL_LIGHT0);
+        gl.glEnable(GL_NORMALIZE);
+        float[] ambient = {1f, 1f, 1f, 1f};
+        gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
         //TODO: extend
     }
 
