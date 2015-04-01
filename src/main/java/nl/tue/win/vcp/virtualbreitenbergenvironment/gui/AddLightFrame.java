@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
-import java.awt.event.WindowAdapter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -10,7 +9,6 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  * @author maikel
  */
 public class AddLightFrame extends javax.swing.JFrame {
-
     private final Environment environment;
 
     /**
@@ -21,12 +19,6 @@ public class AddLightFrame extends javax.swing.JFrame {
     public AddLightFrame(Environment environment) {
         initComponents();
         this.environment = environment;
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                AddLightFrame.this.environment.clearPreview();
-            }
-        });
         update();
     }
 
@@ -45,7 +37,7 @@ public class AddLightFrame extends javax.swing.JFrame {
         zSpinner = new javax.swing.JSpinner();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Add to environment and close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -153,11 +145,11 @@ public class AddLightFrame extends javax.swing.JFrame {
                 (double) ySpinner.getValue(), (double) zSpinner.getValue());
         return new LightSource(position);
     }
-
+    
     private void addLight() {
         environment.addLight(getLight());
     }
-
+    
     private void previewLight() {
         environment.preview(getLight());
     }
