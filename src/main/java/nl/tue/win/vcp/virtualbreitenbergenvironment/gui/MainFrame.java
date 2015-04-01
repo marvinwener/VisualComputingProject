@@ -78,6 +78,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -111,6 +112,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItem2.setText("Add vehicle...");
         jMenu3.add(jMenuItem2);
+
+        jMenuItem7.setText("Add light...");
+        jMenu3.add(jMenuItem7);
 
         jMenuItem5.setText("Load");
         jMenu3.add(jMenuItem5);
@@ -195,6 +199,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
+        jMenuItem7.setAction(addLightAction);
     }
 
     private final Action saveAction = new AbstractAction("Save") {
@@ -269,6 +274,14 @@ public class MainFrame extends javax.swing.JFrame {
             new AddVehicleFrame(ec.getEnvironment()).setVisible(true);
         }
     };
+    
+    private final Action addLightAction = new AbstractAction("Add light") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new AddLightFrame(ec.getEnvironment()).setVisible(true);
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -286,6 +299,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

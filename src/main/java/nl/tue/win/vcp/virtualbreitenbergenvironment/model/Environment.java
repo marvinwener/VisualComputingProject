@@ -38,7 +38,6 @@ public class Environment implements Serializable {
         this.glut = glut;
         vs = new ArrayList<>();
         lights = new ArrayList<>();
-        lights.add(new LightSource(new Vector(0, 10, 0.5)));
     }
 
     public void draw() {
