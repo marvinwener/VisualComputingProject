@@ -36,7 +36,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
-    private final Vector cnt = new Vector(0, 0, 0);
+    private Vector cnt = new Vector(0, 0, 0);
     private int width;
     private int height;
     private float phi;
@@ -50,6 +50,7 @@ public class GLEventListenerImpl implements GLEventListener,
     private float vDist = 30;
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
+    static public float CENTER_POINT_CHANGE = 1f;
     private Environment environment;
     private double fovy = -1;
 
@@ -143,7 +144,7 @@ public class GLEventListenerImpl implements GLEventListener,
          * vertical field of view angle we are looking for is the top angle
          * fovy. By adding the altitude from this corner to the base of the
          * triangle, we obtain two right triangles, in which tan(a/2) =
-         * (vHeight / 2) / 2. Then fovy = arctan((vHeight / 2) / gs.vDist)
+         * (vHeight / 2) / 2. Then fovy = arctan((vHeight / 2) / vDist)
          */
         if (fovy == -1) {
             final float vDist = 10;
@@ -251,7 +252,41 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Move center point.
+            double phiQ = phi + Math.PI / 2.0;
+            
+            switch(ke.getKeyChar()) {
+                // Right.
+                case 'a':   cnt = cnt.minus(
+                                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                                        .scale(CENTER_POINT_CHANGE));
+                            break;
+                // Left.
+                case 'd':   cnt = cnt.plus(
+                                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                                        .scale(CENTER_POINT_CHANGE));
+                            break;
+                // Forwards.
+                case 'w':   cnt = cnt.minus(
+                                        new Vector(Math.cos(phi), Math.sin(phi), 0)
+                                        .scale(CENTER_POINT_CHANGE));
+                            break;
+                // Backwards.
+                case 's':   cnt = cnt.plus(
+                                        new Vector(Math.cos(phi), Math.sin(phi), 0)
+                                        .scale(CENTER_POINT_CHANGE));
+                            break;
+                // Up.
+                case 'q':   cnt = new Vector(cnt.x(),
+                                                cnt.y(),
+                                                cnt.z() + CENTER_POINT_CHANGE);
+                            break;
+                // Down.
+                case 'z':   cnt = new Vector(cnt.x(),
+                                                cnt.y(),
+                                                cnt.z() - CENTER_POINT_CHANGE);
+                            break;
+            }
     }
 
     @Override
