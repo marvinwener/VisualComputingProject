@@ -22,7 +22,7 @@ public class Environment implements Serializable {
     transient private GLUT glut;
     private final List<Vehicle> vs;
     private final List<LightSource> lights;
-    private Drawable preview = Drawable.nullInstance;
+    private Drawable preview = Drawable.NULL;
 
     public Environment() {
         this(GLSingleton.getGL());
@@ -189,7 +189,7 @@ public class Environment implements Serializable {
     }
     
     public void clearPreview() {
-        this.preview = Drawable.nullInstance;
+        this.preview = Drawable.NULL;
     }
 
     public void preview(Drawable preview) {

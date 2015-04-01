@@ -11,7 +11,7 @@ import javax.media.opengl.GL2;
  */
 public interface Drawable extends Serializable {
 
-    public static final Drawable nullInstance = new Drawable() {
+    public static final Drawable NULL = new Drawable() {
 
         @Override
         public void draw(GL2 gl) {
