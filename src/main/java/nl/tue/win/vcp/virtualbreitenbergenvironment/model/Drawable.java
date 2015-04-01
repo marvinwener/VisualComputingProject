@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import java.io.Serializable;
 import javax.media.opengl.GL2;
 
 /**
@@ -8,7 +9,7 @@ import javax.media.opengl.GL2;
  *
  * @author maikel
  */
-public interface Drawable {
+public interface Drawable extends Serializable {
 
     public static final Drawable nullInstance = new Drawable() {
 
