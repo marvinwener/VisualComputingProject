@@ -21,6 +21,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     public AddVehicleFrame(Environment environment) {
         initComponents();
         this.environment = environment;
+        update();
     }
 
     /**
@@ -45,6 +46,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +82,19 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jSlider1.setMaximum(359);
         jSlider1.setValue(0);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Preview");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,12 +117,15 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +155,9 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jCheckBox1))
                 .addContainerGap())
         );
 
@@ -149,18 +169,44 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void addVehicle() {
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        update();
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        update();
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void update() {
+        final boolean checked = this.jCheckBox1.isSelected();
+        if (checked) {
+            previewVehicle();
+        } else {
+            environment.clearPreview();
+        }
+    }
+    
+    private void addVehicle() {
+        Vehicle v = getVehicle();
+        environment.addVehicle(v);
+        environment.clearPreview();
+    }
+    
+    private void previewVehicle() {
+        environment.preview(getVehicle());
+    }
+
+    private Vehicle getVehicle() {
         final String vehicle = (String) jComboBox1.getSelectedItem();
         switch (vehicle) {
             case "Two-wheel":
-                addTwoWheelVehicle();
-                break;
+                return getTwoWheelVehicle();
             default:
                 throw new UnsupportedOperationException("Not supported yet.");
         }
     }
 
-    private void addTwoWheelVehicle() {
+    private Vehicle getTwoWheelVehicle() {
         Vector initialPosition = new Vector(0, 0, 0.5f); // TODO: make dynamic
         float initialAngle = (float) Math.toRadians(jSlider1.getValue());
         final String sensorType1 = (String) jComboBox2.getSelectedItem();
@@ -171,7 +217,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             getSensor(sensorType2, sensorLocations[1])};
         v.setSensors(sensors[jComboBox4.getSelectedIndex()],
                 sensors[jComboBox5.getSelectedIndex()]);
-        environment.addVehicle(v);
+        return v;
     }
 
     private Sensor getSensor(String sensorType, Vector sensorLocation) {
@@ -221,6 +267,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     private final Environment environment;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
