@@ -18,6 +18,7 @@ public class VehicleImpl extends Vehicle {
     private final static int INACTIVITY_THRESHOLD = 100;
     private final Sensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
     private final float EPS = 0.001f;
+    private final static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
@@ -80,7 +81,7 @@ public class VehicleImpl extends Vehicle {
             inactivityCounter = 0;
         }
 
-        if (inactivityCounter < INACTIVITY_THRESHOLD) {
+        if (inactivityCounter < INACTIVITY_THRESHOLD || !RANDOM) {
             updateLocation(leftWheel, rightWheel);
         } else {
             // revert to random behaviour
