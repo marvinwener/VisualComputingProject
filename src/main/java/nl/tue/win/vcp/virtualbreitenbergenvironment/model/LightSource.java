@@ -10,7 +10,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public class LightSource implements Drawable, Serializable {
+public class LightSource implements Drawable, Movable, Serializable {
 
     private Vector position;
 
@@ -36,6 +36,11 @@ public class LightSource implements Drawable, Serializable {
 
     public void setLocation(Vector location) {
         this.position = location;
+    }
+
+    @Override
+    public void move(float dX, float dY, float dZ) {
+        this.position = this.position.plus(new Vector(dX, dY, dZ));
     }
 
 }

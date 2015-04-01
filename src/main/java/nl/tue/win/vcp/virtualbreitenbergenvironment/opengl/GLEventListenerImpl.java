@@ -21,6 +21,7 @@ import javax.media.opengl.GLEventListener;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -32,7 +33,8 @@ public class GLEventListenerImpl implements GLEventListener,
         MouseListener,
         MouseWheelListener,
         KeyListener,
-        EnvironmentContainer {
+        EnvironmentContainer,
+        EnvironmentMover {
 
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
@@ -53,6 +55,7 @@ public class GLEventListenerImpl implements GLEventListener,
     static public float CENTER_POINT_CHANGE = 1f;
     private Environment environment;
     private double fovy = -1;
+    private Movable selected = Movable.NULL;
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -204,6 +207,10 @@ public class GLEventListenerImpl implements GLEventListener,
          Math.min(VWIDTH_MAX,
          this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
          }*/
+        // Change position of selected object when right mouse button is pressed.
+        else if (mouseButton == MouseEvent.BUTTON3) {
+            selected.move(dX, dY, 0); // TODO: improve
+        }
 
         dragSourceX = me.getX();
         dragSourceY = me.getY();
@@ -302,6 +309,11 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void setEnvironment(Environment e) {
         this.environment = e;
+    }
+    
+    @Override
+    public void select(Movable m) {
+        this.selected = m;
     }
 
 }

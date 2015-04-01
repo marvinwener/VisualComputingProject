@@ -16,8 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
  *
@@ -33,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
         initActions();
         GLEventListenerImpl listener = new GLEventListenerImpl();
         ec = listener;
+        em = listener;
         GLJPanel glPanel = (GLJPanel) jPanel1;
         glPanel.addGLEventListener(listener);
         glPanel.addMouseListener(listener);
@@ -287,6 +291,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
+    private final EnvironmentMover em;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
