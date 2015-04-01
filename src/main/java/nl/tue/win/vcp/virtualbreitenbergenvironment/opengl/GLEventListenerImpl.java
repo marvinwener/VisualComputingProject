@@ -93,7 +93,6 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void display(GLAutoDrawable drawable) {
-        System.out.println("phi=" + phi + ", theta=" + theta);
         final GL2 gl = drawable.getGL().getGL2();
         setView(drawable);
         drawScene(drawable);
