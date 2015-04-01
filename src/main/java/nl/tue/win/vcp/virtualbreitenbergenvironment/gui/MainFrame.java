@@ -227,7 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Serialization.write(environment, outputFile);
 
                 } catch (IOException ex) {
-                    fc.showDialog(MainFrame.this,
+                    JOptionPane.showMessageDialog(MainFrame.this,
                             "There was a problem when writing to the "
                             + "specified file.");
                 }
