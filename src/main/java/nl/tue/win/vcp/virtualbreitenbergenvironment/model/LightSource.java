@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.io.Serializable;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
@@ -9,7 +10,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public class LightSource implements Drawable {
+public class LightSource implements Drawable, Serializable {
 
     private Vector position;
 
