@@ -156,4 +156,8 @@ public class VehicleImpl extends Vehicle {
         this.position = this.position.plus(movement);
     }
 
+    @Override
+    public String toString() {
+        return "Two-wheel vehicle at" + position;
+    }
 }

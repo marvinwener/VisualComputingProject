@@ -18,7 +18,7 @@ public interface Movable {
 
         @Override
         public String toString() {
-            return "No selection.";
+            return "No selection";
         }
     };
 
