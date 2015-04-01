@@ -183,4 +183,8 @@ public class Environment implements Serializable {
     public List<LightSource> getLights() {
         return this.lights;
     }
+    
+    public boolean addLight(LightSource l) {
+        return this.lights.add(l);
+    }
 }
