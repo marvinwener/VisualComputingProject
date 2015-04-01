@@ -40,14 +40,14 @@ public class GLEventListenerImpl implements GLEventListener,
     private int width;
     private int height;
     private float phi;
-    private float theta;
+    private float theta = 0.4f;
     private int dragSourceX, dragSourceY;
     private int mouseButton;
     public static float DRAG_PIXEL_TO_RADIAN = 0.025f;
     final static private float EPS = 0.001f;
     static public float THETA_MIN = (-(float) Math.PI / 2f) + EPS;
     static public float THETA_MAX = ((float) Math.PI / 2f) - EPS;
-    private float vDist = 10;
+    private float vDist = 30;
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     private Environment environment;
@@ -89,7 +89,6 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void display(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
-
         setView(drawable);
         drawScene(drawable);
         reportErrors(gl);
@@ -147,6 +146,7 @@ public class GLEventListenerImpl implements GLEventListener,
          * (vHeight / 2) / 2. Then fovy = arctan((vHeight / 2) / gs.vDist)
          */
         if (fovy == -1) {
+            final float vDist = 10;
             fovy = 2 * atan2(vHeight / 2, vDist);
         }
 
