@@ -37,7 +37,7 @@ public class AddLightFrame extends javax.swing.JFrame {
         zSpinner = new javax.swing.JSpinner();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Add to environment and close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +148,7 @@ public class AddLightFrame extends javax.swing.JFrame {
     
     private void addLight() {
         environment.addLight(getLight());
+        environment.clearPreview();
     }
     
     private void previewLight() {

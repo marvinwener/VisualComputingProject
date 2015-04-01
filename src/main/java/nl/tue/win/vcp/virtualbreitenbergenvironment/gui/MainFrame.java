@@ -18,12 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
  *

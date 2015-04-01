@@ -48,7 +48,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "car" }));
 
