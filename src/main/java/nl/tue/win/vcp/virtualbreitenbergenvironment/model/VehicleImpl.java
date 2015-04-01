@@ -72,8 +72,8 @@ public class VehicleImpl extends Vehicle {
     @Override
     public void move() {
         // Determine how much the wheels turn
-        final float leftWheel = slots[0].getValue(position, this.getDirection());
-        final float rightWheel = slots[1].getValue(position, this.getDirection());
+        final float leftWheel = slots[0].getValue(position, angle);
+        final float rightWheel = slots[1].getValue(position, angle);
 
         if (leftWheel < EPS && rightWheel < EPS) {
             inactivityCounter++;
@@ -85,8 +85,8 @@ public class VehicleImpl extends Vehicle {
             updateLocation(leftWheel, rightWheel);
         } else {
             // revert to random behaviour
-            final float leftWheelR = randomSlots[0].getValue(position, this.getDirection());
-            final float rightWheelR = randomSlots[1].getValue(position, this.getDirection());
+            final float leftWheelR = randomSlots[0].getValue(position, angle);
+            final float rightWheelR = randomSlots[1].getValue(position, angle);
             updateLocation(leftWheelR, rightWheelR);
         }
     }

@@ -13,7 +13,7 @@ public abstract class Vehicle implements Drawable, Serializable {
     protected Vector position;
     protected float angle;
     protected Sensor[] slots;
-    protected Vector initialDirection = Vector.Y;
+    protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
 
     /**
@@ -37,8 +37,12 @@ public abstract class Vehicle implements Drawable, Serializable {
      * @return unit vector in the direction
      */
     public Vector getDirection() {
-        assert initialDirection.length() == 1;
-        return Vector.rotate(initialDirection, Vector.O, angle);
+        return getDirection(angle);
+    }
+    
+    public static Vector getDirection(float angle) {
+        assert INITIAL_DIRECTION.length() == 1;
+        return Vector.rotate(INITIAL_DIRECTION, Vector.O, angle);
     }
 
     /**

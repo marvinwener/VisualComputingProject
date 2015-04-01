@@ -19,5 +19,5 @@ public abstract class Sensor implements Drawable, Serializable {
      * @param direction direction vector the sensor points in
      * @return the value the sensor provides
      */
-    public abstract float getValue(Vector location, Vector direction);
+    public abstract float getValue(Vector location, float angle);
 }

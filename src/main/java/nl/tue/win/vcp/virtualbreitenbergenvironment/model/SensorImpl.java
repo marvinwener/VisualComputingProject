@@ -21,7 +21,7 @@ public class SensorImpl extends Sensor {
     }
 
     @Override
-    public float getValue(Vector location, Vector direction) {
+    public float getValue(Vector location, float angle) {
         return val;
     }
 

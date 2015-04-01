@@ -13,7 +13,7 @@ public class DummySensor extends Sensor {
     final static public Sensor instance = new DummySensor();
 
     @Override
-    public float getValue(Vector location, Vector direction) {
+    public float getValue(Vector location, float angle) {
         return 0;
     }
 

@@ -18,7 +18,7 @@ public class RandomSensor extends Sensor {
     private float value = 0; // the value
 
     @Override
-    public float getValue(Vector location, Vector direction) {
+    public float getValue(Vector location, float angle) {
         float change = (generator.nextFloat() - 0.45f) * SCALE * 2;
         value += change;
         if (value > MAX) value = MAX;
