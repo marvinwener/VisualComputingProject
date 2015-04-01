@@ -151,4 +151,9 @@ public class VehicleImpl extends Vehicle {
         return new Vector[]{wheelVector, wheelVector.scale(-1)};
     }
 
+    @Override
+    public void move(Vector movement) {
+        this.position = this.position.plus(movement);
+    }
+
 }

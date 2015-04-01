@@ -199,7 +199,7 @@ public class Environment implements Serializable {
     public Movable[] getMovables() {
         final List<Movable> result = new ArrayList<>();
         result.add(Movable.NULL); // in case of no selection
-        // result.addAll(vs); // TODO: add manual movement for vehicles
+        result.addAll(vs); // TODO: add manual movement for vehicles
         result.addAll(lights);
         return result.toArray(new Movable[0]);
     }

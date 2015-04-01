@@ -8,7 +8,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public abstract class Vehicle implements Drawable, Serializable {
+public abstract class Vehicle implements Drawable, Movable, Serializable {
 
     protected Vector position;
     protected float angle;
@@ -78,5 +78,10 @@ public abstract class Vehicle implements Drawable, Serializable {
      */
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle at" + position;
     }
 }
