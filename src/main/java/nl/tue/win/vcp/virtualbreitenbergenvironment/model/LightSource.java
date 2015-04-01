@@ -39,8 +39,8 @@ public class LightSource implements Drawable, Movable, Serializable {
     }
 
     @Override
-    public void move(float dX, float dY, float dZ) {
-        this.position = this.position.plus(new Vector(dX, dY, dZ));
+    public void move(Vector movement) {
+        this.position = this.position.plus(movement);
     }
 
 }

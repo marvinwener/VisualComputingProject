@@ -53,6 +53,7 @@ public class GLEventListenerImpl implements GLEventListener,
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     static public float CENTER_POINT_CHANGE = 1f;
+    static public float MOVEMENT_FACTOR = 0.2f;
     private Environment environment;
     private double fovy = -1;
     private Movable selected = Movable.NULL;
@@ -92,6 +93,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void display(GLAutoDrawable drawable) {
+        System.out.println("phi=" + phi + ", theta=" + theta);
         final GL2 gl = drawable.getGL().getGL2();
         setView(drawable);
         drawScene(drawable);
@@ -209,7 +211,7 @@ public class GLEventListenerImpl implements GLEventListener,
          }*/
         // Change position of selected object when right mouse button is pressed.
         else if (mouseButton == MouseEvent.BUTTON3) {
-            selected.move(dX, dY, 0); // TODO: improve
+            selected.move(Vector.rotate(new Vector(dY, dX, 0), Vector.O, phi).scale(MOVEMENT_FACTOR));
         }
 
         dragSourceX = me.getX();
