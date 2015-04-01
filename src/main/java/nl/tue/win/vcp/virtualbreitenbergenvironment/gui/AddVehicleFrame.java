@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
+import java.awt.event.WindowAdapter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Sensor;
@@ -21,6 +22,12 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     public AddVehicleFrame(Environment environment) {
         initComponents();
         this.environment = environment;
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                AddVehicleFrame.this.environment.clearPreview();
+            }
+        });
         update();
     }
 
@@ -48,7 +55,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         jCheckBox1 = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "car" }));
 
@@ -185,13 +192,13 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             environment.clearPreview();
         }
     }
-    
+
     private void addVehicle() {
         Vehicle v = getVehicle();
         environment.addVehicle(v);
         environment.clearPreview();
     }
-    
+
     private void previewVehicle() {
         environment.preview(getVehicle());
     }
