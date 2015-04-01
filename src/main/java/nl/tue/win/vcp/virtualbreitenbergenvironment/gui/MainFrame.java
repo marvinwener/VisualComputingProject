@@ -6,17 +6,20 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
@@ -32,11 +35,11 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
-        initComponents();
-        initActions();
         GLEventListenerImpl listener = new GLEventListenerImpl();
         ec = listener;
         em = listener;
+        initComponents();
+        initActions();
         GLJPanel glPanel = (GLJPanel) jPanel1;
         glPanel.addGLEventListener(listener);
         glPanel.addMouseListener(listener);
@@ -78,6 +81,7 @@ public class MainFrame extends javax.swing.JFrame {
         GLProfile glprofile = GLProfile.getDefault();
         GLCapabilities glcapabilities = new GLCapabilities(glprofile);
         jPanel1 = new GLJPanel(glcapabilities);
+        jComboBox1 = new javax.swing.JComboBox();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -108,6 +112,18 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 807, Short.MAX_VALUE)
         );
+
+        jComboBox1.setModel(comboBox1Model);
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseEntered(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("File");
 
@@ -149,19 +165,44 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 152, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
+        updateComboBox();
+    }//GEN-LAST:event_jComboBox1MouseEntered
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        em.select((Movable) jComboBox1.getSelectedItem());
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void updateComboBox() {
+        final Movable[] movables = ec.getEnvironment().getMovables();
+        Movable selected = (Movable) comboBox1Model.getSelectedItem();
+        comboBox1Model.removeAllElements();
+        for (Object movable : movables) {
+            comboBox1Model.addElement(movable);
+        }
+        if (Arrays.asList(movables).contains(selected)) comboBox1Model.setSelectedItem(selected);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -297,7 +338,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
     private final EnvironmentMover em;
+    private final DefaultComboBoxModel comboBox1Model = new DefaultComboBoxModel<>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
