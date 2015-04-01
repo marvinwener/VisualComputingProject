@@ -202,7 +202,7 @@ public class GLEventListenerImpl implements GLEventListener,
                     Math.min(THETA_MAX,
                             this.theta + dY * DRAG_PIXEL_TO_RADIAN));
         }
-            // Change vWidth when right button is pressed.
+        // Change vWidth when right button is pressed.
             /*else if(mouseButton == MouseEvent.BUTTON3) {
          this.vWidth = Math.max(VWIDTH_MIN,
          Math.min(VWIDTH_MAX,
@@ -261,40 +261,46 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void keyPressed(KeyEvent ke) {
         // Move center point.
-            double phiQ = phi + Math.PI / 2.0;
-            
-            switch(ke.getKeyChar()) {
-                // Right.
-                case 'a':   cnt = cnt.minus(
-                                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
-                                        .scale(CENTER_POINT_CHANGE));
-                            break;
-                // Left.
-                case 'd':   cnt = cnt.plus(
-                                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
-                                        .scale(CENTER_POINT_CHANGE));
-                            break;
-                // Forwards.
-                case 'w':   cnt = cnt.minus(
-                                        new Vector(Math.cos(phi), Math.sin(phi), 0)
-                                        .scale(CENTER_POINT_CHANGE));
-                            break;
-                // Backwards.
-                case 's':   cnt = cnt.plus(
-                                        new Vector(Math.cos(phi), Math.sin(phi), 0)
-                                        .scale(CENTER_POINT_CHANGE));
-                            break;
-                // Up.
-                case 'q':   cnt = new Vector(cnt.x(),
-                                                cnt.y(),
-                                                cnt.z() + CENTER_POINT_CHANGE);
-                            break;
-                // Down.
-                case 'z':   cnt = new Vector(cnt.x(),
-                                                cnt.y(),
-                                                cnt.z() - CENTER_POINT_CHANGE);
-                            break;
-            }
+        double phiQ = phi + Math.PI / 2.0;
+
+        switch (ke.getKeyChar()) {
+            // Right.
+            case 'a':
+                cnt = cnt.minus(
+                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                        .scale(CENTER_POINT_CHANGE));
+                break;
+            // Left.
+            case 'd':
+                cnt = cnt.plus(
+                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                        .scale(CENTER_POINT_CHANGE));
+                break;
+            // Forwards.
+            case 'w':
+                cnt = cnt.minus(
+                        new Vector(Math.cos(phi), Math.sin(phi), 0)
+                        .scale(CENTER_POINT_CHANGE));
+                break;
+            // Backwards.
+            case 's':
+                cnt = cnt.plus(
+                        new Vector(Math.cos(phi), Math.sin(phi), 0)
+                        .scale(CENTER_POINT_CHANGE));
+                break;
+            // Up.
+            case 'q':
+                cnt = new Vector(cnt.x(),
+                        cnt.y(),
+                        cnt.z() + CENTER_POINT_CHANGE);
+                break;
+            // Down.
+            case 'z':
+                cnt = new Vector(cnt.x(),
+                        cnt.y(),
+                        cnt.z() - CENTER_POINT_CHANGE);
+                break;
+        }
     }
 
     @Override
