@@ -10,7 +10,6 @@ import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
  *
@@ -23,6 +22,7 @@ public class Environment implements Serializable {
     transient private GLUT glut;
     private final List<Vehicle> vs;
     private final List<LightSource> lights;
+    private Drawable preview = Drawable.nullInstance;
 
     public Environment() {
         this(GLSingleton.getGL());
@@ -67,6 +67,7 @@ public class Environment implements Serializable {
         for (LightSource l : lights) {
             l.draw(gl);
         }
+        preview.draw(gl);
     }
 
     private void drawFloorAndWalls() {
@@ -185,5 +186,13 @@ public class Environment implements Serializable {
     
     public boolean addLight(LightSource l) {
         return this.lights.add(l);
+    }
+    
+    public void clearPreview() {
+        this.preview = Drawable.nullInstance;
+    }
+
+    public void preview(Drawable preview) {
+        this.preview = preview;
     }
 }

@@ -33,9 +33,11 @@
                       <Component id="ySpinner" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="zSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="170" max="32767" attributes="0"/>
+              <EmptySpace pref="108" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,6 +49,7 @@
                   <Component id="xSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ySpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="zSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -70,6 +73,9 @@
           <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="xSpinnerStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="ySpinner">
       <Properties>
@@ -77,6 +83,9 @@
           <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="ySpinnerStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="zSpinner">
       <Properties>
@@ -84,6 +93,18 @@
           <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="1.0" type="number"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="zSpinnerStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Preview"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

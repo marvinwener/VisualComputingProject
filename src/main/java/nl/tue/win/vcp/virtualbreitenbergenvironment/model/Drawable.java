@@ -9,9 +9,17 @@ import javax.media.opengl.GL2;
  * @author maikel
  */
 public interface Drawable {
+
+    public static final Drawable nullInstance = new Drawable() {
+
+        @Override
+        public void draw(GL2 gl) {
+        }
+    };
+
     /**
      * Draw the object. To be implemented by subclass.
-     * 
+     *
      * @param gl the gl object to draw on
      */
     public abstract void draw(GL2 gl);
