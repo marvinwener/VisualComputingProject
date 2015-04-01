@@ -14,6 +14,7 @@ public abstract class Vehicle implements Drawable, Serializable {
     protected float angle;
     protected Sensor[] slots;
     protected Vector initialDirection = Vector.Y;
+    protected Environment environment;
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.
@@ -64,5 +65,14 @@ public abstract class Vehicle implements Drawable, Serializable {
             throw new IllegalArgumentException("Incorrect number of sensors");
         }
         this.slots = sensors;
+    }
+
+    /**
+     * Sets the environment this vehicle is part of.
+     *
+     * @param environment the environment
+     */
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }

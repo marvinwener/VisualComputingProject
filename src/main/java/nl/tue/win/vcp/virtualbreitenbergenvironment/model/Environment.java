@@ -4,7 +4,6 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
@@ -23,11 +22,12 @@ public class Environment implements Serializable {
     transient private GLU glu;
     transient private GLUT glut;
     private final List<Vehicle> vs;
-    
+    private final List<LightSource> lights;
+
     public Environment() {
         this(GLSingleton.getGL());
     }
-    
+
     public Environment(GL2 gl) {
         this(gl, new GLU(), new GLUT());
     }
@@ -37,6 +37,8 @@ public class Environment implements Serializable {
         this.glu = glu;
         this.glut = glut;
         vs = new ArrayList<>();
+        lights = new ArrayList<>();
+        lights.add(new LightSource(new Vector(0, 10, 0.5)));
     }
 
     public void draw() {
@@ -62,6 +64,9 @@ public class Environment implements Serializable {
         for (Vehicle v : vs) {
             v.move();
             v.draw(gl);
+        }
+        for (LightSource l : lights) {
+            l.draw(gl);
         }
     }
 
@@ -163,6 +168,7 @@ public class Environment implements Serializable {
     }
 
     public boolean addVehicle(Vehicle v) {
+        v.setEnvironment(this);
         return this.vs.add(v);
     }
 
@@ -172,5 +178,9 @@ public class Environment implements Serializable {
         this.gl = GLSingleton.getGL();
         this.glu = new GLU();
         this.glut = new GLUT();
+    }
+
+    public List<LightSource> getLights() {
+        return this.lights;
     }
 }

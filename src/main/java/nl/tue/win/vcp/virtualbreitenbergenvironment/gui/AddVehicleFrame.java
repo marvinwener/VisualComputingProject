@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
-import java.awt.event.WindowEvent;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Sensor;
@@ -178,7 +177,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     private Sensor getSensor(String sensorType, Vector sensorLocation) {
         switch (sensorType) {
             case "Light":
-                return new LightSensor(sensorLocation);
+                return new LightSensor(sensorLocation, environment.getLights());
             default:
                 throw new UnsupportedOperationException("Not supported yet.");
         }
