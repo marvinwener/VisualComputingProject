@@ -30,4 +30,8 @@ public class RandomSensor extends Sensor {
     public void draw(GL2 gl) {
     }
 
+    public void reset() {
+        this.value = 0;
+    }
+
 }
