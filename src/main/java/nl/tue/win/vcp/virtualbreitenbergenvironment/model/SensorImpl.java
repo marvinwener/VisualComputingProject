@@ -12,11 +12,11 @@ public class SensorImpl extends Sensor {
 
     final float val;
 
-    SensorImpl() {
+    public SensorImpl() {
         this.val = 1;
     }
 
-    SensorImpl(float val) {
+    public SensorImpl(float val) {
         this.val = val;
     }
 
