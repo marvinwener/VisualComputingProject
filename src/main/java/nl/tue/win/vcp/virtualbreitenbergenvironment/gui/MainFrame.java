@@ -227,6 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Serialization.write(environment, outputFile);
 
                 } catch (IOException ex) {
+                    System.err.println("While writing: " + ex);
                     JOptionPane.showMessageDialog(MainFrame.this,
                             "There was a problem when writing to the "
                             + "specified file.");
@@ -251,6 +252,7 @@ public class MainFrame extends javax.swing.JFrame {
                 try {
                     ec.setEnvironment((Environment) Serialization.read(selectedFile));
                 } catch (IOException | ClassNotFoundException ex) {
+                    System.err.println("While reading: " + ex);
                     JOptionPane.showMessageDialog(MainFrame.this,
                             "The selected file could not be read.");
                 }
