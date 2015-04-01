@@ -326,12 +326,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            //new AddLightFrame(ec.getEnvironment()).setVisible(true);
-            
-        // TODO: remove
-        LightSource l = new LightSource(Vector.O);
-        ec.getEnvironment().addLight(l);
-        em.select(l);
+            new AddLightFrame(ec.getEnvironment()).setVisible(true);
         }
     };
 
