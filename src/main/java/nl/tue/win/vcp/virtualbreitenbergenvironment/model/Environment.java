@@ -43,10 +43,32 @@ public class Environment implements Serializable {
         this.glu = glu;
         this.glut = glut;
         vs = new ArrayList<>();
-        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/bunny.obj", true);
+        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/bunny2.obj", true);
+    }
+    
+    /**
+     * Parses an array and sets the given parameters for the ambient, diffuse,
+     * specular and shininess values of the material.
+     *
+     * @param material An array with 13 floats where the first 4 values
+     * represents the ambient, the next 4 the diffuse factor, the next 4 the
+     * specular factor, and the last the shininess value of the material.
+     */
+    private void setMaterial(float[] material) {
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, material, 0);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material, 4);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, material, 8);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, material, 12);
     }
 
     public void draw() {
+        /*final float[] silver = {
+            0.19225f, 0.19225f, 0.19225f, 1.0f, //ambient
+            0.50754f, 0.50754f, 0.50754f, 1.0f, //diffuse
+            0.508273f, 0.508273f, 0.508273f, 1.0f, //specular 
+            51.2f //shininess
+        };
+        setMaterial(silver);*/
         drawFloorAndWalls();
         //TODO: extend
         gl.glColor3f(1, 0, 0);

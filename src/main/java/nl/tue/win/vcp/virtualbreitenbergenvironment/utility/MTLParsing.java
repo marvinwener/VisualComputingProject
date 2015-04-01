@@ -46,11 +46,28 @@ public class MTLParsing {
         }
 
         public void activate(GL2 gl) {
-            gl.glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient, 0);
-            gl.glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse, 0);
-            gl.glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular, 0);
-            gl.glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+            setMaterial(gl, new float[] {
+                ambient[0], ambient[1], ambient[2], 1.0f, //ambient
+            diffuse[0], diffuse[1], diffuse[2], 1.0f, //diffuse
+            specular[0], specular[1], specular[2], 1.0f, //specular 
+            shininess //shininess
+            });
         }
+        
+        /**
+     * Parses an array and sets the given parameters for the ambient, diffuse,
+     * specular and shininess values of the material.
+     *
+     * @param material An array with 13 floats where the first 4 values
+     * represents the ambient, the next 4 the diffuse factor, the next 4 the
+     * specular factor, and the last the shininess value of the material.
+     */
+    private void setMaterial(GL2 gl, float[] material) {
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, material, 0);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material, 4);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, material, 8);
+        gl.glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, material, 12);
+    }
 
     }
 
