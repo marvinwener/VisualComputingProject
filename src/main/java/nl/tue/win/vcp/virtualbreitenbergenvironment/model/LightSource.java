@@ -43,4 +43,8 @@ public class LightSource implements Drawable, Movable, Serializable {
         this.position = this.position.plus(movement);
     }
 
+    @Override
+    public String toString() {
+        return "Light Source at " + position;
+    }
 }

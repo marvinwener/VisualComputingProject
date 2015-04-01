@@ -250,6 +250,6 @@ public class Vector implements Serializable {
 
     @Override
     public String toString() {
-        return "Vector{" + "coordinates=" + Arrays.toString(coordinates) + '}';
+        return Arrays.toString(coordinates);
     }
 }

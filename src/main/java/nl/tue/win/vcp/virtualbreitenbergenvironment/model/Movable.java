@@ -15,6 +15,11 @@ public interface Movable {
         @Override
         public void move(Vector movement) {
         }
+
+        @Override
+        public String toString() {
+            return "No selection.";
+        }
     };
 
     public void move(Vector movement);
