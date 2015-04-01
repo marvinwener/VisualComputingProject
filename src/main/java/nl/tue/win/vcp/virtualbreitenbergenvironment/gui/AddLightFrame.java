@@ -19,7 +19,7 @@ public class AddLightFrame extends javax.swing.JFrame {
     public AddLightFrame(Environment environment) {
         initComponents();
         this.environment = environment;
-        previewLight();
+        update();
     }
 
     /**
