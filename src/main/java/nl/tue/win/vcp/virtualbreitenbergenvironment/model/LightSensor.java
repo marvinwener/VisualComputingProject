@@ -33,7 +33,7 @@ public class LightSensor extends Sensor {
         return result;
     }
 
-    public float getValue(Vector location, Vector direction, Vector lightPosition, float angle) {
+    private final float getValue(Vector location, Vector direction, Vector lightPosition, float angle) {
         // take the direction from the sensor to the light
         // the dot product between these gives an indication of the extent to
         // which these point in the same direction
@@ -43,19 +43,24 @@ public class LightSensor extends Sensor {
         final Vector sensorAbsolute = location.plus(Vector.rotate(sensorPosition, Vector.O, angle));
         final Vector sensorDirection = lightPosition.minus(sensorAbsolute);
         final double dot = Vector.dot(sensorDirection.normalized(), direction.normalized());
-        return (dot > THRESHOLD) ? (float) dot * SCALE : 0;
+        final double val = valueFor(dot);
+        return (val > THRESHOLD) ? (float) val * SCALE : 0;
+    }
+
+    protected double valueFor(double dot) {
+        return dot;
     }
 
     @Override
     public void draw(GL2 gl) {
         /*gl.glPushMatrix();
-        gl.glPushAttrib(GL2.GL_CURRENT_BIT);
-        gl.glTranslated(sensorAbsolute.x(), sensorAbsolute.y(), sensorAbsolute.z());
-        GLUT glut = new GLUT();
-        gl.glColor3f(1, 0, 0);
-        glut.glutSolidSphere(0.1f, 10, 10);
-        gl.glPopAttrib();
-        gl.glPopMatrix();*/
+         gl.glPushAttrib(GL2.GL_CURRENT_BIT);
+         gl.glTranslated(sensorAbsolute.x(), sensorAbsolute.y(), sensorAbsolute.z());
+         GLUT glut = new GLUT();
+         gl.glColor3f(1, 0, 0);
+         glut.glutSolidSphere(0.1f, 10, 10);
+         gl.glPopAttrib();
+         gl.glPopMatrix();*/
     }
 
 }
