@@ -1,5 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.opengl;
 
+import com.jogamp.common.nio.Buffers;
+import static com.jogamp.common.nio.Buffers.newDirectIntBuffer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import com.jogamp.opengl.util.gl2.GLUT;
 import java.awt.event.KeyEvent;
@@ -13,10 +15,13 @@ import static java.lang.Math.atan2;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.toDegrees;
+import java.nio.IntBuffer;
 import javax.media.opengl.GL;
+import static javax.media.opengl.GL.GL_VIEWPORT;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLContext;
 import javax.media.opengl.GLEventListener;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
@@ -58,6 +63,8 @@ public class GLEventListenerImpl implements GLEventListener,
     private Environment environment;
     private double fovy = -1;
     private Movable selected = Movable.NULL;
+    private int clickX = -1;
+    private int clickY = -1;
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -187,6 +194,11 @@ public class GLEventListenerImpl implements GLEventListener,
 
         // Clear depth buffer.
         gl.glClear(GL_DEPTH_BUFFER_BIT);
+        
+        if (clickX != -1 || clickY != -1) {
+            handleMouseClick(gl, clickX, clickY);
+            clickX = clickY = -1;
+        }
 
         environment.draw();
         if (selected.getPosition() != null) {
@@ -227,7 +239,8 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.clickX = me.getX();
+        this.clickY = me.getY();
     }
 
     @Override
@@ -325,6 +338,46 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void select(Movable m) {
         this.selected = m;
+    }
+    
+    private void handleMouseClick(GL2 gl, int x, int y) {
+        y = height - y;
+        int buffsize = 64;
+        IntBuffer buff = newDirectIntBuffer(buffsize);//IntBuffer.allocate(buffsize);
+        gl.glSelectBuffer(buffsize, buff);
+        IntBuffer view = newDirectIntBuffer(4);//IntBuffer.allocate(4);
+        gl.glGetIntegerv(GL_VIEWPORT, view);
+        gl.glRenderMode(GL_SELECT);
+        gl.glInitNames();
+        gl.glPushName(0);
+        gl.glMatrixMode(GL_PROJECTION);
+
+        gl.glPushMatrix();
+        gl.glLoadIdentity();
+        glu.gluPickMatrix(x, y, 1.0, 1.0, view);
+        final float vWidth = 10;
+        float h = vWidth / ((float)width / height);
+        gl.glOrtho(-0.5 * vWidth, 0.5 * vWidth, -0.5 * h, 0.5 * h, 0.1, 1000);
+        gl.glMatrixMode(GL_MODELVIEW);
+        gl.glPushMatrix();
+        environment.draw();
+        gl.glPopMatrix();
+        gl.glMatrixMode(GL_PROJECTION);
+        gl.glPopMatrix();
+
+        int hits = gl.glRenderMode(GL_RENDER);
+        int clickcode = 0;
+
+        //get last element (N.B. usually i=3 is the actual correct value)
+        for (int i = buffsize - 1; i >= 0; i--) {
+            if (buff.get(i) != 0) {
+                clickcode = buff.get(i);
+                break;
+            }
+        }
+        System.out.println("Click: " + clickcode);
+
+        gl.glMatrixMode(GL_MODELVIEW);
     }
 
 }
