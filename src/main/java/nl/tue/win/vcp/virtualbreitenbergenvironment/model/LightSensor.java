@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
-import com.jogamp.opengl.util.gl2.GLUT;
 import java.util.List;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -12,8 +11,10 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  */
 public class LightSensor extends Sensor {
 
-    private final Vector sensorPosition; // relative sensor position
-    private final List<LightSource> lights;
+    protected final Vector sensorPosition; // relative sensor position
+    protected final List<LightSource> lights;
+    protected static final double THRESHOLD = 0.8;
+    protected static final float SCALE = 0.1f;
 
     public LightSensor(Vector position, List<LightSource> lights) {
         this.sensorPosition = position;
@@ -41,8 +42,8 @@ public class LightSensor extends Sensor {
         // we may need to use a lower bound
         final Vector sensorAbsolute = location.plus(Vector.rotate(sensorPosition, Vector.O, angle));
         final Vector sensorDirection = lightPosition.minus(sensorAbsolute);
-        double dot = Vector.dot(sensorDirection.normalized(), direction.normalized());
-        return (dot > 0.8) ? (float) dot * 0.1f : 0;
+        final double dot = Vector.dot(sensorDirection.normalized(), direction.normalized());
+        return (dot > THRESHOLD) ? (float) dot * SCALE : 0;
     }
 
     @Override
