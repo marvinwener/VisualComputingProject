@@ -20,7 +20,13 @@ public interface Movable {
         public String toString() {
             return "No selection";
         }
+
+        @Override
+        public Vector getPosition() {
+            return null;
+        }
     };
 
     public void move(Vector movement);
+    public Vector getPosition();
 }

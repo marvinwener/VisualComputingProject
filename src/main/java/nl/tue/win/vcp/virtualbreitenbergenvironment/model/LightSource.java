@@ -30,6 +30,7 @@ public class LightSource implements Drawable, Movable, Serializable {
         gl.glPopMatrix();
     }
 
+    @Override
     public Vector getPosition() {
         return position;
     }

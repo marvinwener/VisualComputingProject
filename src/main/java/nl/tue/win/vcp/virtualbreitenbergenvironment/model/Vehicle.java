@@ -40,6 +40,11 @@ public abstract class Vehicle implements Drawable, Movable, Serializable {
         return getDirection(angle);
     }
     
+    @Override
+    public Vector getPosition() {
+        return position;
+    }
+    
     public static Vector getDirection(float angle) {
         assert INITIAL_DIRECTION.length() == 1;
         return Vector.rotate(INITIAL_DIRECTION, Vector.O, angle);

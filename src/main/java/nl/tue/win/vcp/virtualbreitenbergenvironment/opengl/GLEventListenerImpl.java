@@ -22,6 +22,7 @@ import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.SelectionArrow;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -188,6 +189,9 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
         environment.draw();
+        if (selected.getPosition() != null) {
+            new SelectionArrow(selected.getPosition()).draw(gl);
+        }
     }
 
     @Override
@@ -203,7 +207,7 @@ public class GLEventListenerImpl implements GLEventListener,
                             this.theta + dY * DRAG_PIXEL_TO_RADIAN));
         }
         // Change vWidth when right button is pressed.
-            /*else if(mouseButton == MouseEvent.BUTTON3) {
+        /*else if(mouseButton == MouseEvent.BUTTON3) {
          this.vWidth = Math.max(VWIDTH_MIN,
          Math.min(VWIDTH_MAX,
          this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
@@ -317,7 +321,7 @@ public class GLEventListenerImpl implements GLEventListener,
     public void setEnvironment(Environment e) {
         this.environment = e;
     }
-    
+
     @Override
     public void select(Movable m) {
         this.selected = m;
