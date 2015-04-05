@@ -7,7 +7,7 @@ import javax.media.opengl.GL2;
  *
  * @author maikel
  */
-class Preview implements Drawable {
+public class Preview implements Drawable {
 
     private final Drawable object;
     private final static double PERIOD = 1;
