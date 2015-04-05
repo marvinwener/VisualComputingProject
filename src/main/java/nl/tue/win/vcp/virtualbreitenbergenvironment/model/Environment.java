@@ -192,8 +192,8 @@ public class Environment implements Serializable {
         this.preview = Drawable.NULL;
     }
 
-    public void preview(Drawable preview) {
-        this.preview = preview;
+    public void preview(Drawable object) {
+        this.preview = new Preview(object);
     }
     
     public Movable[] getMovables() {
