@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.opengl;
 
-import com.jogamp.common.nio.Buffers;
 import static com.jogamp.common.nio.Buffers.newDirectIntBuffer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import com.jogamp.opengl.util.gl2.GLUT;
@@ -17,11 +16,9 @@ import static java.lang.Math.sin;
 import static java.lang.Math.toDegrees;
 import java.nio.IntBuffer;
 import javax.media.opengl.GL;
-import static javax.media.opengl.GL.GL_VIEWPORT;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLContext;
 import javax.media.opengl.GLEventListener;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
@@ -65,6 +62,8 @@ public class GLEventListenerImpl implements GLEventListener,
     private Movable selected = Movable.NULL;
     private int clickX = -1;
     private int clickY = -1;
+    private final static int CLICK_BUFFER_SIZE
+            = 64; // upper bound for number of objects // TODO: make dynamic
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -137,6 +136,22 @@ public class GLEventListenerImpl implements GLEventListener,
      */
     public void setView(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
+
+        // Select part of window.
+        gl.glViewport(0, 0, this.width, this.height);
+
+        // Set projection matrix.
+        gl.glMatrixMode(GL_PROJECTION);
+        gl.glLoadIdentity();
+        // Use perspective projection.
+        setPerspectiveProjection();
+
+        // Set camera.
+        gl.glMatrixMode(GL_MODELVIEW);
+        gl.glLoadIdentity();
+    }
+
+    private void setPerspectiveProjection() {
         final int vWidth = 10;
 
         // Calculate directional vector of the camera (view direction).
@@ -163,21 +178,10 @@ public class GLEventListenerImpl implements GLEventListener,
             fovy = 2 * atan2(vHeight / 2, vDist);
         }
 
-        // Select part of window.
-        gl.glViewport(0, 0, this.width, this.height);
-
-        // Set projection matrix.
-        gl.glMatrixMode(GL_PROJECTION);
-        gl.glLoadIdentity();
-        // Use perspective projection.
         glu.gluPerspective(toDegrees(fovy), AR, 0.1, 1000);
         glu.gluLookAt(eye.x(), eye.y(), eye.z(), // eye point
                 this.cnt.x(), this.cnt.y(), this.cnt.z(), // center point
                 0, 0, 1); // up axis
-
-        // Set camera.
-        gl.glMatrixMode(GL_MODELVIEW);
-        gl.glLoadIdentity();
     }
 
     /**
@@ -194,9 +198,10 @@ public class GLEventListenerImpl implements GLEventListener,
 
         // Clear depth buffer.
         gl.glClear(GL_DEPTH_BUFFER_BIT);
-        
+
         if (clickX != -1 || clickY != -1) {
-            handleMouseClick(gl, clickX, clickY);
+            int selectedObject = handleMouseClick(gl, clickX, clickY);
+            System.out.println(selectedObject);
             clickX = clickY = -1;
         }
 
@@ -217,14 +222,12 @@ public class GLEventListenerImpl implements GLEventListener,
             this.theta = Math.max(THETA_MIN,
                     Math.min(THETA_MAX,
                             this.theta + dY * DRAG_PIXEL_TO_RADIAN));
-        }
-        // Change vWidth when right button is pressed.
+        } // Change vWidth when right button is pressed.
         /*else if(mouseButton == MouseEvent.BUTTON3) {
          this.vWidth = Math.max(VWIDTH_MIN,
          Math.min(VWIDTH_MAX,
          this.vWidth + dY * DRAG_PIXEL_TO_VWIDTH));
-         }*/
-        // Change position of selected object when right mouse button is pressed.
+         }*/ // Change position of selected object when right mouse button is pressed.
         else if (mouseButton == MouseEvent.BUTTON3) {
             selected.move(Vector.rotate(new Vector(dY, dX, 0), Vector.O, phi).scale(MOVEMENT_FACTOR));
         }
@@ -339,45 +342,44 @@ public class GLEventListenerImpl implements GLEventListener,
     public void select(Movable m) {
         this.selected = m;
     }
-    
-    private void handleMouseClick(GL2 gl, int x, int y) {
-        y = height - y;
-        int buffsize = 64;
-        IntBuffer buff = newDirectIntBuffer(buffsize);//IntBuffer.allocate(buffsize);
-        gl.glSelectBuffer(buffsize, buff);
-        IntBuffer view = newDirectIntBuffer(4);//IntBuffer.allocate(4);
+
+    private int handleMouseClick(GL2 gl, int x, int y) {
+        y = height - y; // invert y coordinates
+        final IntBuffer clicked
+                = newDirectIntBuffer(CLICK_BUFFER_SIZE); // clicked objects
+        gl.glSelectBuffer(CLICK_BUFFER_SIZE, clicked);
+
+        IntBuffer view = newDirectIntBuffer(4); // viewport
         gl.glGetIntegerv(GL_VIEWPORT, view);
-        gl.glRenderMode(GL_SELECT);
+
+        gl.glRenderMode(GL_SELECT); // set render mode to selection
         gl.glInitNames();
         gl.glPushName(0);
-        gl.glMatrixMode(GL_PROJECTION);
 
+        gl.glMatrixMode(GL_PROJECTION); // set up projection matrix
         gl.glPushMatrix();
         gl.glLoadIdentity();
-        glu.gluPickMatrix(x, y, 1.0, 1.0, view);
-        final float vWidth = 10;
-        float h = vWidth / ((float)width / height);
-        gl.glOrtho(-0.5 * vWidth, 0.5 * vWidth, -0.5 * h, 0.5 * h, 0.1, 1000);
+        glu.gluPickMatrix(x, y, 1.0, 1.0, view); // pick one pixel around (x,y)
+        setPerspectiveProjection();
         gl.glMatrixMode(GL_MODELVIEW);
         gl.glPushMatrix();
         environment.draw();
+
+        // Restore original matrices.
         gl.glPopMatrix();
         gl.glMatrixMode(GL_PROJECTION);
         gl.glPopMatrix();
 
-        int hits = gl.glRenderMode(GL_RENDER);
-        int clickcode = 0;
+        int hits = gl.glRenderMode(GL_RENDER); // number of hits + reset render mode
 
-        //get last element (N.B. usually i=3 is the actual correct value)
-        for (int i = buffsize - 1; i >= 0; i--) {
-            if (buff.get(i) != 0) {
-                clickcode = buff.get(i);
+        int selectedObject = 0; // name of the object that was clicked (last non-zero element)
+        assert clicked.get(CLICK_BUFFER_SIZE - 1) == 0 : "Buffer may have overflown";
+        for (int i = CLICK_BUFFER_SIZE - 1; i >= 0; i--) {
+            if (clicked.get(i) != 0) {
+                selectedObject = clicked.get(i);
                 break;
             }
         }
-        System.out.println("Click: " + clickcode);
-
-        gl.glMatrixMode(GL_MODELVIEW);
+        return selectedObject;
     }
-
 }
