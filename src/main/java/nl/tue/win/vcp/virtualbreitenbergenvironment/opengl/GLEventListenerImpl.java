@@ -200,8 +200,8 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glClear(GL_DEPTH_BUFFER_BIT);
 
         if (clickX != -1 || clickY != -1) {
-            int selectedObject = handleMouseClick(gl, clickX, clickY);
-            System.out.println(selectedObject);
+            final int selectedObjectId = handleMouseClick(gl, clickX, clickY);
+            this.selected = Movable.getMovable(selectedObjectId);
             clickX = clickY = -1;
         }
 
