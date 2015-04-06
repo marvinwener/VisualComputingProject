@@ -23,6 +23,7 @@ public class SelectionArrow implements Drawable {
         gl.glPushAttrib(GL_CURRENT_BIT);
         
         gl.glTranslated(position.x(), position.y(), position.z());
+        gl.glColor3f(1, 0, 0);
         
         GLUT glut = new GLUT();
         gl.glTranslated(0, 0, 5);
