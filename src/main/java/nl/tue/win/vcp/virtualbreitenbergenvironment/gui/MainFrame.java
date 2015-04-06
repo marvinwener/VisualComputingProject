@@ -2,6 +2,8 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import com.jogamp.opengl.util.FPSAnimator;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -13,6 +15,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static javax.swing.KeyStroke.getKeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
@@ -197,6 +200,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void initActions() {
+        newAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        addVehicleAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+        loadAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        saveAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        addLightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
