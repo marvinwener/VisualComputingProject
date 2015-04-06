@@ -86,6 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -127,6 +128,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem6.setText("Save");
         jMenu3.add(jMenuItem6);
 
+        jMenuItem8.setText("jMenuItem8");
+        jMenu3.add(jMenuItem8);
+
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
@@ -150,7 +154,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            )
+                .addGap(0, 152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,12 +209,14 @@ public class MainFrame extends javax.swing.JFrame {
         loadAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         saveAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         addLightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
+        quitAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
         jMenuItem7.setAction(addLightAction);
+        jMenuItem8.setAction(quitAction);
     }
 
     private final Action saveAction = new AbstractAction("Save") {
@@ -295,6 +301,14 @@ public class MainFrame extends javax.swing.JFrame {
             new AddLightFrame(ec.getEnvironment()).setVisible(true);
         }
     };
+    
+    private final Action quitAction = new AbstractAction("Quit") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -314,6 +328,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
