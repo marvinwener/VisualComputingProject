@@ -1,10 +1,10 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Sensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Vehicle;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.VehicleImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

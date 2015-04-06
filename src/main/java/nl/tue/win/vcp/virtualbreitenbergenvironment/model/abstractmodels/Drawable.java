@@ -1,4 +1,4 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
 
 import java.io.Serializable;
 import javax.media.opengl.GL2;

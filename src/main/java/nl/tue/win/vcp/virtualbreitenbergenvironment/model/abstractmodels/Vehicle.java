@@ -1,6 +1,11 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import java.io.Serializable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

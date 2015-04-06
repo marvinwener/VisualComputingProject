@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import javax.media.opengl.GL2;
 
 /**

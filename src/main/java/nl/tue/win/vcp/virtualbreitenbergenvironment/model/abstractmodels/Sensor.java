@@ -1,5 +1,6 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import java.io.Serializable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 

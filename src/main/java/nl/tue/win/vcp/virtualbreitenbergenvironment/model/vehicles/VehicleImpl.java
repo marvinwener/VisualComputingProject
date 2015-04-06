@@ -1,5 +1,8 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;

@@ -1,7 +1,9 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
 import static java.lang.Math.*;
 import java.util.List;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
 import static nl.tue.win.vcp.virtualbreitenbergenvironment.utility.MoreMath.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 

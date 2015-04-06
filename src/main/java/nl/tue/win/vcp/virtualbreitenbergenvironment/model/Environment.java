@@ -1,5 +1,8 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import com.jogamp.opengl.util.gl2.GLUT;
 import java.io.IOException;
 import java.io.Serializable;
