@@ -182,11 +182,11 @@ public class Environment implements Serializable {
     public List<LightSource> getLights() {
         return this.lights;
     }
-    
+
     public boolean addLight(LightSource l) {
         return this.lights.add(l);
     }
-    
+
     public void clearPreview() {
         this.preview = Drawable.NULL;
     }
@@ -194,7 +194,7 @@ public class Environment implements Serializable {
     public void preview(Drawable object) {
         this.preview = new Preview(object);
     }
-    
+
     public Movable[] getMovables() {
         final List<Movable> result = new ArrayList<>();
         result.add(Movable.NULL); // in case of no selection
