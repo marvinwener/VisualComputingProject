@@ -10,7 +10,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public class LightSource implements Drawable, Movable, Serializable {
+public class LightSource extends Movable implements Drawable, Serializable {
 
     private Vector position;
 
@@ -20,6 +20,7 @@ public class LightSource implements Drawable, Movable, Serializable {
 
     @Override
     public void draw(GL2 gl) {
+        super.loadName(gl);
         gl.glPushMatrix();
         gl.glPushAttrib(GL2.GL_CURRENT_BIT);
         gl.glTranslated(position.x(), position.y(), position.z());

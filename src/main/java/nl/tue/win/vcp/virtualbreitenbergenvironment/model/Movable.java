@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -8,8 +9,9 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public interface Movable {
-
+public abstract class Movable {
+    private static int NEXT_ID = 2;
+    private final int ID;
     public static final Movable NULL = new Movable() {
 
         @Override
@@ -27,6 +29,19 @@ public interface Movable {
         }
     };
 
-    public void move(Vector movement);
-    public Vector getPosition();
+    public Movable() {
+        this.ID = NEXT_ID++;
+    }
+    
+    /**
+     * Method to be called before drawing to enable selection.
+     * 
+     * @param gl gl object to load name into
+     */
+    public void loadName(GL2 gl) {
+        gl.glLoadName(ID);
+    }
+    
+    public abstract void move(Vector movement);
+    public abstract Vector getPosition();
 }

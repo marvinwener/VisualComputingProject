@@ -35,6 +35,7 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public void draw(GL2 gl) {
+        super.loadName(gl);
         // position is middle between wheels (behind)
 
         gl.glPushMatrix();

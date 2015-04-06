@@ -8,7 +8,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public abstract class Vehicle implements Drawable, Movable, Serializable {
+public abstract class Vehicle extends Movable implements Drawable, Serializable {
 
     protected Vector position;
     protected float angle;
