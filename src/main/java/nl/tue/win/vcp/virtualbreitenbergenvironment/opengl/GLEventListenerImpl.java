@@ -336,6 +336,7 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void setEnvironment(Environment e) {
         this.environment = e;
+        this.selected = Movable.NULL; // reset selection
     }
 
     @Override
