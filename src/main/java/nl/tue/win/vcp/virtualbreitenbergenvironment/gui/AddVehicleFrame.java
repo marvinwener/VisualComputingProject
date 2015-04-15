@@ -62,25 +62,50 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "car" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Type of vehicle");
 
         jLabel2.setText("Sensor 1");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Sensor 2");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Left wheel");
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Right wheel");
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
         jComboBox5.setSelectedIndex(1);
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Add to environment and close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +227,26 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        update();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        update();
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        update();
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        update();
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        update();
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
     private void update() {
         final boolean checked = this.jCheckBox1.isSelected();
         if (checked) {
@@ -209,6 +254,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         } else {
             environment.clearPreview();
         }
+        jButton1.setEnabled(this.isConsistent());
     }
 
     private void addVehicle() {
@@ -264,6 +310,10 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 throw new UnsupportedOperationException("Selected sensor type"
                         + " is not supported.");
         }
+    }
+
+    private boolean isConsistent() {
+        return !jComboBox4.getSelectedItem().equals(jComboBox5.getSelectedItem());
     }
 
     /**
