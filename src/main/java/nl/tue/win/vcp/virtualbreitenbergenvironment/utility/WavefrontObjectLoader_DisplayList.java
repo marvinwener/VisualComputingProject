@@ -475,10 +475,25 @@ public class WavefrontObjectLoader_DisplayList {
             this.padding = padding;
         }
     }
-    
+
     public static int loadWavefrontObjectAsDisplayList(GL2 inGL, String inFileName,
             ScalingConfiguration config) {
         return loadWavefrontObjectAsDisplayList(inGL, inFileName, config.min, config.maxRange, config.padding);
     }
 
+    public ScalingConfiguration getConfig() {
+        return config;
+    }
+    
+    public float[] getScalingMin() {
+        return config.min;
+    }
+    
+    public float getScalingMaxRange() {
+        return config.maxRange;
+    }
+    
+    public float[] getScalingPadding() {
+        return config.padding;
+    }
 }
