@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import java.awt.event.WindowAdapter;
+import javax.swing.JSpinner;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -11,7 +12,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  */
 public class AddLightFrame extends javax.swing.JFrame {
 
-    private final Environment environment;
+    protected final Environment environment;
 
     /**
      * Creates new form AddLightFrame
@@ -154,15 +155,27 @@ public class AddLightFrame extends javax.swing.JFrame {
         return new LightSource(position);
     }
 
-    private void addLight() {
+    protected void addLight() {
         environment.addLight(getLight());
         environment.clearPreview();
     }
 
-    private void previewLight() {
+    protected void previewLight() {
         environment.preview(getLight());
     }
+    
+    public JSpinner getXSpinner() {
+        return xSpinner;
+    }
 
+    public JSpinner getYSpinner() {
+        return ySpinner;
+    }
+
+    public JSpinner getZSpinner() {
+        return zSpinner;
+    }
+    
     /**
      * @param args the command line arguments
      */
