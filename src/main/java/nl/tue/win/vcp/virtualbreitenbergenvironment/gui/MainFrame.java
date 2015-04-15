@@ -219,7 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem8.setAction(quitAction);
     }
 
-    private final Action saveAction = new AbstractAction("Save") {
+    private final Action saveAction = new AbstractAction("Save...") {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -254,7 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
 
-    private final Action loadAction = new AbstractAction("Load") {
+    private final Action loadAction = new AbstractAction("Load...") {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -286,7 +286,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
     
-    private final Action addVehicleAction = new AbstractAction("Add vehicle") {
+    private final Action addVehicleAction = new AbstractAction("Add vehicle...") {
         
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -294,7 +294,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
     
-    private final Action addLightAction = new AbstractAction("Add light") {
+    private final Action addLightAction = new AbstractAction("Add light...") {
         
         @Override
         public void actionPerformed(ActionEvent e) {
