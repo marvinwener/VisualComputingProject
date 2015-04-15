@@ -318,7 +318,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddVehicleFrame(ec.getEnvironment()).setVisible(true);
+            new AddVehicleFrame(ec.getEnvironment(), em).setVisible(true);
         }
     };
 
