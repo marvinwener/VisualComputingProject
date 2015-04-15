@@ -23,8 +23,8 @@ import javax.media.opengl.GLEventListener;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.SelectionArrow;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -214,7 +214,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
         environment.draw();
         if (selected.getPosition() != null) {
-            new SelectionArrow(selected.getPosition()).draw(gl);
+            new Preview(new SelectionArrow(selected.getPosition())).draw(gl);
         }
     }
 
