@@ -5,6 +5,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -256,8 +257,12 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         switch (sensorType) {
             case "Light":
                 return new LightSensor(sensorLocation, environment.getLights());
+            case "Temperature":
+                return new TemperatureSensor(sensorLocation,
+                        environment.getHeatSources());
             default:
-                throw new UnsupportedOperationException("Not supported yet.");
+                throw new UnsupportedOperationException("Selected sensor type"
+                        + " is not supported.");
         }
     }
 
