@@ -65,6 +65,13 @@ public class GLEventListenerImpl implements GLEventListener,
     private final static int CLICK_BUFFER_SIZE
             = 64; // upper bound for number of objects // TODO: make dynamic
 
+    public interface SelectionListener {
+
+        public void selectionChanged(Movable selection);
+    }
+
+    private SelectionListener selectionListener;
+
     @Override
     public void init(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
@@ -201,7 +208,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
         if (clickX != -1 || clickY != -1) {
             final int selectedObjectId = handleMouseClick(gl, clickX, clickY);
-            this.selected = Movable.getMovable(selectedObjectId);
+            this.select(Movable.getMovable(selectedObjectId));
             clickX = clickY = -1;
         }
 
@@ -336,12 +343,19 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void setEnvironment(Environment e) {
         this.environment = e;
-        this.selected = Movable.NULL; // reset selection
+        select(Movable.NULL); // reset selection
     }
 
     @Override
     public void select(Movable m) {
         this.selected = m;
+        if (this.selectionListener != null) {
+            this.selectionListener.selectionChanged(selected);
+        }
+    }
+    
+    public void setListener(SelectionListener listener) {
+        this.selectionListener = listener;
     }
 
     private int handleMouseClick(GL2 gl, int x, int y) {
