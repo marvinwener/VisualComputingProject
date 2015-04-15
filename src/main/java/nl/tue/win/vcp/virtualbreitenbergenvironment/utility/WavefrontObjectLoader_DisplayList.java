@@ -470,9 +470,9 @@ public class WavefrontObjectLoader_DisplayList {
         final public float[] padding;
 
         public ScalingConfiguration(float[] min, float maxRange, float[] padding) {
-            this.min = min;
+            this.min = Arrays.copyOf(min, min.length);
             this.maxRange = maxRange;
-            this.padding = padding;
+            this.padding = Arrays.copyOf(padding, padding.length);
         }
     }
 
