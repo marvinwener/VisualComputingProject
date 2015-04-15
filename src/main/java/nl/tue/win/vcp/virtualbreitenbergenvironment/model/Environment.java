@@ -25,6 +25,7 @@ public class Environment implements Serializable {
     transient private GLUT glut;
     private final List<Vehicle> vs;
     private final List<LightSource> lights;
+    private final List<HeatSource> heatSources;
     private Drawable preview = Drawable.NULL;
 
     public Environment() {
@@ -41,6 +42,7 @@ public class Environment implements Serializable {
         this.glut = glut;
         vs = new ArrayList<>();
         lights = new ArrayList<>();
+        heatSources = new ArrayList<>();
     }
 
     public void draw() {
@@ -69,6 +71,9 @@ public class Environment implements Serializable {
         }
         for (LightSource l : lights) {
             l.draw(gl);
+        }
+        for (HeatSource h : heatSources) {
+            h.draw(gl);
         }
     }
 
@@ -190,6 +195,14 @@ public class Environment implements Serializable {
         return this.lights.add(l);
     }
 
+    public List<HeatSource> getHeatSources() {
+        return this.heatSources;
+    }
+
+    public boolean addHeatSource(HeatSource h) {
+        return this.heatSources.add(h);
+    }
+
     public void clearPreview() {
         this.preview = Drawable.NULL;
     }
@@ -203,6 +216,7 @@ public class Environment implements Serializable {
         result.add(Movable.NULL); // in case of no selection
         result.addAll(vs); // TODO: add manual movement for vehicles
         result.addAll(lights);
+        result.addAll(heatSources);
         return result.toArray(new Movable[0]);
     }
 }
