@@ -156,11 +156,14 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Time");
+        jMenu5.setEnabled(false);
 
         jMenuItem3.setText("Pause");
+        jMenuItem3.setEnabled(false);
         jMenu5.add(jMenuItem3);
 
         jMenuItem4.setText("Play");
+        jMenuItem4.setEnabled(false);
         jMenu5.add(jMenuItem4);
 
         jMenuBar2.add(jMenu5);

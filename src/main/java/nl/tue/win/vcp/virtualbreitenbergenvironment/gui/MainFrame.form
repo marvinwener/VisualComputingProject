@@ -79,16 +79,19 @@
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
             <Property name="text" type="java.lang.String" value="Time"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pause"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Play"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
           </SubComponents>
