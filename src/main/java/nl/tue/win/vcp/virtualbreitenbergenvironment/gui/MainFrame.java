@@ -84,6 +84,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -121,6 +122,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItem7.setText("Add light...");
         jMenu3.add(jMenuItem7);
+
+        jMenuItem9.setText("Add heat source...");
+        jMenu3.add(jMenuItem9);
 
         jMenuItem5.setText("Load");
         jMenu3.add(jMenuItem5);
@@ -210,6 +214,7 @@ public class MainFrame extends javax.swing.JFrame {
         saveAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         addLightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         quitAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        addHeatSourceAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
@@ -217,6 +222,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem6.setAction(saveAction);
         jMenuItem7.setAction(addLightAction);
         jMenuItem8.setAction(quitAction);
+        jMenuItem9.setAction(addHeatSourceAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -309,6 +315,14 @@ public class MainFrame extends javax.swing.JFrame {
             dispose();
         }
     };
+    
+    private final Action addHeatSourceAction = new AbstractAction("Add heat source...") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new AddHeatFrame(ec.getEnvironment()).setVisible(true);
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -329,6 +343,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
