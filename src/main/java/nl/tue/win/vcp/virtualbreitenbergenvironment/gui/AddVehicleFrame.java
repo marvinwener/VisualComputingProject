@@ -5,6 +5,8 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
@@ -62,7 +64,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "car" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -73,7 +75,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Sensor 1");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -82,7 +84,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Sensor 2");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -329,6 +331,10 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             case "Temperature":
                 return new TemperatureSensor(sensorLocation,
                         environment.getHeatSources());
+            case "Dummy":
+                return new DummySensor();
+            case "Random":
+                return new RandomSensor();
             default:
                 throw new UnsupportedOperationException("Selected sensor type"
                         + " is not supported.");
