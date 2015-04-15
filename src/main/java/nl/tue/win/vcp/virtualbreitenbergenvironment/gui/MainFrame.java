@@ -23,6 +23,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.VirtualCamera;
 
 /**
  *
@@ -39,6 +40,7 @@ public class MainFrame extends javax.swing.JFrame {
         GLEventListenerImpl listener = new GLEventListenerImpl();
         ec = listener;
         em = listener;
+        camera = listener;
         GLJPanel glPanel = (GLJPanel) jPanel1;
         glPanel.addGLEventListener(listener);
         glPanel.addMouseListener(listener);
@@ -100,6 +102,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -154,6 +158,13 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu4.add(jMenuItem10);
 
         jMenuBar2.add(jMenu4);
+
+        jMenu6.setText("View");
+
+        jMenuItem11.setText("Reset camera");
+        jMenu6.add(jMenuItem11);
+
+        jMenuBar2.add(jMenu6);
 
         jMenu5.setText("Time");
         jMenu5.setEnabled(false);
@@ -234,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
         quitAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         addHeatSourceAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         deleteAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        resetCameraAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
 
         deleteAction.setEnabled(false);
 
@@ -245,6 +257,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem8.setAction(quitAction);
         jMenuItem9.setAction(addHeatSourceAction);
         jMenuItem10.setAction(deleteAction);
+        jMenuItem11.setAction(resetCameraAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -354,10 +367,19 @@ public class MainFrame extends javax.swing.JFrame {
             em.select(Movable.NULL);
         }
     };
+    
+    private final Action resetCameraAction = new AbstractAction("Reset camera") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.resetCamera();
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
     private final EnvironmentMover em;
+    private final VirtualCamera camera;
     private Movable selection = Movable.NULL;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -365,10 +387,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

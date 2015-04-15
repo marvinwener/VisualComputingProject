@@ -37,7 +37,8 @@ public class GLEventListenerImpl implements GLEventListener,
         MouseWheelListener,
         KeyListener,
         EnvironmentContainer,
-        EnvironmentMover {
+        EnvironmentMover,
+        VirtualCamera {
 
     private final static GLU glu = new GLU();
     private final static GLUT glut = new GLUT();
@@ -216,6 +217,15 @@ public class GLEventListenerImpl implements GLEventListener,
         if (selected.getPosition() != null) {
             new Preview(new SelectionArrow(selected.getPosition())).draw(gl);
         }
+    }
+    
+    @Override
+    public void resetCamera() {
+        this.phi = 0;
+        this.theta = 0.4f;
+        this.vDist = 30;
+        this.fovy = -1;
+        this.cnt = Vector.O;
     }
 
     @Override
