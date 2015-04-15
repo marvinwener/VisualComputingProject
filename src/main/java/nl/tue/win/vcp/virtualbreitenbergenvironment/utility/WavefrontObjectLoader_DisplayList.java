@@ -366,21 +366,50 @@ public class WavefrontObjectLoader_DisplayList {
         inGL.glEndList();
         return tDisplayListID;
     }
-
+    
     private void normalizeVertices() {
+        // scale everything to be in range [0,...]
         final int N = 3;
-        float min = Float.MAX_VALUE;
-        float max = Float.MIN_VALUE;
+        float[] min = {Float.MAX_VALUE,Float.MAX_VALUE,Float.MAX_VALUE};
+        float[] max = {Float.MIN_VALUE,Float.MIN_VALUE,Float.MIN_VALUE};
         for (float[] v : vData) {
             for (int i = 0; i < N; i++) {
-                min = (v[i] < min) ? v[i] : min;
-                max = (v[i] > max) ? v[i] : max;
+                min[i] = (v[i] < min[i]) ? v[i] : min[i];
+                max[i] = (v[i] > max[i]) ? v[i] : max[i];
             }
         }
-
+        
         for (float[] v : vData) {
             for (int i = 0; i < N; i++) {
-                v[i] = (v[i] - min) / (max - min);
+                v[i] = v[i] - min[i];
+            }
+        }
+        
+        // find the highest max value for each dimension
+        float maxRange = Float.MIN_VALUE;
+        for (int i = 0; i < N; i++) {
+            max[i] -= min[i];
+            maxRange = max[i] > maxRange ? max[i] : maxRange;
+        }
+        
+        // scale from the max value to [0,1]
+        for (float[] v : vData) {
+            for (int i = 0; i < N; i++) {
+                v[i] = v[i] / maxRange;
+            }
+        }
+        
+        final float[] padding = new float[N];
+        // center in X and Y direction
+        for (int i = 0; i < 2; i++) {
+            max[i] = max[i] / maxRange;
+            final float empty = 1 - max[i];
+            padding[i] = empty / 2;
+        }
+        
+        for (float[] v : vData) {
+            for (int i = 0; i < N; i++) {
+                v[i] += padding[i];
             }
         }
     }

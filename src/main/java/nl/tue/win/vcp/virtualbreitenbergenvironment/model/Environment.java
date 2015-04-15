@@ -43,7 +43,7 @@ public class Environment implements Serializable {
         this.glu = glu;
         this.glut = glut;
         vs = new ArrayList<>();
-        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/bunny2.obj", true);
+        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/redcar_3wheel-obj/blender/untitled.obj", true);
     }
     
     /**
@@ -69,7 +69,7 @@ public class Environment implements Serializable {
             51.2f //shininess
         };
         setMaterial(silver);*/
-        drawFloorAndWalls();
+        //drawFloorAndWalls();
         //TODO: extend
         gl.glColor3f(1, 0, 0);
         /*gl.glBegin(GL_QUADS);
@@ -97,9 +97,11 @@ public class Environment implements Serializable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Environment.class.getName()).log(Level.SEVERE, null, ex);
         }
-        gl.glTranslated(5, 0, 1);
-        gl.glCallList(displayList);
+        gl.glTranslated(0.5, 0.5, 0.5);
+        glut.glutWireCube(1f);
         gl.glPopMatrix();
+        //gl.glTranslated(5, 0, 1);
+        gl.glCallList(displayList);
         /*for (Vehicle v : vs) {
             v.move();
             v.draw(gl);
