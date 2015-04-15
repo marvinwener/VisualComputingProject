@@ -22,11 +22,13 @@ public class TemperatureSensor extends Sensor {
     
     @Override
     public float getValue(Vector location, float angle) {
+        //TODO: Implement
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void draw(GL2 gl) {
+        //TODO: Implement
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
