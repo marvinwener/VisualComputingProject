@@ -205,4 +205,8 @@ public class Environment implements Serializable {
         result.addAll(lights);
         return result.toArray(new Movable[0]);
     }
+
+    public boolean removeObject(Movable selection) {
+        return vs.remove(selection) || lights.remove(selection);
+    }
 }
