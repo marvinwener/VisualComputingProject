@@ -69,7 +69,7 @@
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete selection"/>
               </Properties>

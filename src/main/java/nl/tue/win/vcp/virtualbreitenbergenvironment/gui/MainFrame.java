@@ -99,7 +99,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -150,8 +150,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu4.setText("Edit");
 
-        jMenuItem9.setText("Delete selection");
-        jMenu4.add(jMenuItem9);
+        jMenuItem10.setText("Delete selection");
+        jMenu4.add(jMenuItem10);
 
         jMenuBar2.add(jMenu4);
 
@@ -229,26 +229,19 @@ public class MainFrame extends javax.swing.JFrame {
         saveAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         addLightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         quitAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-<<<<<<< HEAD
         addHeatSourceAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
-        
-=======
         deleteAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
 
         deleteAction.setEnabled(false);
 
->>>>>>> master
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
         jMenuItem7.setAction(addLightAction);
         jMenuItem8.setAction(quitAction);
-<<<<<<< HEAD
         jMenuItem9.setAction(addHeatSourceAction);
-=======
-        jMenuItem9.setAction(deleteAction);
->>>>>>> master
+        jMenuItem10.setAction(deleteAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -372,6 +365,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

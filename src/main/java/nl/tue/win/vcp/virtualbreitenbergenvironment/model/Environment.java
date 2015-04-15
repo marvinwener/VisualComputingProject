@@ -221,6 +221,8 @@ public class Environment implements Serializable {
     }
 
     public boolean removeObject(Movable selection) {
-        return vs.remove(selection) || lights.remove(selection);
+        return vs.remove(selection)
+                || lights.remove(selection)
+                || heatSources.remove(selection);
     }
 }
