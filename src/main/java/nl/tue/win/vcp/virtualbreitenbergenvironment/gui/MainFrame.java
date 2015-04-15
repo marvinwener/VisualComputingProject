@@ -19,6 +19,7 @@ import static javax.swing.KeyStroke.getKeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLEventListenerImpl;
@@ -62,6 +63,15 @@ public class MainFrame extends javax.swing.JFrame {
                 animator.stop();
             }
         });
+
+        listener.setListener(new GLEventListenerImpl.SelectionListener() {
+
+            @Override
+            public void selectionChanged(Movable selection) {
+                MainFrame.this.selection = selection;
+                deleteAction.setEnabled(selection != Movable.NULL);
+            }
+        });
     }
 
     /**
@@ -89,6 +99,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -126,18 +137,22 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem9.setText("Add heat source...");
         jMenu3.add(jMenuItem9);
 
-        jMenuItem5.setText("Load");
+        jMenuItem5.setText("Load...");
         jMenu3.add(jMenuItem5);
 
-        jMenuItem6.setText("Save");
+        jMenuItem6.setText("Save...");
         jMenu3.add(jMenuItem6);
 
-        jMenuItem8.setText("jMenuItem8");
+        jMenuItem8.setText("Quit");
         jMenu3.add(jMenuItem8);
 
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
+
+        jMenuItem9.setText("Delete selection");
+        jMenu4.add(jMenuItem9);
+
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Time");
@@ -214,15 +229,26 @@ public class MainFrame extends javax.swing.JFrame {
         saveAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         addLightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         quitAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+<<<<<<< HEAD
         addHeatSourceAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         
+=======
+        deleteAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+
+        deleteAction.setEnabled(false);
+
+>>>>>>> master
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
         jMenuItem7.setAction(addLightAction);
         jMenuItem8.setAction(quitAction);
+<<<<<<< HEAD
         jMenuItem9.setAction(addHeatSourceAction);
+=======
+        jMenuItem9.setAction(deleteAction);
+>>>>>>> master
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -291,25 +317,25 @@ public class MainFrame extends javax.swing.JFrame {
             ec.setEnvironment(new Environment());
         }
     };
-    
+
     private final Action addVehicleAction = new AbstractAction("Add vehicle...") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             new AddVehicleFrame(ec.getEnvironment()).setVisible(true);
         }
     };
-    
+
     private final Action addLightAction = new AbstractAction("Add light...") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             new AddLightFrame(ec.getEnvironment()).setVisible(true);
         }
     };
-    
+
     private final Action quitAction = new AbstractAction("Quit") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
@@ -324,9 +350,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
 
+    private final Action deleteAction = new AbstractAction("Delete selection") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ec.getEnvironment().removeObject(selection);
+            em.select(Movable.NULL);
+        }
+    };
+
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
     private final EnvironmentMover em;
+    private Movable selection = Movable.NULL;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
