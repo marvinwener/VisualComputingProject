@@ -313,6 +313,16 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             environment.clearPreview();
         }
         jButton1.setEnabled(this.isConsistent());
+        jComboBox6.setSelectedItem(getPreSetVehicle());
+    }
+    
+    public PreSetVehicle getPreSetVehicle() {
+        for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
+            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox, fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox, angleSlider)) {
+                return psv;
+            }
+        }
+        return PreSetVehicle.CUSTOM;
     }
 
     private void addVehicle() {

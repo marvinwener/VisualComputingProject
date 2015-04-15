@@ -15,20 +15,20 @@ public class PreSetVehicle {
     public final static PreSetVehicle CUSTOM = new PreSetVehicle();
     public final static PreSetVehicle[] PRESET_VEHICLES = new PreSetVehicle[]{
         new PreSetVehicle("Two-wheel",
-                "Light", true,
-                "Light", true,
-                "Sensor 1", "Sensor 2", 0,
-                "Light-seeking vehicle"),
+        "Light", true,
+        "Light", true,
+        "Sensor 1", "Sensor 2", 0,
+        "Light-seeking vehicle"),
         new PreSetVehicle("Two-wheel",
-                "Light", true,
-                "Light", true,
-                "Sensor 2", "Sensor 1", 0,
-                "Light-fleeing vehicle"),
+        "Light", true,
+        "Light", true,
+        "Sensor 2", "Sensor 1", 0,
+        "Light-fleeing vehicle"),
         new PreSetVehicle("Two-wheel",
-                "Temperature", true,
-                "Temperature", true,
-                "Sensor 2", "Sensor 1", 0,
-                "Heat-fleeing vehicle"),
+        "Temperature", true,
+        "Temperature", true,
+        "Sensor 2", "Sensor 1", 0,
+        "Heat-fleeing vehicle"),
         CUSTOM
     };
 
@@ -124,12 +124,25 @@ public class PreSetVehicle {
         return true;
     }
 
+    public boolean isApplied(JComboBox vehicleTypeComboBox,
+            JComboBox sensor1ComboBox, JCheckBox fluctuation1CheckBox,
+            JComboBox sensor2ComboBox, JCheckBox fluctuation2CheckBox,
+            JComboBox leftWheelComboBox, JComboBox rightWheelComboBox,
+            JSlider angleSlider) {
+        return this.equals(new PreSetVehicle(vehicleTypeComboBox,
+                sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox,
+                fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox,
+                angleSlider));
+    }
+
     public void apply(JComboBox vehicleTypeComboBox,
             JComboBox sensor1ComboBox, JCheckBox fluctuation1CheckBox,
             JComboBox sensor2ComboBox, JCheckBox fluctuation2CheckBox,
             JComboBox leftWheelComboBox, JComboBox rightWheelComboBox,
             JSlider angleSlider) {
-        if (this == CUSTOM) return;
+        if (this == CUSTOM) {
+            return;
+        }
         vehicleTypeComboBox.setSelectedItem(this.vehicleType);
         sensor1ComboBox.setSelectedItem(this.sensor1);
         fluctuation1CheckBox.setSelected(fluctuation1);
@@ -138,10 +151,9 @@ public class PreSetVehicle {
         leftWheelComboBox.setSelectedItem(this.leftWheel);
         rightWheelComboBox.setSelectedItem(this.rightWheel);
         angleSlider.setValue(angle);
-        assert this.equals(new PreSetVehicle(vehicleTypeComboBox,
-                sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox,
-                fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox,
-                angleSlider)) :
+        assert isApplied(vehicleTypeComboBox, sensor1ComboBox,
+                fluctuation1CheckBox, sensor2ComboBox, fluctuation2CheckBox,
+                leftWheelComboBox, rightWheelComboBox, angleSlider) :
                 "Settings weren't successfully applied to all fields.";
     }
 
