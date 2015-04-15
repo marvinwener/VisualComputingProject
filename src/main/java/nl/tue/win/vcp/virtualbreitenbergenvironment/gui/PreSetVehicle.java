@@ -24,6 +24,11 @@ public class PreSetVehicle {
                 "Light", true,
                 "Sensor 2", "Sensor 1", 0,
                 "Light-fleeing vehicle"),
+        new PreSetVehicle("Two-wheel",
+                "Temperature", true,
+                "Temperature", true,
+                "Sensor 2", "Sensor 1", 0,
+                "Heat-fleeing vehicle"),
         CUSTOM
     };
 
