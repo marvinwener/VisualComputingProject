@@ -104,6 +104,7 @@ public class WavefrontObjectLoader_DisplayList {
     private int FaceMultiplier;                                     //number of possible coordinates per face
     private int PolyCount = 0;                                      //the model polygon count
     private boolean init = true;
+    private ScalingConfiguration config = null;
 
     public WavefrontObjectLoader_DisplayList(String inModelPath) {
         log.info("LOADING WAVEFRONT OBJECT MODEL " + inModelPath);
@@ -433,6 +434,7 @@ public class WavefrontObjectLoader_DisplayList {
                 v[i] += padding[i];
             }
         }
+        this.config = new ScalingConfiguration(min, maxRange, padding);
     }
 
     private void normalizeVertices(final float[] min, final float maxRange,
@@ -459,6 +461,24 @@ public class WavefrontObjectLoader_DisplayList {
                 v[i] += padding[i];
             }
         }
+    }
+
+    public class ScalingConfiguration {
+
+        final public float[] min;
+        final public float maxRange;
+        final public float[] padding;
+
+        public ScalingConfiguration(float[] min, float maxRange, float[] padding) {
+            this.min = min;
+            this.maxRange = maxRange;
+            this.padding = padding;
+        }
+    }
+    
+    public static int loadWavefrontObjectAsDisplayList(GL2 inGL, String inFileName,
+            ScalingConfiguration config) {
+        return loadWavefrontObjectAsDisplayList(inGL, inFileName, config.min, config.maxRange, config.padding);
     }
 
 }
