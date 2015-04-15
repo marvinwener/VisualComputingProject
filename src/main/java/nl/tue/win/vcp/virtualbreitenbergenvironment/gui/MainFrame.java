@@ -92,13 +92,13 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -128,15 +128,6 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem1.setText("New environment");
         jMenu3.add(jMenuItem1);
 
-        jMenuItem2.setText("Add vehicle...");
-        jMenu3.add(jMenuItem2);
-
-        jMenuItem7.setText("Add light...");
-        jMenu3.add(jMenuItem7);
-
-        jMenuItem9.setText("Add heat source...");
-        jMenu3.add(jMenuItem9);
-
         jMenuItem5.setText("Load...");
         jMenu3.add(jMenuItem5);
 
@@ -149,6 +140,15 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
+
+        jMenuItem2.setText("Add vehicle...");
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem7.setText("Add light...");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem9.setText("Add heat source...");
+        jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("Delete selection");
         jMenu4.add(jMenuItem10);
