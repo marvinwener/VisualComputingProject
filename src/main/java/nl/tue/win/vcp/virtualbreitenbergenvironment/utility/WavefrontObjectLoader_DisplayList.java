@@ -389,7 +389,7 @@ public class WavefrontObjectLoader_DisplayList {
         return tDisplayListID;
     }
 
-    private void normalizeVertices() {
+    public void normalizeVertices() {
         // scale everything to be in range [0,...]
         final int N = 3;
         float[] min = {Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE};
@@ -437,7 +437,7 @@ public class WavefrontObjectLoader_DisplayList {
         this.config = new ScalingConfiguration(min, maxRange, padding);
     }
 
-    private void normalizeVertices(final float[] min, final float maxRange,
+    public void normalizeVertices(final float[] min, final float maxRange,
             final float[] padding) {
         // scale everything to be in range [0,...]
         final int N = 3;

@@ -28,7 +28,7 @@ public class Environment implements Serializable {
     transient private GLU glu;
     transient private GLUT glut;
     private final List<Vehicle> vs;
-    private int displayList;
+    private int displayList;private int displayList2;
 
     public Environment() {
         this(GLSingleton.getGL());
@@ -44,6 +44,10 @@ public class Environment implements Serializable {
         this.glut = glut;
         vs = new ArrayList<>();
         displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/redcar_3wheel-obj/blender/untitled.obj", true);
+        WavefrontObjectLoader_DisplayList carLoader = new WavefrontObjectLoader_DisplayList("/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/redcar_3wheel-obj/blender/untitled.obj");
+        carLoader.normalizeVertices();
+        WavefrontObjectLoader_DisplayList.ScalingConfiguration config = carLoader.getConfig();
+        displayList2 = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/left_3wheel-obj/blender/untitled.obj", config);
     }
     
     /**
@@ -102,6 +106,22 @@ public class Environment implements Serializable {
         gl.glPopMatrix();
         //gl.glTranslated(5, 0, 1);
         gl.glCallList(displayList);
+        
+        gl.glPushMatrix();
+        //gl.glTranslated(0, 1, 0);
+        gl.glPushMatrix();
+        try {
+            new MTLParsing().parse(
+                    "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/left_3wheel-obj/blender/untitled.mtl").get(0).activate(gl);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Environment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        gl.glTranslated(0.5, 0.5, 0.5);
+        glut.glutWireCube(1f);
+        gl.glPopMatrix();
+        //gl.glTranslated(5, 0, 1);
+        gl.glCallList(displayList2);
+        gl.glPopMatrix();
         /*for (Vehicle v : vs) {
             v.move();
             v.draw(gl);
