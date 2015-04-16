@@ -24,7 +24,7 @@ public class CollisionDetection {
             this.direction = direction != null
                     ? direction : computeDirection(corners);
         }
-        
+
         public final static Vector computeDirection(Vector... corners) {
             // assumption: corners are given in rotating order
             final Vector side1 = corners[0].minus(corners[1]);
@@ -35,6 +35,13 @@ public class CollisionDetection {
         }
     }
 
+    /**
+     * Determines whether two rectangles overlap (collide).
+     *
+     * @param a the first rectangle
+     * @param b the second rectangle
+     * @return {@code a} and {@code b} overlap
+     */
     public static boolean collision(Rectangle a, Rectangle b) {
         Vector[] directions = new Vector[]{
             a.direction,
@@ -50,6 +57,19 @@ public class CollisionDetection {
         return result;
     }
 
+    /**
+     * Determines whether the rectangles {@code a} and {@code b} overlap in
+     * direction {@code direction}.
+     *
+     * This is essentially computing one column of the table and checking if the
+     * ranges overlap.
+     *
+     * @param direction the direction
+     * @param a corners of first rectangle
+     * @param b corners of second rectangle
+     * @return the ranges {@code aValues} and {@code bValues} overlap, where
+     * xValues[i] == Vector.dot(direction, x[i])
+     */
     public static boolean collision(Vector direction, Vector[] a, Vector[] b) {
         assert a.length == 4 && b.length == 4;
         double[] aValues = new double[a.length];
@@ -61,8 +81,29 @@ public class CollisionDetection {
         return overlap(aValues, bValues);
     }
 
+    /**
+     * Check if the ranges in {@code a} overlap with {@code b}.
+     *
+     * @param a first range
+     * @param b second range
+     * @return {@code min(a) <= min(b) <= max(a) ||
+     *                min(a) <= max(b) <= max(a)}
+     */
     public static boolean overlap(double[] a, double[] b) {
         return true; // TODO: implement
+    }
+    
+    /**
+     * Determines the minimum and maximum value of an array.
+     * 
+     * @param a the array
+     * @return an array r with r[0] = min(a) and r[1] = max(a)
+     */
+    public static double[] determineMinMax(double[] a) {
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+        // TODO: calculate
+        return new double[] {min, max};
     }
 
     /**
