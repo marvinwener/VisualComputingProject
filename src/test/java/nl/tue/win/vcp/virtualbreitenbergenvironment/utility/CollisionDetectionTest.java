@@ -1,5 +1,10 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,7 +46,7 @@ public class CollisionDetectionTest {
     }
 
     @Test
-    public void testDetermineDirection() {
+    public void testDetermineDirection1() {
         final Rectangle a = new Rectangle(null, A.corners);
         final Vector expResult = A.direction;
         final Vector result = a.direction;
@@ -62,5 +67,52 @@ public class CollisionDetectionTest {
         final Vector expResult = C.direction;
         final Vector result = a.direction;
         assertTrue(expResult.normalized().equals(result.normalized()) || expResult.normalized().plus(result.normalized()).length() < EPS);
+    }
+
+    private class RectangleHolder implements Collidable {
+
+        final private Rectangle rectangle;
+
+        public RectangleHolder(Rectangle rectangle) {
+            this.rectangle = rectangle;
+        }
+
+        @Override
+        public Rectangle getBoundingBox() {
+            return rectangle;
+        }
+
+    }
+
+    @Test
+    public void testCollidingObjects1() {
+        final Collidable a = new RectangleHolder(A);
+        final Collidable b = new RectangleHolder(B);
+        final Set<Collidable> expResult = new HashSet<>();
+        final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, b);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCollidingObjects2() {
+        final Collidable a = new RectangleHolder(A);
+        final Collidable b = new RectangleHolder(C);
+        final Set<Collidable> expResult = new HashSet<>();
+        expResult.add(a);
+        expResult.add(b);
+        final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, b);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCollidingObjects3() {
+        final Collidable a = new RectangleHolder(A);
+        final Collidable b = new RectangleHolder(B);
+        final Collidable c = new RectangleHolder(C);
+        final Set<Collidable> expResult = new HashSet<>();
+        expResult.add(a);
+        expResult.add(c);
+        final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, b, c);
+        assertEquals(expResult, result);
     }
 }
