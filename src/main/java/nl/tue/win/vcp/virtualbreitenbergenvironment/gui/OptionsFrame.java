@@ -46,7 +46,6 @@ public class OptionsFrame extends javax.swing.JFrame {
         });
 
         jCheckBox2.setText("Show bounding boxes");
-        jCheckBox2.setEnabled(false);
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
