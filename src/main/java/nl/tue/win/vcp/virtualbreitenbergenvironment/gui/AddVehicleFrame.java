@@ -81,7 +81,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Sensor 1");
 
-        sensor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        sensor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         sensor1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sensor1ComboBoxActionPerformed(evt);
@@ -90,7 +90,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Sensor 2");
 
-        sensor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        sensor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         sensor2ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sensor2ComboBoxActionPerformed(evt);
