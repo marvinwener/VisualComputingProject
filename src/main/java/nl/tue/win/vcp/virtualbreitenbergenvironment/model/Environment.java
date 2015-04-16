@@ -4,15 +4,21 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
 import com.jogamp.opengl.util.gl2.GLUT;
+import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
  *
@@ -23,7 +29,7 @@ public class Environment implements Serializable {
     transient private GL2 gl;
     transient private GLU glu;
     transient private GLUT glut;
-    private final List<Vehicle> vs;
+    private final List<Vehicle> vehicles;
     private final List<LightSource> lights;
     private final List<HeatSource> heatSources;
     private Drawable preview = Drawable.NULL;
@@ -40,7 +46,7 @@ public class Environment implements Serializable {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
-        vs = new ArrayList<>();
+        vehicles = new ArrayList<>();
         lights = new ArrayList<>();
         heatSources = new ArrayList<>();
     }
@@ -65,9 +71,26 @@ public class Environment implements Serializable {
         gl.glLoadName(1);
         drawFloorAndWalls();
         preview.draw(gl);
-        for (Vehicle v : vs) {
+        Set<Collidable> collidingVehicles = CollisionDetection.getCollidingObjects(vehicles.toArray(new Collidable[0]));
+        for (Vehicle v : vehicles) {
+            //if (!collidingVehicles.contains(v)) {
             v.move();
+            //}
             v.draw(gl);
+        }
+        for (Collidable v : collidingVehicles) {
+            new SelectionArrow(((Vehicle) v).getPosition()).draw(gl);
+        }
+        final int N = 10;
+        if (vehicles.size() > 0) {
+            for (int i = -N; i < N; i++) {
+                for (int j = -N; j < N; j++) {
+                    Vehicle v = new VehicleImpl(new Vector(i, j, 0), 0);
+                    if (CollisionDetection.collision(vehicles.get(0).getBoundingBox(), v.getBoundingBox())) {
+                        v.drawBoundingBox(gl);
+                    }
+                }
+            }
         }
         for (LightSource l : lights) {
             l.draw(gl);
@@ -176,7 +199,7 @@ public class Environment implements Serializable {
 
     public boolean addVehicle(Vehicle v) {
         v.setEnvironment(this);
-        return this.vs.add(v);
+        return this.vehicles.add(v);
     }
 
     private void readObject(java.io.ObjectInputStream in)
@@ -214,14 +237,14 @@ public class Environment implements Serializable {
     public Movable[] getMovables() {
         final List<Movable> result = new ArrayList<>();
         result.add(Movable.NULL); // in case of no selection
-        result.addAll(vs); // TODO: add manual movement for vehicles
+        result.addAll(vehicles); // TODO: add manual movement for vehicles
         result.addAll(lights);
         result.addAll(heatSources);
         return result.toArray(new Movable[0]);
     }
 
     public boolean removeObject(Movable selection) {
-        return vs.remove(selection)
+        return vehicles.remove(selection)
                 || lights.remove(selection)
                 || heatSources.remove(selection);
     }
