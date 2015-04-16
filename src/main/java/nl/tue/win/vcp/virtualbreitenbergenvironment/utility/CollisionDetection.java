@@ -142,41 +142,12 @@ public class CollisionDetection {
      * @return a subset of {@code objects} that collide with some other object
      */
     public static Set<Collidable> getCollidingObjects(List<Collidable> objects) {
-        boolean[][] compared = new boolean[objects.size()][objects.size()];
         for (Collidable object1 : objects) {
             for (Collidable object2 : objects) {
                 if (object1 == object2) break;
-                
-                compared[objects.indexOf(object1)]
-                        [objects.indexOf(object2)] = true;
+                // TODO: compare
             }
         }
-        print2DArray(compared);
-        return null;
-    }
-    
-    public static void print2DArray(boolean[][] a) {
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                System.out.print(a[i][j] || a[j][i] ? "X" : " ");
-            }
-            System.out.println();
-        }
-    }
-    
-    public static void main(String... args) {
-        final int SIZE = 10;
-        Collidable[] a = new Collidable[SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            a[i] = new Collidable() {
-
-                @Override
-                public Rectangle getBoundingBox() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };
-        }
-        List<Collidable> l = Arrays.asList(a);
-        getCollidingObjects(l);
+        return null; // TODO: return correct result
     }
 }
