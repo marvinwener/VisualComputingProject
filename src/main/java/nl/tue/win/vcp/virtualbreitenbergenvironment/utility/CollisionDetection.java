@@ -90,7 +90,13 @@ public class CollisionDetection {
      *                min(a) <= max(b) <= max(a)}
      */
     public static boolean overlap(double[] a, double[] b) {
-        return true; // TODO: implement
+        final double[] minMaxA = determineMinMax(a);
+        final double[] minMaxB = determineMinMax(b);
+        final double minA = minMaxA[0];
+        final double minB = minMaxB[0];
+        final double maxA = minMaxA[1];
+        final double maxB = minMaxB[1];
+        return (minA <= minB && minB <= maxA) || (minA <= maxB && maxB <= maxA);
     }
     
     /**
