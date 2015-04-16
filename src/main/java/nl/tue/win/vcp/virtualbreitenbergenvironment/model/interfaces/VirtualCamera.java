@@ -1,4 +1,4 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.opengl;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces;
 
 /**
  *

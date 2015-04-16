@@ -1,7 +1,7 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import java.io.Serializable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

@@ -1,7 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
 import com.jogamp.opengl.util.gl2.GLUT;
 import java.io.Serializable;
 import javax.media.opengl.GL2;

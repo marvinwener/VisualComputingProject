@@ -24,7 +24,7 @@ import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.*;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

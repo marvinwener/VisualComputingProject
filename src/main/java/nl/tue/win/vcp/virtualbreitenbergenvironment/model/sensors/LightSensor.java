@@ -1,10 +1,9 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import java.util.List;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
