@@ -8,11 +8,20 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
  */
 public class OptionsFrame extends javax.swing.JFrame {
 
+    private static OptionsFrame instance = null;
+
     /**
      * Creates new form OptionsFrame
      */
-    public OptionsFrame() {
+    private OptionsFrame() {
         initComponents();
+    }
+
+    public static OptionsFrame getInstance() {
+        if (instance == null) {
+            instance = new OptionsFrame();
+        }
+        return instance;
     }
 
     /**

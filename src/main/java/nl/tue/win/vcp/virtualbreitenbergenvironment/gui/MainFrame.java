@@ -391,7 +391,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            new OptionsFrame().setVisible(true); // TODO: ensure only one can be opened
+            OptionsFrame.getInstance().setVisible(true);
         }
     };
 
