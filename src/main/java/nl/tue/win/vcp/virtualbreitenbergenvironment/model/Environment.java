@@ -68,7 +68,8 @@ public class Environment implements Serializable {
         gl.glLoadName(1);
         drawFloorAndWalls();
         preview.draw(gl);
-        Set<Collidable> collidingVehicles = CollisionDetection.getCollidingObjects(vehicles.toArray(new Collidable[0]));
+        Set<Collidable> collidingVehicles
+                = CollisionDetection.getCollidingObjects(this.getCollidables());
         for (Vehicle v : vehicles) {
             if (!collidingVehicles.contains(v)) {
                 v.move();
@@ -81,6 +82,10 @@ public class Environment implements Serializable {
         for (HeatSource h : heatSources) {
             h.draw(gl);
         }
+    }
+    
+    private Collidable[] getCollidables() {
+        return vehicles.toArray(new Collidable[0]);
     }
 
     private void drawFloorAndWalls() {
