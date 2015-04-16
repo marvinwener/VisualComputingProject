@@ -377,7 +377,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 return new TemperatureSensor(sensorLocation,
                         environment.getHeatSources());
             case "Dummy":
-                return new DummySensor();
+                return DummySensor.instance;
             case "Random":
                 return new RandomSensor();
             default:
