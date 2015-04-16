@@ -5,6 +5,7 @@
  */
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
 
 /**
@@ -77,7 +78,7 @@ public class OptionsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO: implement
+        Vehicle.DRAW_BOUNDING_BOX = this.jCheckBox2.isSelected();
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**

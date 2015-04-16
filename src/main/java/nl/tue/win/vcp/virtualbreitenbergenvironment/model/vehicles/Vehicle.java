@@ -23,7 +23,7 @@ public abstract class Vehicle
     protected Sensor[] slots;
     protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
-    public final static boolean DRAW_BOUNDING_BOX = false;
+    public static boolean DRAW_BOUNDING_BOX = false;
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.
