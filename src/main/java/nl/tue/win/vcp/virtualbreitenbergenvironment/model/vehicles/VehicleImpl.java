@@ -178,6 +178,6 @@ public class VehicleImpl extends Vehicle {
         final Vector lowerRight = position.minus(direction.normalized().scale(0.5)).plus(wheelDirection.normalized().scale(0.5));
         final Vector lowerLeft = position.minus(direction.normalized().scale(0.5)).minus(wheelDirection.normalized().scale(0.5));
         
-        return new Rectangle(null, upperRight, upperLeft, lowerLeft, lowerRight);
+        return new Rectangle(direction, upperRight, upperLeft, lowerLeft, lowerRight);
     }
 }
