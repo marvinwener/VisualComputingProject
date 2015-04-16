@@ -3,7 +3,6 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 import java.util.HashSet;
 import java.util.Set;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

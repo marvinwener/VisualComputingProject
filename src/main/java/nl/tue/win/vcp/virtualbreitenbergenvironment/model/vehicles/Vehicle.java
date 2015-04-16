@@ -7,7 +7,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

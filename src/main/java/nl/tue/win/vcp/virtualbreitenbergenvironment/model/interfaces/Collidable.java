@@ -1,6 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 
 /**
  * An object that may collide. As such, it provides a method to retrieve its
