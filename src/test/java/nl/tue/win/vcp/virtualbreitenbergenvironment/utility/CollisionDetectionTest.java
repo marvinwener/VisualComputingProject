@@ -39,18 +39,26 @@ public class CollisionDetectionTest {
     @Test
     public void testCollision2() {
         final Rectangle a = A;
-        final Rectangle b = C;
+        final Rectangle c = C;
         final boolean expResult = true;
-        final boolean result = CollisionDetection.collision(a, b);
+        final boolean result = CollisionDetection.collision(a, c);
         assertEquals(expResult, result);
     }
 
     @Test
     public void testCollision3() {
-        final Rectangle a = B;
-        final Rectangle b = C;
+        final Rectangle b = B;
+        final Rectangle c = C;
         final boolean expResult = false;
-        final boolean result = CollisionDetection.collision(a, b);
+        final boolean result = CollisionDetection.collision(b, c);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testCollision4() {
+        final Rectangle a = A;
+        final boolean expResult = true;
+        final boolean result = CollisionDetection.collision(a, a);
         assertEquals(expResult, result);
     }
 
@@ -64,17 +72,17 @@ public class CollisionDetectionTest {
 
     @Test
     public void testDetermineDirection2() {
-        final Rectangle a = new Rectangle(null, B.corners);
+        final Rectangle b = new Rectangle(null, B.corners);
         final Vector expResult = B.direction;
-        final Vector result = a.direction;
+        final Vector result = b.direction;
         assertTrue(expResult.normalized().equals(result.normalized()) || expResult.normalized().plus(result.normalized()).length() < EPS);
     }
 
     @Test
     public void testDetermineDirection3() {
-        final Rectangle a = new Rectangle(null, C.corners);
+        final Rectangle c = new Rectangle(null, C.corners);
         final Vector expResult = C.direction;
-        final Vector result = a.direction;
+        final Vector result = c.direction;
         assertTrue(expResult.normalized().equals(result.normalized()) || expResult.normalized().plus(result.normalized()).length() < EPS);
     }
 
@@ -116,11 +124,11 @@ public class CollisionDetectionTest {
     @Test
     public void testCollidingObjects2() {
         final Collidable a = new RectangleHolder(A, "A");
-        final Collidable b = new RectangleHolder(C, "C");
+        final Collidable c = new RectangleHolder(C, "C");
         final Set<Collidable> expResult = new HashSet<>();
         expResult.add(a);
-        expResult.add(b);
-        final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, b);
+        expResult.add(c);
+        final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, c);
         assertEquals(expResult, result);
     }
 
