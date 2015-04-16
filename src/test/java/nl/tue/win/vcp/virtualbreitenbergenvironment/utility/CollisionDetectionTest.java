@@ -23,7 +23,18 @@ public class CollisionDetectionTest {
         final boolean result = CollisionDetection.collision(a, b);
         assertEquals(expResult, result);
     }
-    
+
+    @Test
+    public void testCollision2() {
+        final Rectangle a = new Rectangle(new Vector(0.6, 0.8),
+                new Vector(-2, 7), new Vector(-8, -1), new Vector(-4, -4), new Vector(2, 4));
+        final Rectangle b = new Rectangle(null,
+                new Vector(2, -2), new Vector(-2, 2), new Vector(0, 4), new Vector(4, 0));
+        final boolean expResult = true;
+        final boolean result = CollisionDetection.collision(a, b);
+        assertEquals(expResult, result);
+    }
+
     @Test
     public void testDetermineDirection() {
         final Rectangle a = new Rectangle(null,
@@ -32,7 +43,7 @@ public class CollisionDetectionTest {
         final Vector result = a.direction;
         assertTrue(expResult.equals(result) || expResult.normalized().plus(result.normalized()).length() == 0);
     }
-    
+
     @Test
     public void testDetermineDirection2() {
         final Rectangle a = new Rectangle(null,
