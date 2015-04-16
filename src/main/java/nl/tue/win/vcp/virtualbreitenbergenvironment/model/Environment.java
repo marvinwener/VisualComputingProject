@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection;
 
 /**
  *
@@ -65,8 +68,11 @@ public class Environment implements Serializable {
         gl.glLoadName(1);
         drawFloorAndWalls();
         preview.draw(gl);
+        Set<Collidable> collidingVehicles = CollisionDetection.getCollidingObjects(vehicles.toArray(new Collidable[0]));
         for (Vehicle v : vehicles) {
-            v.move();
+            if (!collidingVehicles.contains(v)) {
+                v.move();
+            }
             v.draw(gl);
         }
         for (LightSource l : lights) {
