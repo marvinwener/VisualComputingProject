@@ -224,6 +224,15 @@ public class Vector implements Serializable {
         final Vector rotated = Matrix.rotationMatrix(angle).times(v); // rotate around origin
         return center.plus(rotated); // move origin back to center
     }
+    
+    /**
+     * Gets the dimensionality (number of coordinates) for this vector.
+     * 
+     * @return dimensionality
+     */
+    public int getDimensionality() {
+        return coordinates.length;
+    }
 
     @Override
     public int hashCode() {
