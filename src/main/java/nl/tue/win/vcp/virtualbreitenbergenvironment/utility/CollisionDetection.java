@@ -1,5 +1,12 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
+
 /**
  * Provides methods that determines whether two 2D rectangles collide
  * (intersect).
@@ -126,5 +133,51 @@ public class CollisionDetection {
      */
     public static Vector rotated(Vector v) {
         return new Vector(-v.y(), v.x());
+    }
+    
+    /**
+     * Determines which objects collide.
+     * 
+     * @param objects the input objects
+     * @return a subset of {@code objects} that collide with some other object
+     */
+    public static Set<Collidable> getCollidingObjects(List<Collidable> objects) {
+        boolean[][] compared = new boolean[objects.size()][objects.size()];
+        for (Iterator<Collidable> it1 = objects.iterator(); it1.hasNext();) {
+            Collidable object1 = it1.next();
+            for (Iterator<Collidable> it2 = objects.iterator(); it2.hasNext();) {
+                Collidable object2 = it2.next();
+                
+                compared[objects.indexOf(object1)]
+                [objects.indexOf(object2)] = true;
+            }
+        }
+        print2DArray(compared);
+        return null;
+    }
+    
+    public static void print2DArray(boolean[][] a) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[i].length; j++) {
+                System.out.print(a[i][j] ? "X" : " ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void main(String... args) {
+        final int SIZE = 10;
+        Collidable[] a = new Collidable[SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            a[i] = new Collidable() {
+
+                @Override
+                public Rectangle getBoundingBox() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            };
+        }
+        List<Collidable> l = Arrays.asList(a);
+        getCollidingObjects(l);
     }
 }
