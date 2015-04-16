@@ -92,8 +92,7 @@ public class CollisionDetection {
      *
      * @param a first range
      * @param b second range
-     * @return {@code min(a) <= min(b) <= max(a) ||
-     *                min(a) <= max(b) <= max(a)}
+     * @return {@code minA <= maxB && minB <= maxA}
      */
     public static boolean overlap(double[] a, double[] b) {
         final double[] minMaxA = determineMinMax(a);
@@ -102,8 +101,7 @@ public class CollisionDetection {
         final double minB = minMaxB[0];
         final double maxA = minMaxA[1];
         final double maxB = minMaxB[1];
-        return ((minA <= minB && minB <= maxA) || (minA <= maxB && maxB <= maxA))
-                || ((minB <= minA && minA <= maxB) || (minB <= maxA && maxA <= maxB)); // TODO: check why both are needed
+        return minA <= maxB && minB <= maxA;
     }
 
     /**
