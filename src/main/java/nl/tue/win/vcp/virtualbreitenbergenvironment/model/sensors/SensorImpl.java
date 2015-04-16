@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 

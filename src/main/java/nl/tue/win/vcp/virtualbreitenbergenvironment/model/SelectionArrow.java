@@ -1,6 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
 import com.jogamp.opengl.util.gl2.GLUT;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
