@@ -320,7 +320,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     
     public PreSetVehicle getPreSetVehicle() {
         for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
-            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox, fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox, angleSlider)) {
+            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, sensor2ComboBox, leftWheelComboBox, rightWheelComboBox)) {
                 return psv;
             }
         }
