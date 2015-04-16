@@ -1,11 +1,13 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
 import java.io.Serializable;
+import javax.media.opengl.GL2;
+import static javax.media.opengl.GL2.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -13,13 +15,15 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public abstract class Vehicle extends Movable implements Drawable, Serializable {
+public abstract class Vehicle
+        extends Movable implements Collidable, Drawable, Serializable {
 
     protected Vector position;
     protected float angle;
     protected Sensor[] slots;
     protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
+    public final static boolean DRAW_BOUNDING_BOX = true;
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.
@@ -44,12 +48,12 @@ public abstract class Vehicle extends Movable implements Drawable, Serializable 
     public Vector getDirection() {
         return getDirection(angle);
     }
-    
+
     @Override
     public Vector getPosition() {
         return position;
     }
-    
+
     public static Vector getDirection(float angle) {
         assert INITIAL_DIRECTION.length() == 1;
         return Vector.rotate(INITIAL_DIRECTION, Vector.O, angle);
@@ -93,5 +97,23 @@ public abstract class Vehicle extends Movable implements Drawable, Serializable 
     @Override
     public String toString() {
         return "Vehicle at" + position;
+    }
+
+    public void drawBoundingBox(GL2 gl) {
+        if (DRAW_BOUNDING_BOX) {
+            Rectangle boundingBox = getBoundingBox();
+            gl.glPushMatrix();
+            gl.glPushAttrib(GL_CURRENT_BIT);
+
+            gl.glColor4f(1, 0, 1, 0.3f);
+            gl.glBegin(GL_QUADS);
+            for (Vector vertex : boundingBox.corners) {
+                gl.glVertex3d(vertex.x(), vertex.y(), 0.1);
+            }
+            gl.glEnd();
+
+            gl.glPopAttrib();
+            gl.glPopMatrix();
+        }
     }
 }

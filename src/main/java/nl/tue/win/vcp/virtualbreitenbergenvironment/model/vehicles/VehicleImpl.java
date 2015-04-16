@@ -6,6 +6,7 @@ import static javax.media.opengl.GL2GL3.*;
 
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Graphics;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
@@ -38,6 +39,7 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public void draw(GL2 gl) {
+        super.drawBoundingBox(gl);
         super.loadName(gl);
         // position is middle between wheels (behind)
 
@@ -163,5 +165,11 @@ public class VehicleImpl extends Vehicle {
     @Override
     public String toString() {
         return "Two-wheel vehicle at" + position;
+    }
+
+    @Override
+    public Rectangle getBoundingBox() {
+        // TODO: replace by sensible implementation
+        return new Rectangle(null, new Vector(0,0), new Vector(1,0), new Vector(1,1), new Vector(0,1));
     }
 }
