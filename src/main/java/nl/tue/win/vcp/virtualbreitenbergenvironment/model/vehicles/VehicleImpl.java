@@ -18,6 +18,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class VehicleImpl extends Vehicle {
 
     private final float wheelDistance = 1;
+    private final float wheelRadius = 0.5f;
     private int inactivityCounter = INACTIVITY_THRESHOLD - 1;
     private final static int INACTIVITY_THRESHOLD = 100;
     private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
@@ -62,9 +63,9 @@ public class VehicleImpl extends Vehicle {
         gl.glPushMatrix();
         gl.glColor3f(0, 0, 0);
         gl.glTranslatef(this.wheelDistance * -0.5f, 0, 0);
-        Graphics.drawDisk(gl, 0.5f, 10);
+        Graphics.drawDisk(gl, wheelRadius, 50);
         gl.glTranslatef(this.wheelDistance, 0, 0);
-        Graphics.drawDisk(gl, 0.5f, 10);
+        Graphics.drawDisk(gl, wheelRadius, 50);
         gl.glPopMatrix();
 
         gl.glPopAttrib();
