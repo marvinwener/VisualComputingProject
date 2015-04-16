@@ -29,19 +29,11 @@ public class PreSetVehicle {
         new PreSetVehicle("Two-wheel",
         "Random", "Random",
         "Sensor 1", "Sensor 2",
-        "Random vehicle"),
-        new PreSetVehicle("Two-wheel",
-        "Random", "Random",
-        "Sensor 2", "Sensor 1",
-        "Random vehicle"),
+        "Random vehicle", false),
         new PreSetVehicle("Two-wheel",
         "Dummy", "Dummy",
         "Sensor 1", "Sensor 2",
-        "Static vehicle"),
-        new PreSetVehicle("Two-wheel",
-        "Dummy", "Dummy",
-        "Sensor 2", "Sensor 1",
-        "Static vehicle"),
+        "Static vehicle", false),
         CUSTOM
     };
 
@@ -51,6 +43,7 @@ public class PreSetVehicle {
     private final String leftWheel;
     private final String rightWheel;
     private final String name;
+    private final boolean sensorOrderMatters;
 
     private PreSetVehicle() {
         this(null, null, null, null, null, "Custom");
@@ -58,12 +51,19 @@ public class PreSetVehicle {
 
     private PreSetVehicle(String vehicle, String sensor1, String sensor2,
             String leftWheel, String rightWheel, String name) {
+        this(vehicle, sensor1, sensor2, leftWheel, rightWheel, name, true);
+    }
+
+    private PreSetVehicle(String vehicle, String sensor1, String sensor2,
+            String leftWheel, String rightWheel, String name,
+            boolean sensorOrderMatters) {
         this.vehicleType = vehicle;
         this.sensor1 = sensor1;
         this.sensor2 = sensor2;
         this.leftWheel = leftWheel;
         this.rightWheel = rightWheel;
         this.name = name;
+        this.sensorOrderMatters = sensorOrderMatters;
     }
 
     private PreSetVehicle(JComboBox vehicleTypeComboBox,
@@ -75,6 +75,7 @@ public class PreSetVehicle {
         this.leftWheel = (String) leftWheelComboBox.getSelectedItem();
         this.rightWheel = (String) rightWheelComboBox.getSelectedItem();
         this.name = null;
+        this.sensorOrderMatters = true;
     }
 
     @Override
@@ -107,11 +108,13 @@ public class PreSetVehicle {
         if (!Objects.equals(this.sensor2, other.sensor2)) {
             return false;
         }
-        if (!Objects.equals(this.leftWheel, other.leftWheel)) {
-            return false;
-        }
-        if (!Objects.equals(this.rightWheel, other.rightWheel)) {
-            return false;
+        if (this.sensorOrderMatters && other.sensorOrderMatters) {
+            if (!Objects.equals(this.leftWheel, other.leftWheel)) {
+                return false;
+            }
+            if (!Objects.equals(this.rightWheel, other.rightWheel)) {
+                return false;
+            }
         }
         return true;
     }
