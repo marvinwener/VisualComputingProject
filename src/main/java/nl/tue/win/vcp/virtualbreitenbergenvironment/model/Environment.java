@@ -23,7 +23,7 @@ public class Environment implements Serializable {
     transient private GL2 gl;
     transient private GLU glu;
     transient private GLUT glut;
-    private final List<Vehicle> vs;
+    private final List<Vehicle> vehicles;
     private final List<LightSource> lights;
     private final List<HeatSource> heatSources;
     private Drawable preview = Drawable.NULL;
@@ -40,7 +40,7 @@ public class Environment implements Serializable {
         this.gl = gl;
         this.glu = glu;
         this.glut = glut;
-        vs = new ArrayList<>();
+        vehicles = new ArrayList<>();
         lights = new ArrayList<>();
         heatSources = new ArrayList<>();
     }
@@ -65,7 +65,7 @@ public class Environment implements Serializable {
         gl.glLoadName(1);
         drawFloorAndWalls();
         preview.draw(gl);
-        for (Vehicle v : vs) {
+        for (Vehicle v : vehicles) {
             v.move();
             v.draw(gl);
         }
@@ -176,7 +176,7 @@ public class Environment implements Serializable {
 
     public boolean addVehicle(Vehicle v) {
         v.setEnvironment(this);
-        return this.vs.add(v);
+        return this.vehicles.add(v);
     }
 
     private void readObject(java.io.ObjectInputStream in)
@@ -214,14 +214,14 @@ public class Environment implements Serializable {
     public Movable[] getMovables() {
         final List<Movable> result = new ArrayList<>();
         result.add(Movable.NULL); // in case of no selection
-        result.addAll(vs); // TODO: add manual movement for vehicles
+        result.addAll(vehicles); // TODO: add manual movement for vehicles
         result.addAll(lights);
         result.addAll(heatSources);
         return result.toArray(new Movable[0]);
     }
 
     public boolean removeObject(Movable selection) {
-        return vs.remove(selection)
+        return vehicles.remove(selection)
                 || lights.remove(selection)
                 || heatSources.remove(selection);
     }
