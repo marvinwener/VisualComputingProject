@@ -40,6 +40,15 @@ public class CollisionDetection {
             return longestSide.normalized();
         }
     }
+    
+    private static Rectangle translate(Rectangle a) {
+        // ad-hoc solution to make sure all corners are above and left from origin
+        Vector[] corners = new Vector[a.corners.length];
+        for (int i = 0; i < corners.length; i++) {
+            corners[i] = a.corners[i].plus(new Vector(-10000, 10000, 0));
+        }
+        return new Rectangle(a.direction, corners);
+    }
 
     /**
      * Determines whether two rectangles overlap (collide).
@@ -49,6 +58,8 @@ public class CollisionDetection {
      * @return {@code a} and {@code b} overlap
      */
     public static boolean collision(Rectangle a, Rectangle b) {
+        a = translate(a);
+        b = translate(b);
         Vector[] directions = new Vector[]{
             a.direction,
             rotated(a.direction),
