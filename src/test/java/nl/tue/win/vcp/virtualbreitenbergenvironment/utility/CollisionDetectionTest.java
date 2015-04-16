@@ -81,22 +81,33 @@ public class CollisionDetectionTest {
     private class RectangleHolder implements Collidable {
 
         final private Rectangle rectangle;
+        final private String name;
 
         public RectangleHolder(Rectangle rectangle) {
             this.rectangle = rectangle;
+            this.name = "RectangleHolder{" + "rectangle=" + rectangle + '}';
         }
 
+        public RectangleHolder(Rectangle rectangle, String name) {
+            this.rectangle = rectangle;
+            this.name = name;
+        }
+        
         @Override
         public Rectangle getBoundingBox() {
             return rectangle;
         }
 
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 
     @Test
     public void testCollidingObjects1() {
-        final Collidable a = new RectangleHolder(A);
-        final Collidable b = new RectangleHolder(B);
+        final Collidable a = new RectangleHolder(A, "A");
+        final Collidable b = new RectangleHolder(B, "B");
         final Set<Collidable> expResult = new HashSet<>();
         final Set<Collidable> result = CollisionDetection.getCollidingObjects(a, b);
         assertEquals(expResult, result);
@@ -104,8 +115,8 @@ public class CollisionDetectionTest {
 
     @Test
     public void testCollidingObjects2() {
-        final Collidable a = new RectangleHolder(A);
-        final Collidable b = new RectangleHolder(C);
+        final Collidable a = new RectangleHolder(A, "A");
+        final Collidable b = new RectangleHolder(C, "C");
         final Set<Collidable> expResult = new HashSet<>();
         expResult.add(a);
         expResult.add(b);
@@ -115,9 +126,9 @@ public class CollisionDetectionTest {
 
     @Test
     public void testCollidingObjects3() {
-        final Collidable a = new RectangleHolder(A);
-        final Collidable b = new RectangleHolder(B);
-        final Collidable c = new RectangleHolder(C);
+        final Collidable a = new RectangleHolder(A, "A");
+        final Collidable b = new RectangleHolder(B, "B");
+        final Collidable c = new RectangleHolder(C, "C");
         final Set<Collidable> expResult = new HashSet<>();
         expResult.add(a);
         expResult.add(c);
