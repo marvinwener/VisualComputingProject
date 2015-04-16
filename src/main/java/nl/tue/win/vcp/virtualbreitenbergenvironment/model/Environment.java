@@ -70,8 +70,10 @@ public class Environment implements Serializable {
         }
     }
     
-    private Collidable[] getCollidables() {
-        return vehicles.toArray(new Collidable[0]);
+    private List<Collidable> getCollidables() {
+        List<Collidable> result = new ArrayList<>();
+        result.addAll(vehicles);
+        return result;
     }
 
     public boolean addVehicle(Vehicle v) {
