@@ -28,6 +28,8 @@ public class AddLightFrame extends javax.swing.JFrame {
                 AddLightFrame.this.environment.clearPreview();
             }
         });
+        this.getRootPane().setDefaultButton(jButton1);
+        jButton1.requestFocus();
         update();
     }
 
@@ -163,7 +165,7 @@ public class AddLightFrame extends javax.swing.JFrame {
     protected void previewLight() {
         environment.preview(getLight());
     }
-    
+
     public JSpinner getXSpinner() {
         return xSpinner;
     }
@@ -175,7 +177,7 @@ public class AddLightFrame extends javax.swing.JFrame {
     public JSpinner getZSpinner() {
         return zSpinner;
     }
-    
+
     /**
      * @param args the command line arguments
      */
