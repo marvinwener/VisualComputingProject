@@ -34,6 +34,8 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 AddVehicleFrame.this.environment.clearPreview();
             }
         });
+        this.getRootPane().setDefaultButton(jButton1);
+        jButton1.requestFocus();
         update();
     }
 
