@@ -24,6 +24,7 @@ public abstract class Vehicle
     protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
     public static boolean DRAW_BOUNDING_BOX = false;
+    public static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.

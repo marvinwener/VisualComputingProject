@@ -1,7 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
 
 /**
  *
@@ -9,11 +8,20 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
  */
 public class OptionsFrame extends javax.swing.JFrame {
 
+    private static OptionsFrame instance = null;
+
     /**
      * Creates new form OptionsFrame
      */
-    public OptionsFrame() {
+    private OptionsFrame() {
         initComponents();
+    }
+
+    public static OptionsFrame getInstance() {
+        if (instance == null) {
+            instance = new OptionsFrame();
+        }
+        return instance;
     }
 
     /**
@@ -38,6 +46,7 @@ public class OptionsFrame extends javax.swing.JFrame {
         });
 
         jCheckBox2.setText("Show bounding boxes");
+        jCheckBox2.setEnabled(false);
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
@@ -69,7 +78,7 @@ public class OptionsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        VehicleImpl.RANDOM = this.jCheckBox1.isSelected();
+        Vehicle.RANDOM = this.jCheckBox1.isSelected();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed

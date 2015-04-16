@@ -104,6 +104,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -165,6 +167,13 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu6.add(jMenuItem11);
 
         jMenuBar2.add(jMenu6);
+
+        jMenu7.setText("Tools");
+
+        jMenuItem12.setText("Options...");
+        jMenu7.add(jMenuItem12);
+
+        jMenuBar2.add(jMenu7);
 
         jMenu5.setText("Time");
         jMenu5.setEnabled(false);
@@ -246,6 +255,7 @@ public class MainFrame extends javax.swing.JFrame {
         addHeatSourceAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         deleteAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         resetCameraAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
+        showOptionsAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK | java.awt.event.KeyEvent.ALT_MASK));
 
         deleteAction.setEnabled(false);
 
@@ -258,6 +268,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem9.setAction(addHeatSourceAction);
         jMenuItem10.setAction(deleteAction);
         jMenuItem11.setAction(resetCameraAction);
+        jMenuItem12.setAction(showOptionsAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -375,6 +386,14 @@ public class MainFrame extends javax.swing.JFrame {
             camera.resetCamera();
         }
     };
+    
+    private final Action showOptionsAction = new AbstractAction("Options...") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            OptionsFrame.getInstance().setVisible(true);
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -388,11 +407,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

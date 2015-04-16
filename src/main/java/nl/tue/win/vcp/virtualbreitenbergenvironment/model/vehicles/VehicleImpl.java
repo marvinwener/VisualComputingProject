@@ -23,7 +23,6 @@ public class VehicleImpl extends Vehicle {
     private final static int INACTIVITY_THRESHOLD = 100;
     private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
     private final float EPS = 0.001f;
-    public static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
