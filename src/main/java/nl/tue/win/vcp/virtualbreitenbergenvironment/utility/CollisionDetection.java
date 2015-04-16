@@ -10,6 +10,9 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
  */
 public class CollisionDetection {
 
+    /**
+     * Class that stores a directional vector and four corners of a rectangle.
+     */
     public static class Rectangle {
 
         public final Vector[] corners;
@@ -18,7 +21,17 @@ public class CollisionDetection {
         public Rectangle(Vector direction, Vector... corners) {
             assert corners.length == 4;
             this.corners = corners;
-            this.direction = direction;
+            this.direction = direction != null
+                    ? direction : computeDirection(corners);
+        }
+        
+        public final static Vector computeDirection(Vector... corners) {
+            // assumption: corners are given in rotating order
+            final Vector side1 = corners[0].minus(corners[1]);
+            final Vector side2 = corners[1].minus(corners[2]);
+            final Vector longestSide = side1.length() > side2.length()
+                    ? side1 : side2;
+            return longestSide.normalized();
         }
     }
 
@@ -38,6 +51,17 @@ public class CollisionDetection {
     }
 
     public static boolean collision(Vector direction, Vector[] a, Vector[] b) {
+        assert a.length == 4 && b.length == 4;
+        double[] aValues = new double[a.length];
+        double[] bValues = new double[b.length];
+        for (int i = 0; i < aValues.length; i++) {
+            aValues[i] = Vector.dot(direction, a[i]);
+            bValues[i] = Vector.dot(direction, b[i]);
+        }
+        return overlap(aValues, bValues);
+    }
+
+    public static boolean overlap(double[] a, double[] b) {
         return true; // TODO: implement
     }
 
