@@ -170,7 +170,14 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public Rectangle getBoundingBox() {
-        // TODO: replace by sensible implementation
-        return new Rectangle(null, new Vector(0,0), new Vector(1,0), new Vector(1,1), new Vector(0,1));
+        final Vector direction = this.getDirection();
+        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        
+        final Vector upperRight = position.plus(direction.normalized().scale(0.5)).plus(wheelDirection.normalized().scale(0.5));
+        final Vector upperLeft = position.plus(direction.normalized().scale(0.5)).minus(wheelDirection.normalized().scale(0.5));
+        final Vector lowerRight = position.minus(direction.normalized().scale(0.5)).plus(wheelDirection.normalized().scale(0.5));
+        final Vector lowerLeft = position.minus(direction.normalized().scale(0.5)).minus(wheelDirection.normalized().scale(0.5));
+        
+        return new Rectangle(null, upperRight, upperLeft, lowerLeft, lowerRight);
     }
 }
