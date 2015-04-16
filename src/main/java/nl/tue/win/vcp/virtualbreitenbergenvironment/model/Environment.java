@@ -48,22 +48,6 @@ public class Environment implements Serializable {
     }
 
     public void draw() {
-        /*gl.glBegin(GL_QUADS);
-         gl.glVertex3f(0, 0, 0);
-         gl.glVertex3f(0, 1, 0);
-         gl.glVertex3f(1, 1, 0);
-         gl.glVertex3f(1, 0, 0);
-         gl.glEnd();*/
-        /*glut.glutWireCube(0.5f);
-         gl.glColor3f(0, 0, 0);
-         glut.glutSolidCube(0.5f);    
-        
-         gl.glTranslatef(0, 0, time);
-         gl.glRotatef(time * 10,0,0,1);
-         gl.glColor3f(1, 0, 0);
-         glut.glutWireCube(0.5f);
-         gl.glColor3f(0, 0, 0);
-         glut.glutSolidCube(0.5f);*/
         gl.glLoadName(1);
         room.draw(gl);
         preview.draw(gl);
