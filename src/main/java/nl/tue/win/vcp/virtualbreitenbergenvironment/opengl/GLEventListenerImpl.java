@@ -46,14 +46,14 @@ public class GLEventListenerImpl implements GLEventListener,
     private int width;
     private int height;
     private float phi;
-    private float theta = 0.4f;
+    private float theta;
     private int dragSourceX, dragSourceY;
     private int mouseButton;
     public static float DRAG_PIXEL_TO_RADIAN = 0.025f;
     final static private float EPS = 0.001f;
     static public float THETA_MIN = 0;//(-(float) Math.PI / 2f) + EPS;
     static public float THETA_MAX = ((float) Math.PI / 2f) - EPS;
-    private float vDist = 30;
+    private float vDist;
     static public float MIN_CAMERA_DISTANCE = 1f;
     static public float MOUSE_WHEEL_FACTOR = 1.2f;
     static public float CENTER_POINT_CHANGE = 1f;
@@ -104,6 +104,8 @@ public class GLEventListenerImpl implements GLEventListener,
         //float[] ambient = {1f, 1f, 1f, 1f};
         //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
         //TODO: extend
+        
+        this.resetCamera();
     }
 
     @Override
@@ -222,7 +224,7 @@ public class GLEventListenerImpl implements GLEventListener,
     @Override
     public void resetCamera() {
         this.phi = 0;
-        this.theta = 0.4f;
+        this.theta = 1.2f;
         this.vDist = 30;
         this.fovy = -1;
         this.cnt = Vector.O;
