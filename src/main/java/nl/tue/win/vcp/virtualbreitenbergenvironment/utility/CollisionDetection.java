@@ -1,8 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
@@ -105,10 +103,10 @@ public class CollisionDetection {
         final double maxB = minMaxB[1];
         return (minA <= minB && minB <= maxA) || (minA <= maxB && maxB <= maxA);
     }
-    
+
     /**
      * Determines the minimum and maximum value of an array.
-     * 
+     *
      * @param a the array
      * @return an array r with r[0] = min(a) and r[1] = max(a)
      */
@@ -119,7 +117,7 @@ public class CollisionDetection {
             min = v < min ? v : min;
             max = v > max ? v : max;
         }
-        return new double[] {min, max};
+        return new double[]{min, max};
     }
 
     /**
@@ -134,20 +132,26 @@ public class CollisionDetection {
     public static Vector rotated(Vector v) {
         return new Vector(-v.y(), v.x());
     }
-    
+
     /**
      * Determines which objects collide.
-     * 
+     *
      * @param objects the input objects
      * @return a subset of {@code objects} that collide with some other object
      */
     public static Set<Collidable> getCollidingObjects(List<Collidable> objects) {
         for (Collidable object1 : objects) {
             for (Collidable object2 : objects) {
-                if (object1 == object2) break;
+                if (object1 == object2) {
+                    break;
+                }
                 // TODO: compare
             }
         }
         return null; // TODO: return correct result
+    }
+
+    public static Set<Collidable> getCollidingObjects(Collidable... objects) {
+        return getCollidingObjects(Arrays.asList(objects));
     }
 }
