@@ -1,8 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection.Rectangle;
@@ -22,8 +20,10 @@ public class CollisionDetectionTest {
             new Vector(-2, 7), new Vector(-8, -1), new Vector(-4, -4), new Vector(2, 4));
     private final static Rectangle B = new Rectangle(new Vector(-0.6, 0.8),
             new Vector(3, 0), new Vector(-1, -3), new Vector(5, -11), new Vector(9, -8));
+    /*private final static Rectangle C = new Rectangle(new Vector(-1, 1),
+     new Vector(2, -2), new Vector(-2, 2), new Vector(0, 4), new Vector(4, 0));*/
     private final static Rectangle C = new Rectangle(new Vector(-1, 1),
-            new Vector(2, -2), new Vector(-2, 2), new Vector(0, 4), new Vector(4, 0));
+            new Vector(-6, 2), new Vector(-10, 6), new Vector(-8, 8), new Vector(-4, 4));
 
     private final static float EPS = 0.0001f;
 
@@ -41,6 +41,15 @@ public class CollisionDetectionTest {
         final Rectangle a = A;
         final Rectangle b = C;
         final boolean expResult = true;
+        final boolean result = CollisionDetection.collision(a, b);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCollision3() {
+        final Rectangle a = B;
+        final Rectangle b = C;
+        final boolean expResult = false;
         final boolean result = CollisionDetection.collision(a, b);
         assertEquals(expResult, result);
     }
