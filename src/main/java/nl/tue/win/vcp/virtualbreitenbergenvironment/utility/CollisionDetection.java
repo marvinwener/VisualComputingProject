@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
@@ -101,7 +102,8 @@ public class CollisionDetection {
         final double minB = minMaxB[0];
         final double maxA = minMaxA[1];
         final double maxB = minMaxB[1];
-        return (minA <= minB && minB <= maxA) || (minA <= maxB && maxB <= maxA);
+        return ((minA <= minB && minB <= maxA) || (minA <= maxB && maxB <= maxA))
+                || ((minB <= minA && minA <= maxB) || (minB <= maxA && maxA <= maxB)); // TODO: check why both are needed
     }
 
     /**
@@ -140,15 +142,19 @@ public class CollisionDetection {
      * @return a subset of {@code objects} that collide with some other object
      */
     public static Set<Collidable> getCollidingObjects(List<Collidable> objects) {
+        Set<Collidable> result = new HashSet<>();
         for (Collidable object1 : objects) {
             for (Collidable object2 : objects) {
                 if (object1 == object2) {
                     break;
                 }
-                // TODO: compare
+                if (collision(object1.getBoundingBox(), object2.getBoundingBox())) {
+                    result.add(object1);
+                    result.add(object2);
+                }
             }
         }
-        return null; // TODO: return correct result
+        return result;
     }
 
     public static Set<Collidable> getCollidingObjects(Collidable... objects) {
