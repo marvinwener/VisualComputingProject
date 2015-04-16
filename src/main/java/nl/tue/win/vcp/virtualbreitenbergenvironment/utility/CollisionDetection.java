@@ -143,13 +143,12 @@ public class CollisionDetection {
      */
     public static Set<Collidable> getCollidingObjects(List<Collidable> objects) {
         boolean[][] compared = new boolean[objects.size()][objects.size()];
-        for (Iterator<Collidable> it1 = objects.iterator(); it1.hasNext();) {
-            Collidable object1 = it1.next();
-            for (Iterator<Collidable> it2 = objects.iterator(); it2.hasNext();) {
-                Collidable object2 = it2.next();
+        for (Collidable object1 : objects) {
+            for (Collidable object2 : objects) {
+                if (object1 == object2) break;
                 
                 compared[objects.indexOf(object1)]
-                [objects.indexOf(object2)] = true;
+                        [objects.indexOf(object2)] = true;
             }
         }
         print2DArray(compared);
@@ -159,7 +158,7 @@ public class CollisionDetection {
     public static void print2DArray(boolean[][] a) {
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[i].length; j++) {
-                System.out.print(a[i][j] ? "X" : " ");
+                System.out.print(a[i][j] || a[j][i] ? "X" : " ");
             }
             System.out.println();
         }
