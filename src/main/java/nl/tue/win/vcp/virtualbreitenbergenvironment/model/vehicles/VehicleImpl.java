@@ -28,13 +28,6 @@ public class VehicleImpl extends Vehicle {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        //slots[0] = new SensorImpl(0.1f);
-        //slots[1] = new SensorImpl(0.05f);
-        //slots[0] = new DummySensor();
-        //slots[1] = new DummySensor();
-        /*Vector[] sensorLocations = this.getSensorLocations();
-         slots[0] = new LightSensor(sensorLocations[0], this.environment.getLights());
-         slots[1] = new LightSensor(sensorLocations[1], this.environment.getLights());*/
     }
 
     @Override
@@ -152,7 +145,7 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public final Vector[] getSensorLocations() {
-        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
         final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
         return new Vector[]{wheelVector, wheelVector.scale(-1)};
     }
