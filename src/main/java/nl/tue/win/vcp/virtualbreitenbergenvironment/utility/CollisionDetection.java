@@ -108,7 +108,10 @@ public class CollisionDetection {
     public static double[] determineMinMax(double[] a) {
         double min = Double.MAX_VALUE;
         double max = Double.MIN_VALUE;
-        // TODO: calculate
+        for (double v : a) {
+            min = v < min ? v : min;
+            max = v > max ? v : max;
+        }
         return new double[] {min, max};
     }
 
