@@ -143,7 +143,7 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public final Vector[] getSensorLocations() {
-        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
         final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
         return new Vector[]{wheelVector, wheelVector.scale(-1)};
     }
