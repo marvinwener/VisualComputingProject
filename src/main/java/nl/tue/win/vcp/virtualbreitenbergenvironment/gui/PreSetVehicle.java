@@ -26,6 +26,22 @@ public class PreSetVehicle {
         "Temperature", "Temperature",
         "Sensor 2", "Sensor 1",
         "Heat-fleeing vehicle"),
+        new PreSetVehicle("Two-wheel",
+        "Random", "Random",
+        "Sensor 1", "Sensor 2",
+        "Random vehicle"),
+        new PreSetVehicle("Two-wheel",
+        "Random", "Random",
+        "Sensor 2", "Sensor 1",
+        "Random vehicle"),
+        new PreSetVehicle("Two-wheel",
+        "Dummy", "Dummy",
+        "Sensor 1", "Sensor 2",
+        "Static vehicle"),
+        new PreSetVehicle("Two-wheel",
+        "Dummy", "Dummy",
+        "Sensor 2", "Sensor 1",
+        "Static vehicle"),
         CUSTOM
     };
 
