@@ -1,6 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 
 /**
  *
@@ -77,7 +77,7 @@ public class OptionsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        VehicleImpl.RANDOM = this.jCheckBox1.isSelected();
+        Vehicle.RANDOM = this.jCheckBox1.isSelected();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed

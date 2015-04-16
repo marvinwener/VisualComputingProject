@@ -20,6 +20,7 @@ public abstract class Vehicle extends Movable implements Drawable, Serializable 
     protected Sensor[] slots;
     protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
+    public static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.
