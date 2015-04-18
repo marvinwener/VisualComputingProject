@@ -3,6 +3,7 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 import java.util.HashSet;
 import java.util.Set;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle.RectangleHolder;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -94,32 +95,6 @@ public class CollisionDetectionTest {
         final Vector expResult = C.direction;
         final Vector result = c.direction;
         assertTrue(expResult.normalized().equals(result.normalized()) || expResult.normalized().plus(result.normalized()).length() < EPS);
-    }
-
-    private class RectangleHolder implements Collidable {
-
-        final private Rectangle rectangle;
-        final private String name;
-
-        public RectangleHolder(Rectangle rectangle) {
-            this.rectangle = rectangle;
-            this.name = "RectangleHolder{" + "rectangle=" + rectangle + '}';
-        }
-
-        public RectangleHolder(Rectangle rectangle, String name) {
-            this.rectangle = rectangle;
-            this.name = name;
-        }
-
-        @Override
-        public Rectangle getBoundingBox() {
-            return rectangle;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 
     @Test
