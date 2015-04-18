@@ -13,7 +13,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class TemperatureSensor extends Sensor {
     protected final Vector sensorPosition; // relative sensor position
     protected final List<HeatSource> heatSources;
-    private final static float DISTANCE_LIMIT = 5f;
+    public final static float DISTANCE_LIMIT = 5f;
     protected static final float SCALE = 0.1f;
 
     public TemperatureSensor(Vector sensorPosition, List<HeatSource> heatSources) {

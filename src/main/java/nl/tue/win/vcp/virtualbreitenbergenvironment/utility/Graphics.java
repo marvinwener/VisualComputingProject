@@ -42,7 +42,9 @@ public class Graphics {
     public static void drawDisk(GL2 gl, float radius, int slices) {
         float angle; // angle of ray from origin to current point with y axis
         gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glTexCoord1d(1);
         gl.glVertex3d(0, 0, 0);
+        gl.glTexCoord1d(0);
         for (int i = 0; i < slices; i++) {
             angle = (float) (i * 2 * PI / slices); // compute angle
             // Define vertex by definition of the unit circle.

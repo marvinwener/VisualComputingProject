@@ -46,6 +46,10 @@ public abstract class Movable {
         gl.glLoadName(ID);
     }
     
+    public static void unloadName(GL2 gl) {
+        gl.glLoadName(0);
+    }
+    
     /**
      * Get the Movable with the specified ID.
      * 
