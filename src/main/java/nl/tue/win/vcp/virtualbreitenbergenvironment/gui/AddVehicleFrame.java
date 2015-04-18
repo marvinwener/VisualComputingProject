@@ -4,6 +4,8 @@ import java.awt.event.WindowAdapter;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Preview;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
@@ -12,6 +14,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -24,14 +27,17 @@ public class AddVehicleFrame extends javax.swing.JFrame {
      * Creates new form AddVehicleFrame
      *
      * @param environment the environment to add the vehicle to
+     * @param em environment mover that allows for selection of objects
      */
-    public AddVehicleFrame(Environment environment) {
+    public AddVehicleFrame(Environment environment, final EnvironmentMover em) {
         initComponents();
         this.environment = environment;
+        this.em = em;
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 AddVehicleFrame.this.environment.clearPreview();
+                em.select(Movable.NULL);
             }
         });
         this.getRootPane().setDefaultButton(jButton1);
@@ -318,7 +324,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jButton1.setEnabled(this.isConsistent());
         jComboBox6.setSelectedItem(getPreSetVehicle());
     }
-    
+
     public PreSetVehicle getPreSetVehicle() {
         for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
             if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, sensor2ComboBox, leftWheelComboBox, rightWheelComboBox)) {
@@ -329,13 +335,25 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private void addVehicle() {
-        Vehicle v = getVehicle();
+        Drawable preview = environment.getPreview();
+        while (preview instanceof Preview) {
+            preview = ((Preview) preview).getObject();
+        }
+        final Vehicle v;
+        if (preview instanceof Vehicle) {
+            v = (Vehicle) preview;
+        } else {
+            v = getVehicle();
+        }
         environment.addVehicle(v);
         environment.clearPreview();
+        em.select(v);
     }
 
     private void previewVehicle() {
-        environment.preview(getVehicle());
+        Vehicle v = getVehicle();
+        environment.preview(v);
+        em.select(v);
     }
 
     private Vehicle getVehicle() {
@@ -391,42 +409,8 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         return !leftWheelComboBox.getSelectedItem().equals(rightWheelComboBox.getSelectedItem());
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddVehicleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddVehicleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddVehicleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddVehicleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddVehicleFrame(new Environment()).setVisible(true);
-            }
-        });
-    }
-
     private final Environment environment;
+    private final EnvironmentMover em;
     private final ComboBoxModel<PreSetVehicle> presetsModel
             = new DefaultComboBoxModel<>(PreSetVehicle.PRESET_VEHICLES);
     // Variables declaration - do not modify//GEN-BEGIN:variables

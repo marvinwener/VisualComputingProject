@@ -14,6 +14,7 @@ import javax.media.opengl.awt.GLJPanel;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.KeyStroke.getKeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -320,6 +321,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
                 try {
                     ec.setEnvironment((Environment) Serialization.read(selectedFile));
+                    additionFrame.dispose(); // close any open windows
                 } catch (IOException | ClassNotFoundException ex) {
                     System.err.println("While reading: " + ex);
                     JOptionPane.showMessageDialog(MainFrame.this,
@@ -334,6 +336,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            additionFrame.dispose(); // close any open windows
             ec.setEnvironment(new Environment());
         }
     };
@@ -342,7 +345,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddVehicleFrame(ec.getEnvironment()).setVisible(true);
+            if (additionFrame == null || !additionFrame.isVisible()) {
+                additionFrame = new AddVehicleFrame(ec.getEnvironment(), em);
+                additionFrame.setVisible(true);
+            }
         }
     };
 
@@ -350,7 +356,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddLightFrame(ec.getEnvironment()).setVisible(true);
+            if (additionFrame == null || !additionFrame.isVisible()) {
+                additionFrame = new AddLightFrame(ec.getEnvironment());
+                additionFrame.setVisible(true);
+            }
         }
     };
 
@@ -358,16 +367,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            dispose();
+            additionFrame.dispose(); // close any open windows
+            MainFrame.this.dispose();
             System.exit(0);
         }
     };
-    
+
     private final Action addHeatSourceAction = new AbstractAction("Add heat source...") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            new AddHeatFrame(ec.getEnvironment()).setVisible(true);
+            if (additionFrame == null || !additionFrame.isVisible()) {
+                additionFrame = new AddHeatFrame(ec.getEnvironment());
+                additionFrame.setVisible(true);
+            }
         }
     };
 
@@ -379,17 +392,17 @@ public class MainFrame extends javax.swing.JFrame {
             em.select(Movable.NULL);
         }
     };
-    
+
     private final Action resetCameraAction = new AbstractAction("Reset camera") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.resetCamera();
         }
     };
-    
+
     private final Action showOptionsAction = new AbstractAction("Options...") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             OptionsFrame.getInstance().setVisible(true);
@@ -401,6 +414,7 @@ public class MainFrame extends javax.swing.JFrame {
     private final EnvironmentMover em;
     private final VirtualCamera camera;
     private Movable selection = Movable.NULL;
+    private JFrame additionFrame = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
