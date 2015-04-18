@@ -15,7 +15,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
  * @author maikel
  */
 public class CollisionDetection {
-    
+
     private static Rectangle translate(Rectangle a) {
         // ad-hoc solution to make sure all corners are above and left from origin
         Vector[] corners = new Vector[a.corners.length];
@@ -39,7 +39,9 @@ public class CollisionDetection {
             a.direction,
             rotated(a.direction),
             b.direction,
-            rotated(b.direction)
+            rotated(b.direction),
+            Vector.X.as2DVector(),
+            Vector.Y.as2DVector()
         };
         // report a collision if we find a collisions for all of these directions
         boolean result = true;
