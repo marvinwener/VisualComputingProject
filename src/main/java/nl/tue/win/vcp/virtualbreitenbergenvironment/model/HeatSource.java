@@ -22,7 +22,7 @@ public class HeatSource extends LightSource {
 
     private static Texture temperature;
     public static boolean DRAW_GRADIENT = true;
-    private final static String TEXTURE_PATH
+    final static String TEXTURE_PATH
             = "src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/"
             + "graphics/textures/temperature.jpg";
 
