@@ -23,6 +23,8 @@ public class CollisionDetectionTest {
      new Vector(2, -2), new Vector(-2, 2), new Vector(0, 4), new Vector(4, 0));*/
     private final static Rectangle C = new Rectangle(new Vector(-1, 1),
             new Vector(-6, 2), new Vector(-10, 6), new Vector(-8, 8), new Vector(-4, 4));
+    private final static Rectangle D = new Rectangle(new Vector(0.7403435452793032, 0.6722287073335028, 0.0), new Vector(2.1250197833994022, 7.416767234773927, 0.5), new Vector(1.4527910760658995, 8.15711078005323, 0.5), new Vector(0.7124475307865963, 7.484882072719728, 0.5), new Vector(1.3846762381200992, 6.744538527440424, 0.5));
+    private final static Rectangle E = new Rectangle(new Vector(0.10155671575798253, -0.9948297510048905, 0.0), new Vector(-7.804690103124905, 0.5144584993287216, 0.5), new Vector(-6.809860352120015, 0.6160152150867042, 0.5), new Vector(-6.9114170678779985, 1.6108449660915947, 0.5), new Vector(-7.906246818882888, 1.509288250333612, 0.5));
 
     private final static float EPS = 0.0001f;
 
@@ -52,12 +54,21 @@ public class CollisionDetectionTest {
         final boolean result = CollisionDetection.collision(b, c);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testCollision4() {
         final Rectangle a = A;
         final boolean expResult = true;
         final boolean result = CollisionDetection.collision(a, a);
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCollision5() {
+        final Rectangle d = D;
+        final Rectangle e = E;
+        final boolean expResult = false;
+        final boolean result = CollisionDetection.collision(d, e);
         assertEquals(expResult, result);
     }
 
@@ -99,7 +110,7 @@ public class CollisionDetectionTest {
             this.rectangle = rectangle;
             this.name = name;
         }
-        
+
         @Override
         public Rectangle getBoundingBox() {
             return rectangle;
