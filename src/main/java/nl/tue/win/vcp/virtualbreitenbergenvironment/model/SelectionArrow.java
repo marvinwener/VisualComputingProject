@@ -15,10 +15,16 @@ public class SelectionArrow implements Drawable {
 
     private final Vector position;
     private final float HEIGHT = Float.MAX_VALUE;
-    private final float radius = 2;
+    private final float radius;
     
     public SelectionArrow(Vector position) {
         this.position = position;
+        this.radius = 2;
+    }
+    
+    public SelectionArrow(Vector position, float radius) {
+        this.position = position;
+        this.radius = radius;
     }
 
     private void oldDraw(GL2 gl) {
