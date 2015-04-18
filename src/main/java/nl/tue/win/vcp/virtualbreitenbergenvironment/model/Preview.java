@@ -18,6 +18,10 @@ public class Preview implements Drawable {
         this.object = object;
     }
 
+    public Drawable getObject() {
+        return object;
+    }
+
     @Override
     public void draw(GL2 gl) {
         float time = Time.getTime();

@@ -202,6 +202,10 @@ public class Environment implements Serializable {
     public boolean addHeatSource(HeatSource h) {
         return this.heatSources.add(h);
     }
+    
+    public Drawable getPreview() {
+        return preview;
+    }
 
     public void clearPreview() {
         this.preview = Drawable.NULL;

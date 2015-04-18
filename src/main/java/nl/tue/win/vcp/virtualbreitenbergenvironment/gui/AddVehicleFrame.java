@@ -4,6 +4,8 @@ import java.awt.event.WindowAdapter;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Preview;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
@@ -320,7 +322,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jButton1.setEnabled(this.isConsistent());
         jComboBox6.setSelectedItem(getPreSetVehicle());
     }
-    
+
     public PreSetVehicle getPreSetVehicle() {
         for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
             if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox, fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox, angleSlider)) {
@@ -331,7 +333,16 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private void addVehicle() {
-        Vehicle v = getVehicle();
+        Drawable preview = environment.getPreview();
+        while (preview instanceof Preview) {
+            preview = ((Preview) preview).getObject();
+        }
+        final Vehicle v;
+        if (preview instanceof Vehicle) {
+            v = (Vehicle) preview;
+        } else {
+            v = getVehicle();
+        }
         environment.addVehicle(v);
         environment.clearPreview();
         em.select(v);
