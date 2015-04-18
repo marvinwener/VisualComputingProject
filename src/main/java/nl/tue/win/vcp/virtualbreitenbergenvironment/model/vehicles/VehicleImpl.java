@@ -64,6 +64,8 @@ public class VehicleImpl extends Vehicle {
         for (Sensor s : slots) {
             s.draw(gl);
         }
+        
+        super.unloadName(gl);
     }
 
     @Override

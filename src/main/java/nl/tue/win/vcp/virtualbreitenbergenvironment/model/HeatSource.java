@@ -60,6 +60,7 @@ public class HeatSource extends LightSource {
         super.loadName(gl);
         gl.glColor3f(1, 0, 0);
         glut.glutSolidCube(0.3f);
+        super.unloadName(gl);
         gl.glPopAttrib();
         gl.glPopMatrix();
     }

@@ -29,6 +29,7 @@ public class LightSource extends Movable implements Drawable, Serializable {
         gl.glColor3f(1, 1, 0);
         GLUT glut = new GLUT();
         glut.glutSolidCube(0.3f);
+        super.unloadName(gl);
         gl.glPopAttrib();
         gl.glPopMatrix();
     }
