@@ -49,6 +49,7 @@ public class AddLightFrame extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
 
         jButton1.setText("Add to environment and close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
