@@ -90,6 +90,7 @@ public class Environment implements Serializable {
         this.gl = GLSingleton.getGL();
         this.glu = new GLU();
         this.glut = new GLUT();
+        this.previousTime = Time.getTime();
     }
 
     public List<LightSource> getLights() {
