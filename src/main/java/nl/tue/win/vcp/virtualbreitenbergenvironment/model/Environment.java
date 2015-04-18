@@ -74,6 +74,7 @@ public class Environment implements Serializable {
     private List<Collidable> getCollidables() {
         List<Collidable> result = new ArrayList<>();
         result.addAll(vehicles);
+        result.addAll(room.getWalls());
         return result;
     }
 

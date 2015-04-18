@@ -1,5 +1,8 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
@@ -16,7 +19,7 @@ public class Room implements Drawable {
     private final static float MIN = -10;
     private final static float MAX = 10;
     private final static float STEP = 0.5f;
-    
+
     @Override
     public void draw(GL2 gl) {
         drawGrid(gl, MIN, MAX, STEP);
@@ -110,5 +113,11 @@ public class Room implements Drawable {
 
         gl.glPopMatrix();
         gl.glPopAttrib();
+    }
+
+    public Collection<Collidable> getWalls() {
+        Set<Collidable> result = new HashSet<>();
+        // TODO: implement
+        return result;
     }
 }
