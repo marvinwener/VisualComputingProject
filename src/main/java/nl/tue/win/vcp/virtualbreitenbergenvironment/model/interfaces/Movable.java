@@ -1,4 +1,4 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +57,17 @@ public abstract class Movable {
         return result != null ? result : NULL;
     }
     
+    /**
+     * Move {@code this} by {@code movement}.
+     * 
+     * @param movement the vector to translate over
+     */
     public abstract void move(Vector movement);
+    
+    /**
+     * Get the current position of this object.
+     * 
+     * @return the position
+     */
     public abstract Vector getPosition();
 }

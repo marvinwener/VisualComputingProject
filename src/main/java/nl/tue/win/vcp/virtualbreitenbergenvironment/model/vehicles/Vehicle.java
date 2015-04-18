@@ -1,11 +1,11 @@
-package nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels;
+package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
 import java.io.Serializable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -20,6 +20,7 @@ public abstract class Vehicle extends Movable implements Drawable, Serializable 
     protected Sensor[] slots;
     protected static final Vector INITIAL_DIRECTION = Vector.Y;
     protected Environment environment;
+    public static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     /**
      * Move the vehicle for one time unit. To be implemented by subclass.

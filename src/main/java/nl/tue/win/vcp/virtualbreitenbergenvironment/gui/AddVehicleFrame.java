@@ -1,10 +1,14 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import java.awt.event.WindowAdapter;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
@@ -30,6 +34,8 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 AddVehicleFrame.this.environment.clearPreview();
             }
         });
+        this.getRootPane().setDefaultButton(jButton1);
+        jButton1.requestFocus();
         update();
     }
 
@@ -42,30 +48,33 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox();
+        vehicleTypeComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        sensor1ComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
+        sensor2ComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox();
+        leftWheelComboBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox();
+        rightWheelComboBox = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jSlider1 = new javax.swing.JSlider();
+        angleSlider = new javax.swing.JSlider();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        fluctuation1CheckBox = new javax.swing.JCheckBox();
+        fluctuation2CheckBox = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "car" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel" }));
+        vehicleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                vehicleTypeComboBoxActionPerformed(evt);
             }
         });
 
@@ -73,38 +82,38 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Sensor 1");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        sensor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
+        sensor1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                sensor1ComboBoxActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Sensor 2");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        sensor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
+        sensor2ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                sensor2ComboBoxActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Left wheel");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        leftWheelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
+        leftWheelComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+                leftWheelComboBoxActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Right wheel");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
-        jComboBox5.setSelectedIndex(1);
-        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+        rightWheelComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sensor 1", "Sensor 2" }));
+        rightWheelComboBox.setSelectedIndex(1);
+        rightWheelComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox5ActionPerformed(evt);
+                rightWheelComboBoxActionPerformed(evt);
             }
         });
 
@@ -117,11 +126,11 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Angle");
 
-        jSlider1.setMaximum(359);
-        jSlider1.setValue(0);
-        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+        angleSlider.setMaximum(359);
+        angleSlider.setValue(0);
+        angleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSlider1StateChanged(evt);
+                angleSliderStateChanged(evt);
             }
         });
 
@@ -133,16 +142,25 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox2.setSelected(true);
-        jCheckBox2.setText("Add random fluctuation");
+        fluctuation1CheckBox.setSelected(true);
+        fluctuation1CheckBox.setText("Add random fluctuation");
 
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("Add random fluctuation");
+        fluctuation2CheckBox.setSelected(true);
+        fluctuation2CheckBox.setText("Add random fluctuation");
 
         jButton2.setText("Reverse sensor positions");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Pre-set vehicle");
+
+        jComboBox6.setModel(presetsModel);
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
             }
         });
 
@@ -154,6 +172,10 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
@@ -163,18 +185,18 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sensor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox3))
+                                .addComponent(fluctuation2CheckBox))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sensor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox2))
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fluctuation1CheckBox))
+                            .addComponent(vehicleTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(rightWheelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(leftWheelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))))
                     .addGroup(layout.createSequentialGroup()
@@ -184,46 +206,50 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(angleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vehicleTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox2))
+                    .addComponent(sensor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fluctuation1CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sensor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jCheckBox3))
+                    .addComponent(fluctuation2CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(leftWheelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rightWheelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(angleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jCheckBox1))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -234,39 +260,51 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+    private void angleSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_angleSliderStateChanged
         update();
-    }//GEN-LAST:event_jSlider1StateChanged
+    }//GEN-LAST:event_angleSliderStateChanged
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         update();
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void vehicleTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehicleTypeComboBoxActionPerformed
         update();
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_vehicleTypeComboBoxActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void sensor1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sensor1ComboBoxActionPerformed
         update();
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_sensor1ComboBoxActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void sensor2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sensor2ComboBoxActionPerformed
         update();
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_sensor2ComboBoxActionPerformed
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void leftWheelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftWheelComboBoxActionPerformed
         update();
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_leftWheelComboBoxActionPerformed
 
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+    private void rightWheelComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightWheelComboBoxActionPerformed
         update();
-    }//GEN-LAST:event_jComboBox5ActionPerformed
+    }//GEN-LAST:event_rightWheelComboBoxActionPerformed
+
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        PreSetVehicle selectedItem = (PreSetVehicle) jComboBox6.getSelectedItem();
+        selectedItem.apply(this.vehicleTypeComboBox,
+                this.sensor1ComboBox, this.fluctuation1CheckBox,
+                this.sensor2ComboBox, this.fluctuation2CheckBox,
+                this.leftWheelComboBox,
+                this.rightWheelComboBox,
+                this.angleSlider
+        );
+        update();
+    }//GEN-LAST:event_jComboBox6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        final Object sel1 = jComboBox4.getSelectedItem();
-        final Object sel2 = jComboBox5.getSelectedItem();
-        jComboBox5.setSelectedItem(sel1);
-        jComboBox4.setSelectedItem(sel2);
+        final Object sel1 = leftWheelComboBox.getSelectedItem();
+        final Object sel2 = rightWheelComboBox.getSelectedItem();
+        rightWheelComboBox.setSelectedItem(sel1);
+        leftWheelComboBox.setSelectedItem(sel2);
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -278,6 +316,16 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             environment.clearPreview();
         }
         jButton1.setEnabled(this.isConsistent());
+        jComboBox6.setSelectedItem(getPreSetVehicle());
+    }
+    
+    public PreSetVehicle getPreSetVehicle() {
+        for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
+            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, sensor2ComboBox, leftWheelComboBox, rightWheelComboBox)) {
+                return psv;
+            }
+        }
+        return PreSetVehicle.CUSTOM;
     }
 
     private void addVehicle() {
@@ -291,7 +339,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private Vehicle getVehicle() {
-        final String vehicle = (String) jComboBox1.getSelectedItem();
+        final String vehicle = (String) vehicleTypeComboBox.getSelectedItem();
         switch (vehicle) {
             case "Two-wheel":
                 return getTwoWheelVehicle();
@@ -302,23 +350,23 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
     private Vehicle getTwoWheelVehicle() {
         Vector initialPosition = new Vector(0, 0, 0.5f); // TODO: make dynamic
-        float initialAngle = (float) Math.toRadians(jSlider1.getValue());
-        final String sensorType1 = (String) jComboBox2.getSelectedItem();
-        final String sensorType2 = (String) jComboBox3.getSelectedItem();
+        float initialAngle = (float) Math.toRadians(angleSlider.getValue());
+        final String sensorType1 = (String) sensor1ComboBox.getSelectedItem();
+        final String sensorType2 = (String) sensor2ComboBox.getSelectedItem();
         Vehicle v = new VehicleImpl(initialPosition, initialAngle);
         Vector[] sensorLocations = v.getSensorLocations();
         Sensor[] sensors = {getSensor(sensorType1, sensorLocations[0]),
             getSensor(sensorType2, sensorLocations[1])};
-        if (jCheckBox2.isSelected()) {
+        if (fluctuation1CheckBox.isSelected()) {
             // enable fluctuation for first sensor
             sensors[0] = new UnstableSensor(sensors[0]);
         }
-        if (jCheckBox3.isSelected()) {
+        if (fluctuation2CheckBox.isSelected()) {
             // enable fluctuation for second sensor
             sensors[1] = new UnstableSensor(sensors[1]);
         }
-        v.setSensors(sensors[jComboBox4.getSelectedIndex()],
-                sensors[jComboBox5.getSelectedIndex()]);
+        v.setSensors(sensors[leftWheelComboBox.getSelectedIndex()],
+                sensors[rightWheelComboBox.getSelectedIndex()]);
         return v;
     }
 
@@ -329,6 +377,10 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             case "Temperature":
                 return new TemperatureSensor(sensorLocation,
                         environment.getHeatSources());
+            case "Dummy":
+                return DummySensor.instance;
+            case "Random":
+                return new RandomSensor();
             default:
                 throw new UnsupportedOperationException("Selected sensor type"
                         + " is not supported.");
@@ -336,7 +388,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private boolean isConsistent() {
-        return !jComboBox4.getSelectedItem().equals(jComboBox5.getSelectedItem());
+        return !leftWheelComboBox.getSelectedItem().equals(rightWheelComboBox.getSelectedItem());
     }
 
     /**
@@ -375,23 +427,27 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private final Environment environment;
+    private final ComboBoxModel<PreSetVehicle> presetsModel
+            = new DefaultComboBoxModel<>(PreSetVehicle.PRESET_VEHICLES);
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSlider angleSlider;
+    private javax.swing.JCheckBox fluctuation1CheckBox;
+    private javax.swing.JCheckBox fluctuation2CheckBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JComboBox leftWheelComboBox;
+    private javax.swing.JComboBox rightWheelComboBox;
+    private javax.swing.JComboBox sensor1ComboBox;
+    private javax.swing.JComboBox sensor2ComboBox;
+    private javax.swing.JComboBox vehicleTypeComboBox;
     // End of variables declaration//GEN-END:variables
 }

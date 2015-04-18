@@ -1,11 +1,11 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.GL2GL3.*;
+
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Graphics;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
@@ -17,23 +17,16 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class VehicleImpl extends Vehicle {
 
     private final float wheelDistance = 1;
+    private final float wheelRadius = 0.5f;
     private int inactivityCounter = INACTIVITY_THRESHOLD - 1;
     private final static int INACTIVITY_THRESHOLD = 100;
     private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
     private final float EPS = 0.001f;
-    public static boolean RANDOM = false; // indicates whether random behaviour is enabled
 
     public VehicleImpl(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
-        //slots[0] = new SensorImpl(0.1f);
-        //slots[1] = new SensorImpl(0.05f);
-        //slots[0] = new DummySensor();
-        //slots[1] = new DummySensor();
-        /*Vector[] sensorLocations = this.getSensorLocations();
-         slots[0] = new LightSensor(sensorLocations[0], this.environment.getLights());
-         slots[1] = new LightSensor(sensorLocations[1], this.environment.getLights());*/
     }
 
     @Override
@@ -60,9 +53,9 @@ public class VehicleImpl extends Vehicle {
         gl.glPushMatrix();
         gl.glColor3f(0, 0, 0);
         gl.glTranslatef(this.wheelDistance * -0.5f, 0, 0);
-        Graphics.drawDisk(gl, 0.5f, 10);
+        Graphics.drawDisk(gl, wheelRadius, 50);
         gl.glTranslatef(this.wheelDistance, 0, 0);
-        Graphics.drawDisk(gl, 0.5f, 10);
+        Graphics.drawDisk(gl, wheelRadius, 50);
         gl.glPopMatrix();
 
         gl.glPopAttrib();
@@ -150,7 +143,7 @@ public class VehicleImpl extends Vehicle {
 
     @Override
     public final Vector[] getSensorLocations() {
-        final Vector wheelDirection = this.getDirection().cross(Vector.Z);
+        final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
         final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
         return new Vector[]{wheelVector, wheelVector.scale(-1)};
     }

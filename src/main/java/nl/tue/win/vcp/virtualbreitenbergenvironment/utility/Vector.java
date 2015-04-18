@@ -58,10 +58,10 @@ public class Vector implements Serializable {
      * Returns a coordinate of this vector.
      *
      * @param index the index of the coordinate
-     * @return the coordinate
+     * @return the coordinate, or 0 if it does does not exist
      */
     public double getCoordinate(int index) {
-        return coordinates[index];
+        return (index < this.getDimensionality()) ? coordinates[index] : 0;
     }
 
     /**
@@ -225,6 +225,15 @@ public class Vector implements Serializable {
         return center.plus(rotated); // move origin back to center
     }
 
+    /**
+     * Gets the dimensionality (number of coordinates) for this vector.
+     *
+     * @return dimensionality
+     */
+    public int getDimensionality() {
+        return coordinates.length;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -243,7 +252,7 @@ public class Vector implements Serializable {
         final Vector other = (Vector) obj;
         return Arrays.equals(this.coordinates, other.coordinates);
     }
-    
+
     public DoubleBuffer asBuffer() {
         return DoubleBuffer.wrap(coordinates);
     }
@@ -251,5 +260,15 @@ public class Vector implements Serializable {
     @Override
     public String toString() {
         return Arrays.toString(coordinates);
+    }
+
+    /**
+     * Returns this vector as a 2D vector, ignoring any coorinates after (x,y).
+     *
+     * @return a vector {@code v} with dimenionsality 2 and
+     * {@code this.x() = v.x() && this.y() == v.y()}
+     */
+    public Vector as2DVector() {
+        return new Vector(this.x(), this.y());
     }
 }
