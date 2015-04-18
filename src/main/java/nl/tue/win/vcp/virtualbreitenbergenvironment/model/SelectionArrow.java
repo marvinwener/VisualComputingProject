@@ -17,11 +17,11 @@ public class SelectionArrow implements Drawable {
     private final float HEIGHT = Float.MAX_VALUE;
     private final float radius;
 
-    private static enum SelectionMode {
+    public static enum SelectionMode {
 
         ARROW, CYLINDER
     };
-    private static SelectionMode MODE = SelectionMode.CYLINDER;
+    public static SelectionMode MODE = SelectionMode.CYLINDER;
 
     public SelectionArrow(Vector position) {
         this.position = position;
@@ -46,9 +46,11 @@ public class SelectionArrow implements Drawable {
                 gl.glRotated(180, 1, 0, 0);
                 gl.glScaled(0.5, 0.5, 0.5);
                 glut.glutSolidCone(1, 2, 100, 100);
+                break;
             case CYLINDER:
                 gl.glColor4f(1, 1, 0, 0.3f);
                 glut.glutSolidCylinder(radius, HEIGHT, 50, 10);
+                break;
         }
         gl.glPopAttrib();
         gl.glPopMatrix();
