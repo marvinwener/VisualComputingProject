@@ -20,17 +20,21 @@ public class HeatSource extends LightSource {
 
     @Override
     public void draw(GL2 gl) {
-        super.loadName(gl);
+        GLUT glut = new GLUT();
         gl.glPushMatrix();
         gl.glPushAttrib(GL2.GL_CURRENT_BIT);
         gl.glTranslated(getPosition().x(), getPosition().y(), getPosition().z());
-        gl.glColor3f(1, 0, 0);
-        GLUT glut = new GLUT();
-        glut.glutSolidCube(0.3f);
+        gl.glPushMatrix();
+        gl.glPushAttrib(GL2.GL_CURRENT_BIT);
         gl.glColor4f(1, 0, 0, 0.3f);
         gl.glTranslatef(0, 0, 0.1f);
         gl.glRotatef(90, 0, 1, 0);
         drawDisk(gl, TemperatureSensor.DISTANCE_LIMIT, 50);
+        gl.glPopAttrib();
+        gl.glPopMatrix();
+        super.loadName(gl);
+        gl.glColor3f(1, 0, 0);
+        glut.glutSolidCube(0.3f);
         gl.glPopAttrib();
         gl.glPopMatrix();
     }
