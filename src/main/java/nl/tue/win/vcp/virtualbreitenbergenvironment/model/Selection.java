@@ -11,7 +11,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  *
  * @author maikel
  */
-public class SelectionArrow implements Drawable {
+public class Selection implements Drawable {
 
     private final Vector position;
     private final float HEIGHT = Float.MAX_VALUE;
@@ -23,12 +23,12 @@ public class SelectionArrow implements Drawable {
     };
     public static SelectionMode MODE = SelectionMode.CYLINDER;
 
-    public SelectionArrow(Vector position) {
+    public Selection(Vector position) {
         this.position = position;
         this.radius = 1;
     }
 
-    public SelectionArrow(Vector position, float radius) {
+    public Selection(Vector position, float radius) {
         this.position = position;
         this.radius = radius;
     }

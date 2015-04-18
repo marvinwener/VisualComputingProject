@@ -1,8 +1,8 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import javax.swing.DefaultComboBoxModel;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.SelectionArrow;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.SelectionArrow.SelectionMode;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Selection;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Selection.SelectionMode;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 
 /**
@@ -76,7 +76,7 @@ public class OptionsFrame extends javax.swing.JFrame {
         jLabel1.setText("Selection mode");
 
         jComboBox1.setModel(new DefaultComboBoxModel(SelectionMode.values()));
-        jComboBox1.setSelectedItem(SelectionArrow.MODE);
+        jComboBox1.setSelectedItem(Selection.MODE);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -133,7 +133,7 @@ public class OptionsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        SelectionArrow.MODE = (SelectionMode) jComboBox1.getSelectedItem();
+        Selection.MODE = (SelectionMode) jComboBox1.getSelectedItem();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
