@@ -12,25 +12,40 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
  * @author maikel
  */
 public class SelectionArrow implements Drawable {
-    private final Vector position;
 
+    private final Vector position;
+    private final float HEIGHT = Float.MAX_VALUE;
+    private final float radius = 2;
+    
     public SelectionArrow(Vector position) {
         this.position = position;
     }
-    
-    @Override
-    public void draw(GL2 gl) {
+
+    private void oldDraw(GL2 gl) {
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
-        
+
         gl.glTranslated(position.x(), position.y(), position.z());
         gl.glColor3f(1, 0, 0);
-        
+
         GLUT glut = new GLUT();
         gl.glTranslated(0, 0, 5);
         gl.glRotated(180, 1, 0, 0);
         gl.glScaled(0.5, 0.5, 0.5);
         glut.glutSolidCone(1, 2, 100, 100);
+
+        gl.glPopAttrib();
+        gl.glPopMatrix();
+    }
+
+    @Override
+    public void draw(GL2 gl) {
+        gl.glPushMatrix();
+        gl.glPushAttrib(GL_CURRENT_BIT);
+
+        gl.glColor4f(0, 1, 1, 0.3f);
+        GLUT glut = new GLUT();
+        glut.glutSolidCylinder(radius, HEIGHT, 10, 10);
         
         gl.glPopAttrib();
         gl.glPopMatrix();
