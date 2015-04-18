@@ -20,8 +20,8 @@ public class Room implements Drawable {
     private final static float MIN = -10;
     private final static float MAX = 10;
     private final static float STEP = 0.5f;
-    public static boolean DRAW_BOUNDING_BOX = true;
-    public static boolean DRAW_WALLS = false;
+    public static boolean DRAW_BOUNDING_BOX = false;
+    public static boolean DRAW_WALLS = true;
 
     @Override
     public void draw(GL2 gl) {
