@@ -217,7 +217,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
         environment.draw();
         if (selected.getPosition() != null) {
-            new Preview(new SelectionArrow(selected.getPosition())).draw(gl);
+            new SelectionArrow(selected.getPosition()).draw(gl);
         }
     }
     
