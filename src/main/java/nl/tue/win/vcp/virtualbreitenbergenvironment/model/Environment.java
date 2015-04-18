@@ -16,6 +16,9 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.CollisionDetection;
 
 /**
+ * Environment in which the vehicles move.
+ *
+ * This class contains everything that is located within the environment.
  *
  * @author maikel
  */
@@ -30,13 +33,16 @@ public class Environment implements Serializable {
     private final Room room;
     private Drawable preview = Drawable.NULL;
     public static boolean COLLISION_DETECTION = true;
+    private float previousTime;
 
     public Environment() {
         this(GLSingleton.getGL());
+        this.previousTime = Time.getTime();
     }
 
     public Environment(GL2 gl) {
         this(gl, new GLU(), new GLUT());
+        this.previousTime = Time.getTime();
     }
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
@@ -47,6 +53,7 @@ public class Environment implements Serializable {
         lights = new ArrayList<>();
         heatSources = new ArrayList<>();
         room = new Room();
+        this.previousTime = Time.getTime();
     }
 
     public void draw() {
@@ -59,8 +66,10 @@ public class Environment implements Serializable {
                         : null;
         for (Vehicle v : vehicles) {
             if (!COLLISION_DETECTION || !collidingVehicles.contains(v)) {
+            final int its = getIterations();
+            for (int i = 0; i < its; i++) {
                 v.move();
-            }
+            }}
             v.draw(gl);
         }
         for (LightSource l : lights) {
@@ -76,6 +85,14 @@ public class Environment implements Serializable {
         result.addAll(vehicles);
         result.addAll(room.getWalls());
         return result;
+        }
+    
+    private int getIterations() {
+        final float time = Time.getTime();
+        final float diff = time - previousTime;
+        previousTime = time;
+        final int its = Math.round(diff / ((((float) 1) / 30)));
+        return its;
     }
 
     public boolean addVehicle(Vehicle v) {
