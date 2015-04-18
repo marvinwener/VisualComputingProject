@@ -3,7 +3,6 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors;
 import java.util.List;
 import javax.media.opengl.GL2;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.HeatSource;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**

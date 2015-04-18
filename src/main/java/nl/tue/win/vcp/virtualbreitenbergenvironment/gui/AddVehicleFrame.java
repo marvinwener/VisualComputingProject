@@ -5,11 +5,10 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Preview;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Drawable;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.LightSensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Sensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.abstractmodels.Vehicle;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
@@ -41,6 +40,8 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 em.select(Movable.NULL);
             }
         });
+        this.getRootPane().setDefaultButton(jButton1);
+        jButton1.requestFocus();
         update();
     }
 
@@ -74,6 +75,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jComboBox6 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
 
         vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel" }));
         vehicleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +88,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Sensor 1");
 
-        sensor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        sensor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         sensor1ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sensor1ComboBoxActionPerformed(evt);
@@ -95,7 +97,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Sensor 2");
 
-        sensor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature" }));
+        sensor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Light", "Temperature", "Dummy", "Random" }));
         sensor2ComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sensor2ComboBoxActionPerformed(evt);
@@ -325,7 +327,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
 
     public PreSetVehicle getPreSetVehicle() {
         for (PreSetVehicle psv : PreSetVehicle.PRESET_VEHICLES) {
-            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, fluctuation1CheckBox, sensor2ComboBox, fluctuation2CheckBox, leftWheelComboBox, rightWheelComboBox, angleSlider)) {
+            if (psv.isApplied(vehicleTypeComboBox, sensor1ComboBox, sensor2ComboBox, leftWheelComboBox, rightWheelComboBox)) {
                 return psv;
             }
         }
@@ -394,7 +396,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
                 return new TemperatureSensor(sensorLocation,
                         environment.getHeatSources());
             case "Dummy":
-                return new DummySensor();
+                return DummySensor.instance;
             case "Random":
                 return new RandomSensor();
             default:
