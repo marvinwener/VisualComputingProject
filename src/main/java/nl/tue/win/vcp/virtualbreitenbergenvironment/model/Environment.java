@@ -64,12 +64,13 @@ public class Environment implements Serializable {
                 = COLLISION_DETECTION
                         ? CollisionDetection.getCollidingObjects(this.getCollidables())
                         : null;
+        final int its = getIterations();
         for (Vehicle v : vehicles) {
             if (!COLLISION_DETECTION || !collidingVehicles.contains(v)) {
-            final int its = getIterations();
-            for (int i = 0; i < its; i++) {
-                v.move();
-            }}
+                for (int i = 0; i < its; i++) {
+                    v.move();
+                }
+            }
             v.draw(gl);
         }
         for (LightSource l : lights) {
@@ -85,8 +86,8 @@ public class Environment implements Serializable {
         result.addAll(vehicles);
         result.addAll(room.getWalls());
         return result;
-        }
-    
+    }
+
     private int getIterations() {
         final float time = Time.getTime();
         final float diff = time - previousTime;
