@@ -19,7 +19,7 @@ public class SelectionArrow implements Drawable {
     
     public SelectionArrow(Vector position) {
         this.position = position;
-        this.radius = 2;
+        this.radius = 1;
     }
     
     public SelectionArrow(Vector position, float radius) {
@@ -49,9 +49,9 @@ public class SelectionArrow implements Drawable {
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
 
-        gl.glColor4f(0, 1, 1, 0.3f);
+        gl.glColor4f(1, 1, 0, 0.3f);
         GLUT glut = new GLUT();
-        glut.glutSolidCylinder(radius, HEIGHT, 10, 10);
+        glut.glutSolidCylinder(radius, HEIGHT, 50, 10);
         
         gl.glPopAttrib();
         gl.glPopMatrix();
