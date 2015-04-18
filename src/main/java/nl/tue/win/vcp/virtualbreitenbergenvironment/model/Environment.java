@@ -14,7 +14,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
 
 /**
  * Environment in which the vehicles move.
- * 
+ *
  * This class contains everything that is located within the environment.
  *
  * @author maikel
@@ -29,13 +29,16 @@ public class Environment implements Serializable {
     private final List<HeatSource> heatSources;
     private final Room room;
     private Drawable preview = Drawable.NULL;
+    private float previousTime;
 
     public Environment() {
         this(GLSingleton.getGL());
+        this.previousTime = Time.getTime();
     }
 
     public Environment(GL2 gl) {
         this(gl, new GLU(), new GLUT());
+        this.previousTime = Time.getTime();
     }
 
     public Environment(GL2 gl, GLU glu, GLUT glut) {
@@ -46,6 +49,7 @@ public class Environment implements Serializable {
         lights = new ArrayList<>();
         heatSources = new ArrayList<>();
         room = new Room();
+        this.previousTime = Time.getTime();
     }
 
     public void draw() {
@@ -53,7 +57,10 @@ public class Environment implements Serializable {
         room.draw(gl);
         preview.draw(gl);
         for (Vehicle v : vehicles) {
-            v.move();
+            final int its = getIterations();
+            for (int i = 0; i < its; i++) {
+                v.move();
+            }
             v.draw(gl);
         }
         for (LightSource l : lights) {
@@ -62,6 +69,14 @@ public class Environment implements Serializable {
         for (HeatSource h : heatSources) {
             h.draw(gl);
         }
+    }
+
+    private int getIterations() {
+        final float time = Time.getTime();
+        final float diff = time - previousTime;
+        previousTime = time;
+        final int its = Math.round(diff / ((((float) 1) / 30)));
+        return its;
     }
 
     public boolean addVehicle(Vehicle v) {
