@@ -359,6 +359,7 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
+            System.exit(0);
         }
     };
     
