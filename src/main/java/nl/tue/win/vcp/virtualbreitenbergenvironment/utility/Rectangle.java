@@ -1,5 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.utility;
 
+import java.util.Arrays;
+
 /**
  * Class that stores a directional vector and four corners of a rectangle.
  *
@@ -24,5 +26,10 @@ public class Rectangle {
         final Vector longestSide = side1.length() > side2.length()
                 ? side1 : side2;
         return longestSide.normalized();
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" + "corners=" + Arrays.toString(corners) + ", direction=" + direction + '}';
     }
 }
