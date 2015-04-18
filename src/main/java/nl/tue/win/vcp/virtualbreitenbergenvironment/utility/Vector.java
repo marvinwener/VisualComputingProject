@@ -58,10 +58,10 @@ public class Vector implements Serializable {
      * Returns a coordinate of this vector.
      *
      * @param index the index of the coordinate
-     * @return the coordinate
+     * @return the coordinate, or 0 if it does does not exist
      */
     public double getCoordinate(int index) {
-        return coordinates[index];
+        return (index < this.getDimensionality()) ? coordinates[index] : 0;
     }
 
     /**
