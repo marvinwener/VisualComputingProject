@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.media.opengl.GL2;
-import static javax.media.opengl.GL2.*;
-import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
 
 /**
+ * Environment in which the vehicles move.
+ * 
+ * This class contains everything that is located within the environment.
  *
  * @author maikel
  */
