@@ -21,6 +21,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class HeatSource extends LightSource {
 
     private static Texture temperature;
+    public static boolean DRAW_GRADIENT = true;
     private final static String TEXTURE_PATH
             = "src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/"
             + "graphics/textures/temperature.jpg";
@@ -32,7 +33,7 @@ public class HeatSource extends LightSource {
 
     @Override
     public void draw(GL2 gl) {
-        if (temperature == null) {
+        if (DRAW_GRADIENT && temperature == null) {
             try {
                 temperature = TextureIO.newTexture(new File(TEXTURE_PATH), false);
             } catch (IOException | GLException ex) {
@@ -48,10 +49,12 @@ public class HeatSource extends LightSource {
         gl.glColor4f(1, 1, 1, 0.3f);
         gl.glTranslatef(0, 0, 0.1f);
         gl.glRotatef(90, 0, 1, 0);
-        temperature.enable(gl);
-        temperature.bind(gl);
-        drawDisk(gl, TemperatureSensor.DISTANCE_LIMIT, 50);
-        temperature.disable(gl);
+        if (DRAW_GRADIENT) {
+            temperature.enable(gl);
+            temperature.bind(gl);
+            drawDisk(gl, TemperatureSensor.DISTANCE_LIMIT, 50);
+            temperature.disable(gl);
+        }
         gl.glPopAttrib();
         gl.glPopMatrix();
         super.loadName(gl);

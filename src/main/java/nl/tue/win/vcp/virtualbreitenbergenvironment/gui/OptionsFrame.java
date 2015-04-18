@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import javax.swing.DefaultComboBoxModel;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.HeatSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Selection;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Selection.SelectionMode;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
@@ -86,7 +87,6 @@ public class OptionsFrame extends javax.swing.JFrame {
 
         jCheckBox6.setSelected(true);
         jCheckBox6.setText("Show temperature gradient");
-        jCheckBox6.setEnabled(false);
         jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox6ActionPerformed(evt);
@@ -150,7 +150,7 @@ public class OptionsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
-        // TODO implement temperature gradient enable/disable
+        HeatSource.DRAW_GRADIENT = this.jCheckBox6.isSelected();
     }//GEN-LAST:event_jCheckBox6ActionPerformed
 
     /**
