@@ -50,6 +50,7 @@ public class SelectionArrow implements Drawable {
         gl.glPushAttrib(GL_CURRENT_BIT);
 
         gl.glColor4f(1, 1, 0, 0.3f);
+        gl.glTranslated(this.position.x(), this.position.y(), this.position.z());
         GLUT glut = new GLUT();
         glut.glutSolidCylinder(radius, HEIGHT, 50, 10);
         
