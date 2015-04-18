@@ -38,7 +38,7 @@ public class SelectionArrow implements Drawable {
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
         GLUT glut = new GLUT();
-        gl.glTranslated(this.position.x(), this.position.y(), this.position.z());
+        gl.glTranslated(this.position.x(), this.position.y(), 0);
         switch (MODE) {
             case ARROW:
                 gl.glColor3f(1, 0, 0);
