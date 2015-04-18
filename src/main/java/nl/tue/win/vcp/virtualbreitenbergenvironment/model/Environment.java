@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.media.opengl.GL2;
-import static javax.media.opengl.GL2.*;
-import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
@@ -31,6 +29,7 @@ public class Environment implements Serializable {
     private final List<HeatSource> heatSources;
     private final Room room;
     private Drawable preview = Drawable.NULL;
+    public static boolean COLLISION_DETECTION = true;
 
     public Environment() {
         this(GLSingleton.getGL());
@@ -55,9 +54,11 @@ public class Environment implements Serializable {
         room.draw(gl);
         preview.draw(gl);
         Set<Collidable> collidingVehicles
-                = CollisionDetection.getCollidingObjects(this.getCollidables());
+                = COLLISION_DETECTION
+                        ? CollisionDetection.getCollidingObjects(this.getCollidables())
+                        : null;
         for (Vehicle v : vehicles) {
-            if (!collidingVehicles.contains(v)) {
+            if (!COLLISION_DETECTION || !collidingVehicles.contains(v)) {
                 v.move();
             }
             v.draw(gl);
@@ -69,7 +70,7 @@ public class Environment implements Serializable {
             h.draw(gl);
         }
     }
-    
+
     private List<Collidable> getCollidables() {
         List<Collidable> result = new ArrayList<>();
         result.addAll(vehicles);

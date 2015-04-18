@@ -69,8 +69,10 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Collision detection"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

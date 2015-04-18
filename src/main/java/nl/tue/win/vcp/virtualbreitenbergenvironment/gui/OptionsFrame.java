@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 
 /**
@@ -55,7 +56,11 @@ public class OptionsFrame extends javax.swing.JFrame {
 
         jCheckBox3.setSelected(true);
         jCheckBox3.setText("Collision detection");
-        jCheckBox3.setEnabled(false);
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,6 +96,10 @@ public class OptionsFrame extends javax.swing.JFrame {
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         Vehicle.DRAW_BOUNDING_BOX = this.jCheckBox2.isSelected();
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        Environment.COLLISION_DETECTION = this.jCheckBox3.isSelected();
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     /**
      * @param args the command line arguments
