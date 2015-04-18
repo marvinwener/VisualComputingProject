@@ -1,8 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
@@ -116,8 +115,8 @@ public class Room implements Drawable {
     }
 
     public Collection<Collidable> getWalls() {
-        Set<Collidable> result = new HashSet<>();
+        Collidable[] result = new Collidable[0];
         // TODO: implement
-        return result;
+        return Arrays.asList(result);
     }
 }
