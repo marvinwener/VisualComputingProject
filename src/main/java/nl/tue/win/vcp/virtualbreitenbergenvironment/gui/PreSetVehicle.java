@@ -145,4 +145,7 @@ public class PreSetVehicle {
                 "Settings weren't successfully applied to all fields.";
     }
 
+    public boolean isSensorOrderMatters() {
+        return sensorOrderMatters;
+    }
 }

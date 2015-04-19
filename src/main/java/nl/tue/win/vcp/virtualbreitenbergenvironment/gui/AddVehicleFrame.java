@@ -322,7 +322,12 @@ public class AddVehicleFrame extends javax.swing.JFrame {
             environment.clearPreview();
         }
         jButton1.setEnabled(this.isConsistent());
-        jComboBox6.setSelectedItem(getPreSetVehicle());
+        PreSetVehicle preSetVehicle = getPreSetVehicle();
+        jComboBox6.setSelectedItem(preSetVehicle);
+        final boolean enabled = preSetVehicle.isSensorOrderMatters();
+        leftWheelComboBox.setEnabled(enabled);
+        rightWheelComboBox.setEnabled(enabled);
+        jButton2.setEnabled(enabled);
     }
 
     public PreSetVehicle getPreSetVehicle() {
