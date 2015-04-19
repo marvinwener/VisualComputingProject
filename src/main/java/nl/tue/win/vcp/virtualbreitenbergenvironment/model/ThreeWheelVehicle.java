@@ -1,6 +1,5 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
-import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -12,7 +11,8 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoade
  */
 public class ThreeWheelVehicle extends VehicleImpl {
 
-    static int displayList = -1;
+    private static int displayList = -1;
+    private final static String OBJ_PATH = "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/resources/graphics/threeWheelVehicle.obj";
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
         super(initialPosition, initialAngle);
@@ -31,7 +31,7 @@ public class ThreeWheelVehicle extends VehicleImpl {
         gl.glRotated(deg, 0, 0, 1);
 
         if (displayList == -1) {
-            displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/three_wheel/redcar_3wheel-obj/atorigin.obj", true);
+            displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, OBJ_PATH, true);
         }
         gl.glColor3f(1, 0, 0);
         gl.glScaled(2, 2, 2);
