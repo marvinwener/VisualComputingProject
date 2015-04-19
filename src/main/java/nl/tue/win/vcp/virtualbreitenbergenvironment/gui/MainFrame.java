@@ -116,6 +116,8 @@ public class MainFrame extends javax.swing.JFrame {
         timeMenu = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        jMenuItem21 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Virtual Braitenberg Environment");
@@ -222,6 +224,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar.add(timeMenu);
 
+        helpMenu.setText("Help");
+
+        jMenuItem21.setText("About...");
+        helpMenu.add(jMenuItem21);
+
+        jMenuBar.add(helpMenu);
+
         setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,6 +326,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem18.setAction(moveRightAction);
         jMenuItem19.setAction(moveUpAction);
         jMenuItem20.setAction(moveDownAction);
+        jMenuItem21.setAction(aboutAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -455,68 +465,84 @@ public class MainFrame extends javax.swing.JFrame {
             OptionsFrame.getInstance().setVisible(true);
         }
     };
-    
+
     private final Action zoomInAction = new AbstractAction("Zoom in") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.zoomIn();
         }
     };
-    
+
     private final Action zoomOutAction = new AbstractAction("Zoom out") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.zoomOut();
         }
     };
-    
+
     private final Action moveUpAction = new AbstractAction("Move up") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveUp();
         }
     };
-    
+
     private final Action moveDownAction = new AbstractAction("Move down") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveDown();
         }
     };
-    
+
     private final Action moveLeftAction = new AbstractAction("Move left") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveLeft();
         }
     };
-    
+
     private final Action moveRightAction = new AbstractAction("Move right") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveRight();
         }
     };
-    
+
     private final Action moveForwardsAction = new AbstractAction("Move forwards") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveForwards();
         }
     };
-    
+
     private final Action moveBackwardsAction = new AbstractAction("Move backwards") {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             camera.moveBackwards();
+        }
+    };
+
+    private final Action aboutAction = new AbstractAction("About") {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final Object[] options = {"Close"};
+            JOptionPane.showOptionDialog(MainFrame.this,
+                    "Virtual Braitenberg Environment\nVisual computing project",
+                    "About",
+                    JOptionPane.OK_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[0]); //default button title
         }
     };
 
@@ -529,6 +555,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar;
@@ -545,6 +572,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
