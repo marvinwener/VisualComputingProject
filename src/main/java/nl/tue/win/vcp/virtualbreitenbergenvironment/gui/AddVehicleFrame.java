@@ -13,7 +13,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
-import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.VehicleImpl;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.TwoWheelVehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
@@ -371,7 +371,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         float initialAngle = (float) Math.toRadians(angleSlider.getValue());
         final String sensorType1 = (String) sensor1ComboBox.getSelectedItem();
         final String sensorType2 = (String) sensor2ComboBox.getSelectedItem();
-        Vehicle v = new VehicleImpl(initialPosition, initialAngle);
+        Vehicle v = new TwoWheelVehicle(initialPosition, initialAngle);
         Vector[] sensorLocations = v.getSensorLocations();
         Sensor[] sensors = {getSensor(sensorType1, sensorLocations[0]),
             getSensor(sensorType2, sensorLocations[1])};

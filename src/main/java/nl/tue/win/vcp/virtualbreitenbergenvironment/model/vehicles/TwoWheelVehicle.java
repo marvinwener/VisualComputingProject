@@ -11,11 +11,11 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Graphics;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
- * Trivial implementation of a vehicle for testing.
+ * Two-wheel vehicle.
  *
  * @author maikel
  */
-public class VehicleImpl extends Vehicle {
+public class TwoWheelVehicle extends Vehicle {
 
     private final float wheelDistance = 1;
     private final float wheelRadius = 0.5f;
@@ -24,7 +24,7 @@ public class VehicleImpl extends Vehicle {
     private final RandomSensor[] randomSlots = {new RandomSensor(), new RandomSensor()};
     private final float EPS = 0.001f;
 
-    public VehicleImpl(Vector initialPosition, float initialAngle) {
+    public TwoWheelVehicle(Vector initialPosition, float initialAngle) {
         this.position = initialPosition;
         this.angle = initialAngle;
         this.slots = new Sensor[2];
