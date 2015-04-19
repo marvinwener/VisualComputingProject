@@ -11,7 +11,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
- * Represents a Breitenberg vehicle.
+ * Represents a Braitenberg vehicle.
  *
  * @author maikel
  */
