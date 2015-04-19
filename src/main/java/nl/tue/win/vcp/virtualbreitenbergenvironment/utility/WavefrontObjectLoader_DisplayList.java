@@ -136,8 +136,7 @@ public class WavefrontObjectLoader_DisplayList {
                     log.fatalerror("ERROR! ZIP ENTRY IS DIRECTORY! SHOULD BE PLAIN FILE!");
                 }
             } else {
-                //br = new BufferedReader(new InputStreamReader((new Object()).getClass().getResourceAsStream(ModelPath)));
-                br = new BufferedReader(new FileReader(ModelPath));
+                br = new BufferedReader(new InputStreamReader((new Object()).getClass().getResourceAsStream(ModelPath)));
             }
             LoadOBJModel(br);
             log.info("MODEL " + ModelPath + " SUCCESSFULLY LOADED!");

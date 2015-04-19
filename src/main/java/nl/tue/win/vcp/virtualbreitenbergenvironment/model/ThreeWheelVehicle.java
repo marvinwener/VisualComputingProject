@@ -12,7 +12,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoade
 public class ThreeWheelVehicle extends VehicleImpl {
 
     private static int displayList = -1;
-    private final static String OBJ_PATH = "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/resources/graphics/threeWheelVehicle.obj";
+    private final static String OBJ_PATH = "/graphics/threeWheelVehicle.obj";
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
         super(initialPosition, initialAngle);
@@ -46,5 +46,4 @@ public class ThreeWheelVehicle extends VehicleImpl {
             s.draw(gl);
         }
     }
-
 }
