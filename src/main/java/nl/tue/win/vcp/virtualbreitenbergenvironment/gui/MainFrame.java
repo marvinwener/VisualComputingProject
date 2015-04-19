@@ -1,6 +1,7 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
@@ -117,6 +122,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
+        jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem21 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -226,6 +232,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         helpMenu.setText("Help");
 
+        jMenuItem22.setText("Open online user manual...");
+        helpMenu.add(jMenuItem22);
+
         jMenuItem21.setText("About...");
         helpMenu.add(jMenuItem21);
 
@@ -305,6 +314,7 @@ public class MainFrame extends javax.swing.JFrame {
         moveRightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
         moveUpAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, 0));
         moveDownAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
+        helpAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
 
         deleteAction.setEnabled(false);
 
@@ -327,6 +337,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem19.setAction(moveUpAction);
         jMenuItem20.setAction(moveDownAction);
         jMenuItem21.setAction(aboutAction);
+        jMenuItem22.setAction(helpAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -546,6 +557,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
 
+    private final Action helpAction = new AbstractAction("Open online user manual...") {
+        final private String URL
+                = "http://maikelsteneker.github.io/BraitenbergUserManual";
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Desktop.getDesktop().browse(new URI(URL));
+            } catch (IOException | URISyntaxException ex) {
+            }
+        }
+    };
+
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
     private final EnvironmentMover em;
@@ -573,6 +597,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
