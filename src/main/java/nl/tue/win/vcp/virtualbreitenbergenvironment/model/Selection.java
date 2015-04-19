@@ -19,7 +19,18 @@ public class Selection implements Drawable {
 
     public static enum SelectionMode {
 
-        ARROW, CYLINDER
+        ARROW("Arrow"), CYLINDER("Cylinder");
+
+        private final String name;
+
+        private SelectionMode(String s) {
+            name = s;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     };
     public static SelectionMode MODE = SelectionMode.CYLINDER;
 
