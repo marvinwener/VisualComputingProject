@@ -15,12 +15,20 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.Vehicle;
 public class OptionsFrame extends javax.swing.JFrame {
 
     private static OptionsFrame instance = null;
+    private final boolean[] DEFAULT_CHECKBOX_VALUES;
+    private final SelectionMode DEFAULT_SELECTION_MODE;
 
     /**
      * Creates new form OptionsFrame
      */
     private OptionsFrame() {
         initComponents();
+        DEFAULT_CHECKBOX_VALUES = new boolean[]{
+            Vehicle.RANDOM, Vehicle.DRAW_BOUNDING_BOX,
+            Environment.COLLISION_DETECTION, Room.DRAW_WALLS,
+            Room.DRAW_BOUNDING_BOX, HeatSource.DRAW_GRADIENT
+        };
+        DEFAULT_SELECTION_MODE = Selection.MODE;
     }
 
     public static OptionsFrame getInstance() {
@@ -44,9 +52,10 @@ public class OptionsFrame extends javax.swing.JFrame {
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
         jCheckBox5 = new javax.swing.JCheckBox();
+        jCheckBox6 = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -88,6 +97,14 @@ public class OptionsFrame extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox6.setSelected(true);
+        jCheckBox6.setText("Show temperature gradient");
+        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox6ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Selection mode");
 
         jComboBox1.setModel(new DefaultComboBoxModel(SelectionMode.values()));
@@ -98,11 +115,10 @@ public class OptionsFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox6.setSelected(true);
-        jCheckBox6.setText("Show temperature gradient");
-        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Restore defaults");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox6ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -122,7 +138,8 @@ public class OptionsFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox6))
+                    .addComponent(jCheckBox6)
+                    .addComponent(jButton1))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,7 +161,9 @@ public class OptionsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,7 +197,25 @@ public class OptionsFrame extends javax.swing.JFrame {
         HeatSource.DRAW_GRADIENT = this.jCheckBox6.isSelected();
     }//GEN-LAST:event_jCheckBox6ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jCheckBox1.setSelected(DEFAULT_CHECKBOX_VALUES[0]);
+        jCheckBox1ActionPerformed(evt);
+        jCheckBox2.setSelected(DEFAULT_CHECKBOX_VALUES[1]);
+        jCheckBox2ActionPerformed(evt);
+        jCheckBox3.setSelected(DEFAULT_CHECKBOX_VALUES[2]);
+        jCheckBox3ActionPerformed(evt);
+        jCheckBox4.setSelected(DEFAULT_CHECKBOX_VALUES[3]);
+        jCheckBox4ActionPerformed(evt);
+        jCheckBox5.setSelected(DEFAULT_CHECKBOX_VALUES[4]);
+        jCheckBox5ActionPerformed(evt);
+        jCheckBox6.setSelected(DEFAULT_CHECKBOX_VALUES[5]);
+        jCheckBox6ActionPerformed(evt);
+        jComboBox1.setSelectedItem(DEFAULT_SELECTION_MODE);
+        jComboBox1ActionPerformed(evt);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
