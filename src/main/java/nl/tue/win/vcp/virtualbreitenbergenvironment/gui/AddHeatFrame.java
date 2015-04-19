@@ -12,6 +12,7 @@ public class AddHeatFrame extends AddLightFrame {
 
     public AddHeatFrame(Environment environment) {
         super(environment);
+        this.setTitle("Add heat source");
     }
     
     protected HeatSource getHeatSource() {

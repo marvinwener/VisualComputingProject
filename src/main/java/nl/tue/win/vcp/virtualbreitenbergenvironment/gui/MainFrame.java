@@ -85,24 +85,21 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
         GLProfile glprofile = GLProfile.getDefault();
         GLCapabilities glcapabilities = new GLCapabilities(glprofile);
         jPanel1 = new GLJPanel(glcapabilities);
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuBar = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        editMenu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        viewMenu = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
@@ -114,19 +111,14 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        toolsMenu = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        timeMenu = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Virtual Braitenberg Environment");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,39 +131,39 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 807, Short.MAX_VALUE)
         );
 
-        jMenu3.setText("File");
+        fileMenu.setText("File");
 
         jMenuItem1.setText("New environment");
-        jMenu3.add(jMenuItem1);
+        fileMenu.add(jMenuItem1);
 
         jMenuItem5.setText("Load...");
-        jMenu3.add(jMenuItem5);
+        fileMenu.add(jMenuItem5);
 
         jMenuItem6.setText("Save...");
-        jMenu3.add(jMenuItem6);
+        fileMenu.add(jMenuItem6);
 
         jMenuItem8.setText("Quit");
-        jMenu3.add(jMenuItem8);
+        fileMenu.add(jMenuItem8);
 
-        jMenuBar2.add(jMenu3);
+        jMenuBar.add(fileMenu);
 
-        jMenu4.setText("Edit");
+        editMenu.setText("Edit");
 
         jMenuItem2.setText("Add vehicle...");
-        jMenu4.add(jMenuItem2);
+        editMenu.add(jMenuItem2);
 
         jMenuItem7.setText("Add light...");
-        jMenu4.add(jMenuItem7);
+        editMenu.add(jMenuItem7);
 
         jMenuItem9.setText("Add heat source...");
-        jMenu4.add(jMenuItem9);
+        editMenu.add(jMenuItem9);
 
         jMenuItem10.setText("Delete selection");
-        jMenu4.add(jMenuItem10);
+        editMenu.add(jMenuItem10);
 
-        jMenuBar2.add(jMenu4);
+        jMenuBar.add(editMenu);
 
-        jMenu6.setText("View");
+        viewMenu.setText("View");
 
         jMenu8.setText("Movement");
 
@@ -193,7 +185,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem20.setText("Move down");
         jMenu8.add(jMenuItem20);
 
-        jMenu6.add(jMenu8);
+        viewMenu.add(jMenu8);
 
         jMenu9.setText("Zooming");
 
@@ -203,34 +195,34 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem14.setText("Zoom out");
         jMenu9.add(jMenuItem14);
 
-        jMenu6.add(jMenu9);
+        viewMenu.add(jMenu9);
 
         jMenuItem11.setText("Reset camera");
-        jMenu6.add(jMenuItem11);
+        viewMenu.add(jMenuItem11);
 
-        jMenuBar2.add(jMenu6);
+        jMenuBar.add(viewMenu);
 
-        jMenu7.setText("Tools");
+        toolsMenu.setText("Tools");
 
         jMenuItem12.setText("Options...");
-        jMenu7.add(jMenuItem12);
+        toolsMenu.add(jMenuItem12);
 
-        jMenuBar2.add(jMenu7);
+        jMenuBar.add(toolsMenu);
 
-        jMenu5.setText("Time");
-        jMenu5.setEnabled(false);
+        timeMenu.setText("Time");
+        timeMenu.setEnabled(false);
 
         jMenuItem3.setText("Pause");
         jMenuItem3.setEnabled(false);
-        jMenu5.add(jMenuItem3);
+        timeMenu.add(jMenuItem3);
 
         jMenuItem4.setText("Play");
         jMenuItem4.setEnabled(false);
-        jMenu5.add(jMenuItem4);
+        timeMenu.add(jMenuItem4);
 
-        jMenuBar2.add(jMenu5);
+        jMenuBar.add(timeMenu);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -535,17 +527,11 @@ public class MainFrame extends javax.swing.JFrame {
     private Movable selection = Movable.NULL;
     private JFrame additionFrame = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
@@ -567,5 +553,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu timeMenu;
+    private javax.swing.JMenu toolsMenu;
+    private javax.swing.JMenu viewMenu;
     // End of variables declaration//GEN-END:variables
 }

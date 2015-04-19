@@ -58,6 +58,7 @@ public class OptionsFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Options");
         setLocationByPlatform(true);
 
         jCheckBox1.setText("Vehicle randomness");

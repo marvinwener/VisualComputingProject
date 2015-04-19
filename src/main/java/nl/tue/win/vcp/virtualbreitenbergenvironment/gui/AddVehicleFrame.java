@@ -75,6 +75,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         jComboBox6 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add vehicle");
         setLocationByPlatform(true);
 
         vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel" }));
