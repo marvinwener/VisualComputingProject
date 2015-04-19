@@ -286,10 +286,7 @@ public class GLEventListenerImpl implements GLEventListener,
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent mwe) {
-        vDist = (float) Math.max(MIN_CAMERA_DISTANCE,
-                vDist
-                * Math.pow(MOUSE_WHEEL_FACTOR,
-                        mwe.getWheelRotation()));
+        this.zoom(mwe.getWheelRotation());
     }
 
     @Override
@@ -408,5 +405,22 @@ public class GLEventListenerImpl implements GLEventListener,
             }
         }
         return selectedObject;
+    }
+    
+    public void zoom(double amount) {
+        vDist = (float) Math.max(MIN_CAMERA_DISTANCE,
+                vDist
+                * Math.pow(MOUSE_WHEEL_FACTOR,
+                        amount));
+    }
+    
+    @Override
+    public void zoomIn() {
+        this.zoom(-1);
+    }
+    
+    @Override
+    public void zoomOut() {
+        this.zoom(1);
     }
 }

@@ -6,4 +6,6 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces;
  */
 public interface VirtualCamera {
     public void resetCamera();
+    public void zoomIn();
+    public void zoomOut();
 }

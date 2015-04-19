@@ -104,6 +104,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -163,6 +165,12 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         jMenu6.setText("View");
+
+        jMenuItem13.setText("Zoom in");
+        jMenu6.add(jMenuItem13);
+
+        jMenuItem14.setText("Zoom out");
+        jMenu6.add(jMenuItem14);
 
         jMenuItem11.setText("Reset camera");
         jMenu6.add(jMenuItem11);
@@ -255,6 +263,8 @@ public class MainFrame extends javax.swing.JFrame {
         deleteAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         resetCameraAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_MASK));
         showOptionsAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK | java.awt.event.KeyEvent.SHIFT_MASK));
+        zoomInAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
+        zoomOutAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
 
         deleteAction.setEnabled(false);
 
@@ -268,6 +278,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem10.setAction(deleteAction);
         jMenuItem11.setAction(resetCameraAction);
         jMenuItem12.setAction(showOptionsAction);
+        jMenuItem13.setAction(zoomInAction);
+        jMenuItem14.setAction(zoomOutAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -406,6 +418,22 @@ public class MainFrame extends javax.swing.JFrame {
             OptionsFrame.getInstance().setVisible(true);
         }
     };
+    
+    private final Action zoomInAction = new AbstractAction("Zoom in") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.zoomIn();
+        }
+    };
+    
+    private final Action zoomOutAction = new AbstractAction("Zoom out") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.zoomOut();
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -427,6 +455,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
