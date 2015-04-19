@@ -435,7 +435,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            additionFrame.dispose(); // close any open windows
+            if (additionFrame != null) {
+                additionFrame.dispose(); // close any open windows
+            }
             MainFrame.this.dispose();
             System.exit(0);
         }
