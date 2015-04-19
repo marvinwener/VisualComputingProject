@@ -77,7 +77,7 @@ public class Environment implements Serializable {
         setMaterial(silver);*/
         drawFloorAndWalls();
         //TODO: extend
-        gl.glColor3f(1, 0, 0);
+        //gl.glColor3f(1, 0, 0);
         /*gl.glBegin(GL_QUADS);
          gl.glVertex3f(0, 0, 0);
          gl.glVertex3f(0, 1, 0);
