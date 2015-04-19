@@ -47,7 +47,6 @@ public class MainFrame extends javax.swing.JFrame {
         glPanel.addMouseListener(listener);
         glPanel.addMouseMotionListener(listener);
         glPanel.addMouseWheelListener(listener);
-        glPanel.addKeyListener(listener);
         glPanel.setFocusable(true);
         glPanel.requestFocusInWindow();
         // Attach animator to OpenGL panel and begin refresh
@@ -104,6 +103,14 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -166,11 +173,37 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu6.setText("View");
 
+        jMenu8.setText("Movement");
+
+        jMenuItem15.setText("Move forwards");
+        jMenu8.add(jMenuItem15);
+
+        jMenuItem16.setText("Move backwards");
+        jMenu8.add(jMenuItem16);
+
+        jMenuItem17.setText("Move left");
+        jMenu8.add(jMenuItem17);
+
+        jMenuItem18.setText("Move right");
+        jMenu8.add(jMenuItem18);
+
+        jMenuItem19.setText("Move up");
+        jMenu8.add(jMenuItem19);
+
+        jMenuItem20.setText("Move down");
+        jMenu8.add(jMenuItem20);
+
+        jMenu6.add(jMenu8);
+
+        jMenu9.setText("Zooming");
+
         jMenuItem13.setText("Zoom in");
-        jMenu6.add(jMenuItem13);
+        jMenu9.add(jMenuItem13);
 
         jMenuItem14.setText("Zoom out");
-        jMenu6.add(jMenuItem14);
+        jMenu9.add(jMenuItem14);
+
+        jMenu6.add(jMenu9);
 
         jMenuItem11.setText("Reset camera");
         jMenu6.add(jMenuItem11);
@@ -265,6 +298,12 @@ public class MainFrame extends javax.swing.JFrame {
         showOptionsAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK | java.awt.event.KeyEvent.SHIFT_MASK));
         zoomInAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
         zoomOutAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        moveForwardsAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_W, 0));
+        moveLeftAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_A, 0));
+        moveBackwardsAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
+        moveRightAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_D, 0));
+        moveUpAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, 0));
+        moveDownAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
 
         deleteAction.setEnabled(false);
 
@@ -280,6 +319,12 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem12.setAction(showOptionsAction);
         jMenuItem13.setAction(zoomInAction);
         jMenuItem14.setAction(zoomOutAction);
+        jMenuItem15.setAction(moveForwardsAction);
+        jMenuItem16.setAction(moveBackwardsAction);
+        jMenuItem17.setAction(moveLeftAction);
+        jMenuItem18.setAction(moveRightAction);
+        jMenuItem19.setAction(moveUpAction);
+        jMenuItem20.setAction(moveDownAction);
     }
 
     private final Action saveAction = new AbstractAction("Save...") {
@@ -434,6 +479,54 @@ public class MainFrame extends javax.swing.JFrame {
             camera.zoomOut();
         }
     };
+    
+    private final Action moveUpAction = new AbstractAction("Move up") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveUp();
+        }
+    };
+    
+    private final Action moveDownAction = new AbstractAction("Move down") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveDown();
+        }
+    };
+    
+    private final Action moveLeftAction = new AbstractAction("Move left") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveLeft();
+        }
+    };
+    
+    private final Action moveRightAction = new AbstractAction("Move right") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveRight();
+        }
+    };
+    
+    private final Action moveForwardsAction = new AbstractAction("Move forwards") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveForwards();
+        }
+    };
+    
+    private final Action moveBackwardsAction = new AbstractAction("Move backwards") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            camera.moveBackwards();
+        }
+    };
 
     private final static int FPS = 30;
     private final EnvironmentContainer ec;
@@ -449,6 +542,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
@@ -457,7 +552,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

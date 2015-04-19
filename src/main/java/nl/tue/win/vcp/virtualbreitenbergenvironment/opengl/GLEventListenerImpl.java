@@ -35,7 +35,6 @@ public class GLEventListenerImpl implements GLEventListener,
         MouseMotionListener,
         MouseListener,
         MouseWheelListener,
-        KeyListener,
         EnvironmentContainer,
         EnvironmentMover,
         VirtualCamera {
@@ -104,7 +103,6 @@ public class GLEventListenerImpl implements GLEventListener,
         //float[] ambient = {1f, 1f, 1f, 1f};
         //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
         //TODO: extend
-        
         this.resetCamera();
     }
 
@@ -220,7 +218,7 @@ public class GLEventListenerImpl implements GLEventListener,
             new Selection(selected.getPosition()).draw(gl);
         }
     }
-    
+
     @Override
     public void resetCamera() {
         this.phi = 0;
@@ -290,58 +288,53 @@ public class GLEventListenerImpl implements GLEventListener,
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void moveLeft() {
+        // Move center point right.
+        final double phiQ = phi + Math.PI / 2.0;
+        cnt = cnt.minus(
+                new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                .scale(CENTER_POINT_CHANGE));
     }
 
     @Override
-    public void keyPressed(KeyEvent ke) {
-        // Move center point.
-        double phiQ = phi + Math.PI / 2.0;
-
-        switch (ke.getKeyChar()) {
-            // Right.
-            case 'a':
-                cnt = cnt.minus(
-                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
-                        .scale(CENTER_POINT_CHANGE));
-                break;
-            // Left.
-            case 'd':
-                cnt = cnt.plus(
-                        new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
-                        .scale(CENTER_POINT_CHANGE));
-                break;
-            // Forwards.
-            case 'w':
-                cnt = cnt.minus(
-                        new Vector(Math.cos(phi), Math.sin(phi), 0)
-                        .scale(CENTER_POINT_CHANGE));
-                break;
-            // Backwards.
-            case 's':
-                cnt = cnt.plus(
-                        new Vector(Math.cos(phi), Math.sin(phi), 0)
-                        .scale(CENTER_POINT_CHANGE));
-                break;
-            // Up.
-            case 'q':
-                cnt = new Vector(cnt.x(),
-                        cnt.y(),
-                        cnt.z() + CENTER_POINT_CHANGE);
-                break;
-            // Down.
-            case 'z':
-                cnt = new Vector(cnt.x(),
-                        cnt.y(),
-                        cnt.z() - CENTER_POINT_CHANGE);
-                break;
-        }
+    public void moveRight() {
+        final double phiQ = phi + Math.PI / 2.0;
+        // Move center point left.
+        cnt = cnt.plus(
+                new Vector(Math.cos(phiQ), Math.sin(phiQ), 0)
+                .scale(CENTER_POINT_CHANGE));
     }
 
     @Override
-    public void keyReleased(KeyEvent ke) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void moveForwards() {
+        // Move center point forwards.
+        cnt = cnt.minus(
+                new Vector(Math.cos(phi), Math.sin(phi), 0)
+                .scale(CENTER_POINT_CHANGE));
+    }
+
+    @Override
+    public void moveBackwards() {
+        // Move center point backwards.
+        cnt = cnt.plus(
+                new Vector(Math.cos(phi), Math.sin(phi), 0)
+                .scale(CENTER_POINT_CHANGE));
+    }
+
+    @Override
+    public void moveUp() {
+        // Move center point up.
+        cnt = new Vector(cnt.x(),
+                cnt.y(),
+                cnt.z() + CENTER_POINT_CHANGE);
+    }
+
+    @Override
+    public void moveDown() {
+        // Move center point down.
+        cnt = new Vector(cnt.x(),
+                cnt.y(),
+                cnt.z() - CENTER_POINT_CHANGE);
     }
 
     @Override
@@ -362,7 +355,7 @@ public class GLEventListenerImpl implements GLEventListener,
             this.selectionListener.selectionChanged(selected);
         }
     }
-    
+
     public void setListener(SelectionListener listener) {
         this.selectionListener = listener;
     }
@@ -406,19 +399,19 @@ public class GLEventListenerImpl implements GLEventListener,
         }
         return selectedObject;
     }
-    
+
     public void zoom(double amount) {
         vDist = (float) Math.max(MIN_CAMERA_DISTANCE,
                 vDist
                 * Math.pow(MOUSE_WHEEL_FACTOR,
                         amount));
     }
-    
+
     @Override
     public void zoomIn() {
         this.zoom(-1);
     }
-    
+
     @Override
     public void zoomOut() {
         this.zoom(1);
