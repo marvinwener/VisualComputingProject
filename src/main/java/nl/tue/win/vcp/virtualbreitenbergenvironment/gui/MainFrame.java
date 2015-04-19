@@ -350,7 +350,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     };
 
-    private final Action addLightAction = new AbstractAction("Add light...") {
+    private final Action addLightAction = new AbstractAction("Add light source...") {
 
         @Override
         public void actionPerformed(ActionEvent e) {
