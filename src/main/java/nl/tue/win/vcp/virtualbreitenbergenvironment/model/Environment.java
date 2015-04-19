@@ -14,6 +14,7 @@ import static javax.media.opengl.GL2GL3.*;
 import javax.media.opengl.glu.GLU;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.GLSingleton;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.MTLParsing;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoader_DisplayList;
 
 /**
@@ -43,11 +44,12 @@ public class Environment implements Serializable {
         this.glu = glu;
         this.glut = glut;
         vs = new ArrayList<>();
-        displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/redcar_3wheel-obj/blender/untitled.obj", true);
+        vs.add(new ThreeWheelVehicle(Vector.O, 0));
+        /*displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/three_wheel/redcar_3wheel-obj/atorigin.obj", true);
         WavefrontObjectLoader_DisplayList carLoader = new WavefrontObjectLoader_DisplayList("/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/redcar_3wheel-obj/blender/untitled.obj");
         carLoader.normalizeVertices();
         WavefrontObjectLoader_DisplayList.ScalingConfiguration config = carLoader.getConfig();
-        displayList2 = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/left_3wheel-obj/blender/untitled.obj", config);
+        displayList2 = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, "/home/maikel/Dropbox/2IV06 - Visual Computing Project/SketchUp vehicle files/3 wheel car/left_3wheel-obj/blender/untitled.obj", config);*/
     }
     
     /**
@@ -73,7 +75,7 @@ public class Environment implements Serializable {
             51.2f //shininess
         };
         setMaterial(silver);*/
-        //drawFloorAndWalls();
+        drawFloorAndWalls();
         //TODO: extend
         gl.glColor3f(1, 0, 0);
         /*gl.glBegin(GL_QUADS);
@@ -94,7 +96,7 @@ public class Environment implements Serializable {
          glut.glutSolidCube(0.5f);*/
         //v.move();
         //v.draw(gl);        
-        gl.glPushMatrix();
+        /*gl.glPushMatrix();
         try {
             new MTLParsing().parse(
                     "/home/maikel/NetBeansProjects/VirtualBreitenbergEnvironment/src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/graphics/red_Car.mtl").get(0).activate(gl);
@@ -121,11 +123,11 @@ public class Environment implements Serializable {
         gl.glPopMatrix();
         //gl.glTranslated(5, 0, 1);
         gl.glCallList(displayList2);
-        gl.glPopMatrix();
-        /*for (Vehicle v : vs) {
+        gl.glPopMatrix();*/
+        for (Vehicle v : vs) {
             v.move();
             v.draw(gl);
-        }*/
+        }
     }
 
     private void drawFloorAndWalls() {
