@@ -16,6 +16,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
     private static int displayList = -1;
     private final static String OBJ_PATH = "/graphics/threeWheelVehicle.obj";
     private final static float SIZE = 3;
+    private final float wheelDistance = 1;
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
         super(initialPosition, initialAngle);
@@ -23,6 +24,8 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
 
     @Override
     public void draw(GL2 gl) {
+        super.drawBoundingBox(gl);
+        super.loadName(gl);
         // position is middle between wheels (behind)
 
         gl.glPushMatrix();
@@ -48,5 +51,16 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
         for (Sensor s : slots) {
             s.draw(gl);
         }
+        
+        super.unloadName(gl);
+    }
+    
+    @Override
+    public final Vector[] getSensorLocations() {
+        final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
+        final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance).scale(0.5);
+        final Vector toFront = new Vector(0, SIZE, 0).scale(0.85);
+        return new Vector[]{wheelVector.plus(toFront),
+            wheelVector.scale(-1).plus(toFront)};
     }
 }

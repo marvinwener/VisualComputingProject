@@ -149,7 +149,7 @@ public class TwoWheelVehicle extends Vehicle {
     }
 
     @Override
-    public final Vector[] getSensorLocations() {
+    public Vector[] getSensorLocations() {
         final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
         final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance);
         return new Vector[]{wheelVector, wheelVector.scale(-1)};
