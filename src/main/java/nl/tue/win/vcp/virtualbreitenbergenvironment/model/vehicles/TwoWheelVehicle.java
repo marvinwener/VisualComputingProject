@@ -29,7 +29,7 @@ public class TwoWheelVehicle extends Vehicle {
         this.angle = initialAngle;
         this.slots = new Sensor[2];
     }
-
+    
     @Override
     public void draw(GL2 gl) {
         super.drawBoundingBox(gl);
