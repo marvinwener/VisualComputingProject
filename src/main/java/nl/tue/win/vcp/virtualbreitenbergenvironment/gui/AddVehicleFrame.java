@@ -13,6 +13,7 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.DummySensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.RandomSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.TemperatureSensor;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.UnstableSensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.ThreeWheelVehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles.TwoWheelVehicle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -78,7 +79,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         setTitle("Add vehicle");
         setLocationByPlatform(true);
 
-        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel" }));
+        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "Three-wheel" }));
         vehicleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vehicleTypeComboBoxActionPerformed(evt);
@@ -366,18 +367,22 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         final String vehicle = (String) vehicleTypeComboBox.getSelectedItem();
         switch (vehicle) {
             case "Two-wheel":
-                return getTwoWheelVehicle();
+                return getVehicle(true);
+            case "Three-wheel":
+                return getVehicle(false);
             default:
                 throw new UnsupportedOperationException("Not supported yet.");
         }
     }
 
-    private Vehicle getTwoWheelVehicle() {
+    private Vehicle getVehicle(boolean twoWheel) {
         Vector initialPosition = Vector.O;
         float initialAngle = (float) Math.toRadians(angleSlider.getValue());
         final String sensorType1 = (String) sensor1ComboBox.getSelectedItem();
         final String sensorType2 = (String) sensor2ComboBox.getSelectedItem();
-        Vehicle v = new TwoWheelVehicle(initialPosition, initialAngle);
+        Vehicle v = twoWheel
+                ? new TwoWheelVehicle(initialPosition, initialAngle)
+                : new ThreeWheelVehicle(initialPosition, initialAngle);
         Vector[] sensorLocations = v.getSensorLocations();
         Sensor[] sensors = {getSensor(sensorType1, sensorLocations[0]),
             getSensor(sensorType2, sensorLocations[1])};
