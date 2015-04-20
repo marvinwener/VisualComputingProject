@@ -57,7 +57,7 @@ public class Room implements Drawable {
         WALL_TEXTURE.enable(gl);
         WALL_TEXTURE.bind(gl);
         drawWalls(gl, MIN, MAX, STEP);
-        FLOOR_TEXTURE.disable(gl);
+        WALL_TEXTURE.disable(gl);
     }
 
     private void drawGrid(GL2 gl, float min, float max, float step) {
