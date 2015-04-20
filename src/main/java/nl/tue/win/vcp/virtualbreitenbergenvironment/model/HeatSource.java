@@ -14,9 +14,6 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class HeatSource extends LightSource {
 
     public static boolean DRAW_GRADIENT = true;
-    final static String TEXTURE_PATH
-            = "src/main/java/nl/tue/win/vcp/virtualbreitenbergenvironment/"
-            + "graphics/textures/temperature.png";
     private static int counter = 0;
     private final int count;
 
