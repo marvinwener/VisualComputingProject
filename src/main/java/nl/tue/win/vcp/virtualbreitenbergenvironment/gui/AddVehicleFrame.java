@@ -79,7 +79,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         setTitle("Add vehicle");
         setLocationByPlatform(true);
 
-        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Two-wheel", "Three-wheel" }));
+        vehicleTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Three-wheel", "Two-wheel" }));
         vehicleTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vehicleTypeComboBoxActionPerformed(evt);
