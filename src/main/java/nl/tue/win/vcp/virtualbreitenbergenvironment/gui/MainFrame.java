@@ -389,7 +389,9 @@ public class MainFrame extends javax.swing.JFrame {
             if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
                 try {
                     ec.setEnvironment((Environment) Serialization.read(selectedFile));
-                    additionFrame.dispose(); // close any open windows
+                    if (additionFrame != null) {
+                        additionFrame.dispose(); // close any open windows
+                    }
                 } catch (IOException | ClassNotFoundException ex) {
                     System.err.println("While reading: " + ex);
                     JOptionPane.showMessageDialog(MainFrame.this,
@@ -404,7 +406,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            additionFrame.dispose(); // close any open windows
+            if (additionFrame != null) {
+                additionFrame.dispose(); // close any open windows
+            }
             ec.setEnvironment(new Environment());
         }
     };
