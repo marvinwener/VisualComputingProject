@@ -49,8 +49,8 @@ public class GLEventListenerImpl implements GLEventListener,
     private int dragSourceX, dragSourceY;
     private int mouseButton;
     public static float DRAG_PIXEL_TO_RADIAN = 0.025f;
-    final static private float EPS = 0.001f;
-    static public float THETA_MIN = 0;//(-(float) Math.PI / 2f) + EPS;
+    final static private float EPS = 0.01f;
+    static public float THETA_MIN = EPS;//(-(float) Math.PI / 2f) + EPS;
     static public float THETA_MAX = ((float) Math.PI / 2f) - EPS;
     private float vDist;
     static public float MIN_CAMERA_DISTANCE = 1f;
