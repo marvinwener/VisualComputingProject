@@ -3,7 +3,12 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.gui;
 import java.awt.event.WindowAdapter;
 import javax.swing.JSpinner;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.HeatSource;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.LightSource;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Preview;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 
 /**
@@ -13,19 +18,23 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 public class AddLightFrame extends javax.swing.JFrame {
 
     protected final Environment environment;
+    protected final EnvironmentMover em;
 
     /**
      * Creates new form AddLightFrame
      *
      * @param environment environment to add the light to
+     * @param em environment mover
      */
-    public AddLightFrame(Environment environment) {
+    public AddLightFrame(Environment environment, final EnvironmentMover em) {
         initComponents();
         this.environment = environment;
+        this.em = em;
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 AddLightFrame.this.environment.clearPreview();
+                em.select(Movable.NULL);
             }
         });
         this.getRootPane().setDefaultButton(jButton1);
@@ -150,6 +159,7 @@ public class AddLightFrame extends javax.swing.JFrame {
             previewLight();
         } else {
             environment.clearPreview();
+            em.select(Movable.NULL);
         }
     }
 
@@ -160,12 +170,25 @@ public class AddLightFrame extends javax.swing.JFrame {
     }
 
     protected void addLight() {
-        environment.addLight(getLight());
+        Drawable preview = environment.getPreview();
+        while (preview instanceof Preview) {
+            preview = ((Preview) preview).getObject();
+        }
+        final LightSource light;
+        if (preview instanceof LightSource) {
+            light = (LightSource) preview;
+        } else {
+            light = getLight();
+        }
+        environment.addLight(light);
         environment.clearPreview();
+        em.select(light);
     }
 
     protected void previewLight() {
-        environment.preview(getLight());
+        final LightSource light = getLight();
+        environment.preview(light);
+        em.select(light);
     }
 
     public JSpinner getXSpinner() {

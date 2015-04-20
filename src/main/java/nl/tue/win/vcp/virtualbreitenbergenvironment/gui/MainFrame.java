@@ -425,7 +425,7 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (additionFrame == null || !additionFrame.isVisible()) {
-                additionFrame = new AddLightFrame(ec.getEnvironment());
+                additionFrame = new AddLightFrame(ec.getEnvironment(), em);
                 additionFrame.setVisible(true);
             }
         }
@@ -448,7 +448,7 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (additionFrame == null || !additionFrame.isVisible()) {
-                additionFrame = new AddHeatFrame(ec.getEnvironment());
+                additionFrame = new AddHeatFrame(ec.getEnvironment(), em);
                 additionFrame.setVisible(true);
             }
         }
