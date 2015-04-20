@@ -16,7 +16,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
 
     private static int displayList = -1;
     private final static String OBJ_PATH = "/graphics/threeWheelVehicle.obj";
-    private final static float SIZE = 3;
+    private final static float SIZE = 2;
     private final float wheelDistance = 1;
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
@@ -27,7 +27,6 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
     public void draw(GL2 gl) {
         super.drawBoundingBox(gl);
         super.loadName(gl);
-        // position is middle between wheels (behind)
 
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
@@ -42,7 +41,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
         }
         gl.glColor3f(1, 0, 0);
         gl.glScaled(SIZE, SIZE, SIZE);
-        gl.glTranslated(0.5, 0.8, 0);
+        gl.glTranslated(0.5, 0.5, 0);
         gl.glRotated(180, 0, 0, 1);
         gl.glCallList(displayList);
 
@@ -60,7 +59,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
     public final Vector[] getSensorLocations() {
         final Vector wheelDirection = INITIAL_DIRECTION.cross(Vector.Z);
         final Vector wheelVector = wheelDirection.normalized().scale(0.5 * wheelDistance).scale(0.5);
-        final Vector toFront = new Vector(0, SIZE, 0).scale(0.85);
+        final Vector toFront = new Vector(0, SIZE, 0).scale(0.35);
         return new Vector[]{wheelVector.plus(toFront),
             wheelVector.scale(-1).plus(toFront)};
     }
@@ -70,10 +69,10 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
         final Vector direction = this.getDirection();
         final Vector wheelDirection = this.getDirection().cross(Vector.Z);
         
-        final Vector upperRight = position.plus(direction.normalized().scale(SIZE*0.82)).plus(wheelDirection.normalized().scale(0.75));
-        final Vector upperLeft = position.plus(direction.normalized().scale(SIZE*0.82)).minus(wheelDirection.normalized().scale(0.75));
-        final Vector lowerRight = position.minus(direction.normalized().scale(0.22*SIZE)).plus(wheelDirection.normalized().scale(0.75));
-        final Vector lowerLeft = position.minus(direction.normalized().scale(0.22*SIZE)).minus(wheelDirection.normalized().scale(0.75));
+        final Vector upperRight = position.plus(direction.normalized().scale(0.52*SIZE)).plus(wheelDirection.normalized().scale(0.25*SIZE));
+        final Vector upperLeft = position.plus(direction.normalized().scale(0.52*SIZE)).minus(wheelDirection.normalized().scale(0.25*SIZE));
+        final Vector lowerRight = position.minus(direction.normalized().scale(0.52*SIZE)).plus(wheelDirection.normalized().scale(0.25*SIZE));
+        final Vector lowerLeft = position.minus(direction.normalized().scale(0.52*SIZE)).minus(wheelDirection.normalized().scale(0.25*SIZE));
         
         return new Rectangle(direction, upperRight, upperLeft, lowerLeft, lowerRight);
     }
