@@ -1,11 +1,17 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model;
 
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
 import static javax.media.opengl.GL2GL3.GL_QUADS;
+import javax.media.opengl.GLException;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
@@ -22,10 +28,23 @@ public class Room implements Drawable {
     private final static float STEP = 0.5f;
     public static boolean DRAW_BOUNDING_BOX = false;
     public static boolean DRAW_WALLS = true;
+    static private Texture FLOOR_TEXTURE = null;
+    final static private String WALL_TEXTURE_PATH = "/textures/woodenFloor.jpg";
+    // source: http://commons.wikimedia.org/wiki/File:Wood_pattern_parquet_floor_tiles.jpg
 
     @Override
     public void draw(GL2 gl) {
-        drawGrid(gl, MIN, MAX, STEP);
+        if (FLOOR_TEXTURE == null) {
+            try {
+                FLOOR_TEXTURE = TextureIO.newTexture(new Object().getClass().getResourceAsStream(WALL_TEXTURE_PATH), false, "jpg");
+            } catch (IOException | GLException ex) {
+                Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FLOOR_TEXTURE.enable(gl);
+        FLOOR_TEXTURE.bind(gl);
+        drawGrid(gl, MIN, MAX, STEP * 10);
+        FLOOR_TEXTURE.disable(gl);
         drawWalls(gl, MIN, MAX, STEP);
     }
 
@@ -33,21 +52,25 @@ public class Room implements Drawable {
         gl.glPushAttrib(GL_CURRENT_BIT);
         gl.glPushMatrix();
         gl.glColor3f(168f / 255, 163f / 255, 1);
-        for (float i = min; i <= max; i += step) {
-            gl.glBegin(GL_LINES);
-            gl.glVertex3f(i, min, 0);
-            gl.glVertex3f(i, max, 0);
-            gl.glVertex3f(min, i, 0);
-            gl.glVertex3f(max, i, 0);
-            gl.glEnd();
-        }
+        /*for (float i = min; i <= max; i += step) {
+         gl.glBegin(GL_LINES);
+         gl.glVertex3f(i, min, 0);
+         gl.glVertex3f(i, max, 0);
+         gl.glVertex3f(min, i, 0);
+         gl.glVertex3f(max, i, 0);
+         gl.glEnd();
+         }*/
         gl.glColor3f(1, 1, 1);
         gl.glBegin(GL_QUADS);
         for (float i = min; i < max; i += step) {
             for (float j = min; j < max; j += step) {
+                gl.glTexCoord2f(0, 0);
                 gl.glVertex3f(i, j, 0);
+                gl.glTexCoord2f(1, 0);
                 gl.glVertex3f(i + step, j, 0);
+                gl.glTexCoord2f(1, 1);
                 gl.glVertex3f(i + step, j + step, 0);
+                gl.glTexCoord2f(0, 1);
                 gl.glVertex3f(i, j + step, 0);
             }
         }
