@@ -25,41 +25,46 @@ public class Room implements Drawable {
 
     private final static float MIN = -10;
     private final static float MAX = 10;
-    private final static float STEP = 0.5f;
+    private final static float STEP = 5;
     public static boolean DRAW_BOUNDING_BOX = false;
     public static boolean DRAW_WALLS = true;
     static private Texture FLOOR_TEXTURE = null;
-    final static private String WALL_TEXTURE_PATH = "/textures/woodenFloor.jpg";
+    final static private String FLOOR_TEXTURE_PATH = "/textures/woodenFloor.jpg";
     // source: http://commons.wikimedia.org/wiki/File:Wood_pattern_parquet_floor_tiles.jpg
+    static private Texture WALL_TEXTURE = null;
+    final static private String WALL_TEXTURE_PATH = "/textures/wall.png";
+    // source: http://www.pd4pic.com/stripes-grey-pattern.html
 
     @Override
     public void draw(GL2 gl) {
         if (FLOOR_TEXTURE == null) {
             try {
-                FLOOR_TEXTURE = TextureIO.newTexture(new Object().getClass().getResourceAsStream(WALL_TEXTURE_PATH), false, "jpg");
+                FLOOR_TEXTURE = TextureIO.newTexture(new Object().getClass().getResourceAsStream(FLOOR_TEXTURE_PATH), false, "jpg");
+            } catch (IOException | GLException ex) {
+                Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (WALL_TEXTURE == null) {
+            try {
+                WALL_TEXTURE = TextureIO.newTexture(new Object().getClass().getResourceAsStream(WALL_TEXTURE_PATH), false, "png");
             } catch (IOException | GLException ex) {
                 Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         FLOOR_TEXTURE.enable(gl);
         FLOOR_TEXTURE.bind(gl);
-        drawGrid(gl, MIN, MAX, STEP * 10);
+        drawGrid(gl, MIN, MAX, STEP);
         FLOOR_TEXTURE.disable(gl);
+        WALL_TEXTURE.enable(gl);
+        WALL_TEXTURE.bind(gl);
         drawWalls(gl, MIN, MAX, STEP);
+        FLOOR_TEXTURE.disable(gl);
     }
 
     private void drawGrid(GL2 gl, float min, float max, float step) {
         gl.glPushAttrib(GL_CURRENT_BIT);
         gl.glPushMatrix();
         gl.glColor3f(168f / 255, 163f / 255, 1);
-        /*for (float i = min; i <= max; i += step) {
-         gl.glBegin(GL_LINES);
-         gl.glVertex3f(i, min, 0);
-         gl.glVertex3f(i, max, 0);
-         gl.glVertex3f(min, i, 0);
-         gl.glVertex3f(max, i, 0);
-         gl.glEnd();
-         }*/
         gl.glColor3f(1, 1, 1);
         gl.glBegin(GL_QUADS);
         for (float i = min; i < max; i += step) {
