@@ -25,6 +25,7 @@ import static javax.swing.KeyStroke.getKeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.io.Serialization;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Environment;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.Time;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentContainer;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.opengl.EnvironmentMover;
@@ -218,14 +219,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar.add(toolsMenu);
 
         timeMenu.setText("Time");
-        timeMenu.setEnabled(false);
 
         jMenuItem3.setText("Pause");
-        jMenuItem3.setEnabled(false);
         timeMenu.add(jMenuItem3);
 
         jMenuItem4.setText("Play");
-        jMenuItem4.setEnabled(false);
         timeMenu.add(jMenuItem4);
 
         jMenuBar.add(timeMenu);
@@ -315,11 +313,16 @@ public class MainFrame extends javax.swing.JFrame {
         moveUpAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Q, 0));
         moveDownAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_Z, 0));
         helpAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        pauseAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_SPACE, 0));
+        playAction.putValue(Action.ACCELERATOR_KEY, getKeyStroke(java.awt.event.KeyEvent.VK_SPACE, 0));
 
         deleteAction.setEnabled(false);
+        playAction.setEnabled(false);
 
         jMenuItem1.setAction(newAction);
         jMenuItem2.setAction(addVehicleAction);
+        jMenuItem3.setAction(pauseAction);
+        jMenuItem4.setAction(playAction);
         jMenuItem5.setAction(loadAction);
         jMenuItem6.setAction(saveAction);
         jMenuItem7.setAction(addLightAction);
@@ -560,6 +563,26 @@ public class MainFrame extends javax.swing.JFrame {
                     null, //do not use a custom Icon
                     options, //the titles of buttons
                     options[0]); //default button title
+        }
+    };
+    
+    private final Action pauseAction = new AbstractAction("Pause") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Time.pause();
+            this.setEnabled(false);
+            playAction.setEnabled(true);
+        }
+    };
+    
+    private final Action playAction = new AbstractAction("Play") {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Time.play();
+            this.setEnabled(false);
+            pauseAction.setEnabled(true);
         }
     };
 
