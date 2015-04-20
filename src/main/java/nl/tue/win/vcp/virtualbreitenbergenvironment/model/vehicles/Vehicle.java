@@ -100,6 +100,11 @@ public abstract class Vehicle
         return "Vehicle at" + position;
     }
 
+    /**
+     * Draws the bounding box of the vehicle on the ground.
+     * 
+     * @param gl the gl object to draw with
+     */
     public void drawBoundingBox(GL2 gl) {
         if (DRAW_BOUNDING_BOX) {
             Rectangle boundingBox = getBoundingBox();
