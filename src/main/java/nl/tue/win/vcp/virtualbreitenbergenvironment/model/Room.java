@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.media.opengl.GL.GL_LINES;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
 import static javax.media.opengl.GL2GL3.GL_QUADS;
