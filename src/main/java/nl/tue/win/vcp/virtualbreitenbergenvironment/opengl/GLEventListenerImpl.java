@@ -97,12 +97,11 @@ public class GLEventListenerImpl implements GLEventListener,
         gl.glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
         // Enable lighting.
-        //gl.glEnable(GL_LIGHTING);
-        //gl.glEnable(GL_LIGHT0);
-        //gl.glEnable(GL_NORMALIZE);
-        //float[] ambient = {1f, 1f, 1f, 1f};
-        //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
-        //TODO: extend
+        gl.glEnable(GL_LIGHTING);
+        gl.glEnable(GL_LIGHT0);
+        gl.glEnable(GL_NORMALIZE);
+        final float[] ambient = {1f, 1f, 1f, 1f};
+        gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
         this.resetCamera();
     }
 
