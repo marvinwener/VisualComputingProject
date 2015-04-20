@@ -17,10 +17,12 @@ public class LightSensor extends Sensor {
     protected final List<LightSource> lights;
     protected static final double THRESHOLD = 0.8;
     protected static final float SCALE = 0.1f;
+    //Vector sensorAbsolute;
 
     public LightSensor(Vector position, List<LightSource> lights) {
         this.sensorPosition = position;
         this.lights = lights;
+        //this.sensorAbsolute = sensorPosition;
     }
 
     @Override
@@ -58,8 +60,8 @@ public class LightSensor extends Sensor {
         /*gl.glPushMatrix();
          gl.glPushAttrib(GL2.GL_CURRENT_BIT);
          gl.glTranslated(sensorAbsolute.x(), sensorAbsolute.y(), sensorAbsolute.z());
-         GLUT glut = new GLUT();
-         gl.glColor3f(1, 0, 0);
+         com.jogamp.opengl.util.gl2.GLUT glut = new com.jogamp.opengl.util.gl2.GLUT();
+         gl.glColor3f(0, 1, 0);
          glut.glutSolidSphere(0.1f, 10, 10);
          gl.glPopAttrib();
          gl.glPopMatrix();*/
