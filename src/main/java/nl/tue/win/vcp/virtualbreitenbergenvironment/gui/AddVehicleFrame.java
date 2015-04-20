@@ -373,7 +373,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }
 
     private Vehicle getTwoWheelVehicle() {
-        Vector initialPosition = new Vector(0, 0, 0.5f); // TODO: make dynamic
+        Vector initialPosition = Vector.O;
         float initialAngle = (float) Math.toRadians(angleSlider.getValue());
         final String sensorType1 = (String) sensor1ComboBox.getSelectedItem();
         final String sensorType2 = (String) sensor2ComboBox.getSelectedItem();

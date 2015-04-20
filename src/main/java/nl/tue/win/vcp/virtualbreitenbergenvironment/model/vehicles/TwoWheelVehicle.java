@@ -38,6 +38,9 @@ public class TwoWheelVehicle extends Vehicle {
 
         gl.glPushMatrix();
         gl.glPushAttrib(GL_CURRENT_BIT);
+        
+        // Lift everything up high enough for the wheels to touch the ground
+        gl.glTranslated(0, 0, wheelRadius);
 
         // Line to indicate direction the vehicle points in
         gl.glColor3f(1, 0, 0);
