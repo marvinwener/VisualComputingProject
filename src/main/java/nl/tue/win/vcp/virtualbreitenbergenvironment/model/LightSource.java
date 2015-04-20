@@ -4,6 +4,8 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Movable;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Drawable;
 import java.io.Serializable;
 import javax.media.opengl.GL2;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.model.interfaces.Collidable;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoader_DisplayList;
 
@@ -12,13 +14,15 @@ import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoade
  *
  * @author maikel
  */
-public class LightSource extends Movable implements Drawable, Serializable {
+public class LightSource extends Movable
+        implements Collidable, Drawable, Serializable {
 
     private Vector position;
     private static int innerDisplayList = -1;
     private final static String INNER_OBJ_PATH = "/graphics/bulbInner.obj";
     private static int outerDisplayList = -1;
     private final static String OUTER_OBJ_PATH = "/graphics/bulbOuter.obj";
+    final private static double SIZE = 1;
 
     public LightSource(Vector position) {
         this.position = position;
@@ -35,6 +39,7 @@ public class LightSource extends Movable implements Drawable, Serializable {
             loadGraphics(gl);
         }
 
+        gl.glScaled(SIZE, SIZE, SIZE);
         gl.glTranslated(-0.45, 0.2, 0);
         gl.glRotated(90, 1, 0, 0);
         gl.glColor3d(0.7294117647058823, 0.4627450980392157, 0.15294117647058825);
@@ -71,5 +76,19 @@ public class LightSource extends Movable implements Drawable, Serializable {
         WavefrontObjectLoader_DisplayList.ScalingConfiguration config = tWaveFrontObjectModel.getConfig();
         innerDisplayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, INNER_OBJ_PATH, config);
         outerDisplayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, OUTER_OBJ_PATH, config);
+    }
+
+    @Override
+    public Rectangle getBoundingBox() {
+        final double SLACK = 0.20 * SIZE;
+        final Vector X = Vector.X;
+        final Vector Y = Vector.Y;
+        
+        final Vector upperRight = position.plus(X.normalized().scale(SLACK)).plus(Y.normalized().scale(SLACK));
+        final Vector upperLeft = position.plus(X.normalized().scale(SLACK)).minus(Y.normalized().scale(SLACK));
+        final Vector lowerRight = position.minus(X.normalized().scale(SLACK)).plus(Y.normalized().scale(SLACK));
+        final Vector lowerLeft = position.minus(X.normalized().scale(SLACK)).minus(Y.normalized().scale(SLACK));
+        
+        return new Rectangle(X, upperRight, upperLeft, lowerLeft, lowerRight);
     }
 }
