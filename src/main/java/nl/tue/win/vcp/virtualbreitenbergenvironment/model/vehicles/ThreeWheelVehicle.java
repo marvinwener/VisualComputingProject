@@ -15,6 +15,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
 
     private static int displayList = -1;
     private final static String OBJ_PATH = "/graphics/threeWheelVehicle.obj";
+    private final static float SIZE = 3;
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
         super(initialPosition, initialAngle);
@@ -36,7 +37,7 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
             displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, OBJ_PATH, true);
         }
         gl.glColor3f(1, 0, 0);
-        gl.glScaled(2, 2, 2);
+        gl.glScaled(SIZE, SIZE, SIZE);
         gl.glTranslated(0.5, 0.8f, 0);
         gl.glRotated(180, 0, 0, 1);
         gl.glCallList(displayList);
