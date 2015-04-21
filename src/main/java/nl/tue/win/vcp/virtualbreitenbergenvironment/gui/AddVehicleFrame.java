@@ -313,14 +313,15 @@ public class AddVehicleFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rightWheelComboBoxActionPerformed
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
-        PreSetVehicle selectedItem = (PreSetVehicle) jComboBox6.getSelectedItem();
-        selectedItem.apply(this.vehicleTypeComboBox,
+        final PreSetVehicle selectedItem = (PreSetVehicle) jComboBox6.getSelectedItem();
+        final Color newColor = selectedItem.apply(this.vehicleTypeComboBox,
                 this.sensor1ComboBox, this.fluctuation1CheckBox,
                 this.sensor2ComboBox, this.fluctuation2CheckBox,
                 this.leftWheelComboBox,
                 this.rightWheelComboBox,
                 this.angleSlider
         );
+        this.color = newColor == null ? color : newColor;
         update();
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
@@ -355,6 +356,7 @@ public class AddVehicleFrame extends javax.swing.JFrame {
         leftWheelComboBox.setEnabled(enabled);
         rightWheelComboBox.setEnabled(enabled);
         jButton2.setEnabled(enabled);
+        jButton3.setEnabled(preSetVehicle.equals(PreSetVehicle.CUSTOM));
     }
 
     public PreSetVehicle getPreSetVehicle() {
