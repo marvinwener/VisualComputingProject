@@ -74,15 +74,19 @@ public class MTLParsing {
     Material m;
     List<Material> materials = new ArrayList<>();
     
-    public List<Material> parse(String filename) throws FileNotFoundException {
+    public static List<Material> parse(String filename) throws FileNotFoundException {
         return parse(new File(filename));
     }
 
-    public List<Material> parse(File source) throws FileNotFoundException {
+    public static List<Material> parse(File source) throws FileNotFoundException {
         return parse(new FileInputStream(source));
     }
+    
+    public static List<Material> parse(InputStream source) {
+        return new MTLParsing().parseThis(source);
+    }
 
-    public List<Material> parse(InputStream source) {
+    public List<Material> parseThis(InputStream source) {
         materials.clear();
         Scanner s = new Scanner(source);
         while (s.hasNext()) {

@@ -2,8 +2,10 @@ package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.*;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.model.sensors.Sensor;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.MTLParsing;
+import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.MTLParsing.Material;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Rectangle;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.Vector;
 import nl.tue.win.vcp.virtualbreitenbergenvironment.utility.WavefrontObjectLoader_DisplayList;
@@ -17,8 +19,10 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
 
     private static int displayList = -1;
     private final static String OBJ_PATH = "/graphics/threeWheelVehicle.obj";
+    private final static String MTL_PATH = "/graphics/threeWheelVehicle.mtl";
     private final static float SIZE = 2;
     private final float wheelDistance = 1;
+    private Material material;
 
     public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
         super(initialPosition, initialAngle);
@@ -39,9 +43,12 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
 
         if (displayList == -1) {
             displayList = WavefrontObjectLoader_DisplayList.loadWavefrontObjectAsDisplayList(gl, OBJ_PATH, true);
+            material = MTLParsing.parse(new Object().getClass().getResourceAsStream(MTL_PATH)).get(0);
         }
         gl.glEnable(GL_LIGHTING);
+        gl.glEnable (GL_COLOR_MATERIAL) ;
         gl.glColor3f(1, 0, 0);
+        material.activate(gl);
         gl.glScaled(SIZE, SIZE, SIZE);
         gl.glTranslated(0.5, 0.5, 0);
         gl.glRotated(180, 0, 0, 1);
