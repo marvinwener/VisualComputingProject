@@ -20,6 +20,7 @@ import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import javax.media.opengl.glu.GLU;
@@ -98,11 +99,12 @@ public class GLEventListenerImpl implements GLEventListener,
 
         // Enable lighting.
         //gl.glEnable(GL_LIGHTING);
-        //gl.glEnable(GL_LIGHT0);
-        //gl.glEnable(GL_NORMALIZE);
-        //float[] ambient = {1f, 1f, 1f, 1f};
-        //gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
-        //TODO: extend
+        gl.glEnable(GL_LIGHT0);
+        gl.glEnable(GL_NORMALIZE);
+        final float[] ambient = {1f, 1f, 1f, 1f};
+        gl.glLightfv(GL_LIGHT0, GL_AMBIENT, ambient, 0);
+        //gl.glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
+        //gl.glEnable(GL_COLOR_MATERIAL);
         this.resetCamera();
     }
 
