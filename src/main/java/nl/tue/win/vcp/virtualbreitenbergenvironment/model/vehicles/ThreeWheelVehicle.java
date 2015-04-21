@@ -1,5 +1,6 @@
 package nl.tue.win.vcp.virtualbreitenbergenvironment.model.vehicles;
 
+import java.awt.Color;
 import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.GL_CURRENT_BIT;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.*;
@@ -22,10 +23,13 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
     private final static String MTL_PATH = "/graphics/threeWheelVehicle.mtl";
     private final static float SIZE = 2;
     private final float wheelDistance = 1;
-    private Material material;
+    private static Material material;
+    private final Color color;
 
-    public ThreeWheelVehicle(Vector initialPosition, float initialAngle) {
+    public ThreeWheelVehicle(Vector initialPosition, float initialAngle,
+            Color color) {
         super(initialPosition, initialAngle);
+        this.color = color;
     }
 
     @Override
@@ -47,7 +51,9 @@ public class ThreeWheelVehicle extends TwoWheelVehicle {
         }
         gl.glEnable(GL_LIGHTING);
         gl.glEnable (GL_COLOR_MATERIAL) ;
-        gl.glColor3f(1, 0, 0);
+        gl.glColor3f((float)this.color.getRed() / 255,
+                (float)this.color.getGreen() / 255,
+                (float)this.color.getBlue() / 255);
         material.activate(gl);
         gl.glScaled(SIZE, SIZE, SIZE);
         gl.glTranslated(0.5, 0.5, 0);
