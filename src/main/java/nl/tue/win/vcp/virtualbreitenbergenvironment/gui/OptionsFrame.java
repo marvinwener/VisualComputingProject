@@ -61,6 +61,7 @@ public class OptionsFrame extends javax.swing.JFrame {
         setTitle("Options");
         setLocationByPlatform(true);
 
+        jCheckBox1.setSelected(true);
         jCheckBox1.setText("Vehicle randomness");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
